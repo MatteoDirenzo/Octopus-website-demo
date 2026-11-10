@@ -1,6 +1,6 @@
-import { HomePlaceholder } from "@/components/HomePlaceholder/HomePlaceholder";
-import site from "@/data/site.json";
+import { HomeContent } from "@/components/HomeContent/HomeContent";
+import content from "@/data/content.json";
 
 export default function Home() {
-  return <HomePlaceholder heading={site.homeHeading} />;
+  return <HomeContent heading={content.homeHeading} />;
 }
