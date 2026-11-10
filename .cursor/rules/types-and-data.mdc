@@ -1,0 +1,7 @@
+---
+description: Types, allowed values, loaders and data validation rules
+globs: src/types/**,src/lib/**,src/data/**
+alwaysApply: false
+---
+
+@.github/instructions/types-and-data.instructions.md

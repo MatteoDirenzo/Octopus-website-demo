@@ -10,7 +10,7 @@
 ## Content and data
 
 - Source all content from local JSON in `src/data` (`site.json`, `products.json`, `categories.json`, `pages/*.json`). No hardcoded content in markup. Do not add a separate translation or messages system.
-- JSON is accessed only through async loader functions in `src/lib/api.ts` (e.g. getProducts, getBestSellers, getProductsByCategory, getProductBySlug, getPage), which act as a fake API. Components and pages never import JSON directly.
+- JSON is accessed only through async loader functions in `src/lib/api/` (exposed via `src/lib/api/index.ts`; e.g. getProducts, getBestSellers, getProductsByCategory, getProductBySlug, getPage), which act as a fake API. Import them from `@/lib/api`. Components and pages never import JSON directly.
 - No artificial delays and no internal `/api` routes. Server Components `await` loaders directly. Client components never call loaders; data is passed in as props.
 - Never hand-list products in a page. Adding a product to the data must be enough to show it in the right section.
 - Product-specific content (colours, feature cards, specs, downloads) lives on the product.

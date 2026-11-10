@@ -1,0 +1,283 @@
+[
+  {
+    "id": "kettle-1-7-l",
+    "slug": "kettle-1-7-l",
+    "name": "Octopus Kettle 1.7 L",
+    "category": "kitchen",
+    "shortDescription": "Placeholder",
+    "image": {
+      "src": "/images/placeholders/products/kettle-1-7-l.png",
+      "alt": "Placeholder",
+      "width": 800,
+      "height": 800
+    },
+    "featureImage": {
+      "src": "/images/placeholders/products/kettle-1-7-l-feature.png",
+      "alt": "Placeholder",
+      "width": 1600,
+      "height": 1200
+    },
+    "bestSeller": false,
+    "featured": true
+  },
+  {
+    "id": "blender",
+    "slug": "blender",
+    "name": "Octopus Blender",
+    "category": "kitchen",
+    "shortDescription": "Placeholder",
+    "image": {
+      "src": "/images/placeholders/products/blender.png",
+      "alt": "Placeholder",
+      "width": 800,
+      "height": 800
+    },
+    "bestSeller": false
+  },
+  {
+    "id": "countertop-blender",
+    "slug": "countertop-blender",
+    "name": "Octopus Countertop Blender",
+    "category": "kitchen",
+    "shortDescription": "Placeholder",
+    "image": {
+      "src": "/images/placeholders/products/countertop-blender.png",
+      "alt": "Placeholder",
+      "width": 800,
+      "height": 800
+    },
+    "bestSeller": false,
+    "detail": {
+      "description": "Placeholder",
+      "colours": [
+        {
+          "id": "black",
+          "label": "Black",
+          "hex": "#000000"
+        }
+      ],
+      "mainImage": {
+        "src": "/images/placeholders/countertop-blender-main.png",
+        "alt": "Placeholder",
+        "width": 1600,
+        "height": 1200
+      },
+      "gallery": [
+        {
+          "image": {
+            "src": "/images/placeholders/countertop-blender-gallery-1.png",
+            "alt": "Placeholder",
+            "width": 1600,
+            "height": 1200
+          },
+          "span": "full"
+        },
+        {
+          "image": {
+            "src": "/images/placeholders/countertop-blender-gallery-2.png",
+            "alt": "Placeholder",
+            "width": 1600,
+            "height": 1200
+          },
+          "span": "full",
+          "title": "Placeholder",
+          "description": "Placeholder",
+          "textTone": "dark"
+        },
+        {
+          "image": {
+            "src": "/images/placeholders/countertop-blender-gallery-3.png",
+            "alt": "Placeholder",
+            "width": 1600,
+            "height": 1200
+          },
+          "span": "half",
+          "title": "Placeholder",
+          "description": "Placeholder",
+          "textTone": "dark"
+        },
+        {
+          "image": {
+            "src": "/images/placeholders/countertop-blender-gallery-4.png",
+            "alt": "Placeholder",
+            "width": 1600,
+            "height": 1200
+          },
+          "span": "half",
+          "title": "Placeholder",
+          "description": "Placeholder",
+          "textTone": "dark"
+        },
+        {
+          "image": {
+            "src": "/images/placeholders/countertop-blender-gallery-5.png",
+            "alt": "Placeholder",
+            "width": 1600,
+            "height": 1200
+          },
+          "span": "full",
+          "title": "Placeholder",
+          "description": "Placeholder",
+          "textTone": "dark"
+        },
+        {
+          "image": {
+            "src": "/images/placeholders/countertop-blender-gallery-6.png",
+            "alt": "Placeholder",
+            "width": 1600,
+            "height": 1200
+          },
+          "span": "full"
+        }
+      ],
+      "specs": [
+        {
+          "id": "spec-1",
+          "title": "Placeholder",
+          "items": ["Placeholder"]
+        },
+        {
+          "id": "spec-2",
+          "title": "Placeholder",
+          "items": ["Placeholder"]
+        },
+        {
+          "id": "spec-3",
+          "title": "Placeholder",
+          "items": ["Placeholder"]
+        }
+      ],
+      "downloads": [
+        {
+          "label": "Placeholder",
+          "href": "/placeholder"
+        }
+      ]
+    }
+  },
+  {
+    "id": "air-fryer-5-7-l",
+    "slug": "air-fryer-5-7-l",
+    "name": "Octopus Air Fryer 5.7 L",
+    "category": "kitchen",
+    "shortDescription": "Placeholder",
+    "image": {
+      "src": "/images/placeholders/products/air-fryer-5-7-l.png",
+      "alt": "Placeholder",
+      "width": 800,
+      "height": 800
+    },
+    "bestSeller": true
+  },
+  {
+    "id": "indoor-camera",
+    "slug": "indoor-camera",
+    "name": "Octopus Indoor Camera",
+    "category": "home-security",
+    "shortDescription": "Placeholder",
+    "image": {
+      "src": "/images/placeholders/products/indoor-camera.png",
+      "alt": "Placeholder",
+      "width": 800,
+      "height": 800
+    },
+    "featureImage": {
+      "src": "/images/placeholders/products/indoor-camera-feature.png",
+      "alt": "Placeholder",
+      "width": 1600,
+      "height": 1200
+    },
+    "bestSeller": true,
+    "featured": true
+  },
+  {
+    "id": "ionic-hair-dryer",
+    "slug": "ionic-hair-dryer",
+    "name": "Octopus Ionic Hair Dryer",
+    "category": "hair-care",
+    "shortDescription": "Placeholder",
+    "image": {
+      "src": "/images/placeholders/products/ionic-hair-dryer.png",
+      "alt": "Placeholder",
+      "width": 800,
+      "height": 800
+    },
+    "featureImage": {
+      "src": "/images/placeholders/products/ionic-hair-dryer-feature.png",
+      "alt": "Placeholder",
+      "width": 1600,
+      "height": 1200
+    },
+    "bestSeller": false
+  },
+  {
+    "id": "outdoor-camera",
+    "slug": "outdoor-camera",
+    "name": "Octopus Outdoor Camera",
+    "category": "home-security",
+    "shortDescription": "Placeholder",
+    "image": {
+      "src": "/images/placeholders/products/outdoor-camera.png",
+      "alt": "Placeholder",
+      "width": 800,
+      "height": 800
+    },
+    "bestSeller": false
+  },
+  {
+    "id": "video-doorbell",
+    "slug": "video-doorbell",
+    "name": "Octopus Video Doorbell",
+    "category": "home-security",
+    "shortDescription": "Placeholder",
+    "image": {
+      "src": "/images/placeholders/products/video-doorbell.png",
+      "alt": "Placeholder",
+      "width": 800,
+      "height": 800
+    },
+    "bestSeller": false
+  },
+  {
+    "id": "power-bank-10000-mah",
+    "slug": "power-bank-10000-mah",
+    "name": "Octopus Power Bank 10,000 mAh",
+    "category": "accessories",
+    "shortDescription": "Placeholder",
+    "image": {
+      "src": "/images/placeholders/products/power-bank-10000-mah.png",
+      "alt": "Placeholder",
+      "width": 800,
+      "height": 800
+    },
+    "bestSeller": false
+  },
+  {
+    "id": "power-board-with-usb-charging",
+    "slug": "power-board-with-usb-charging",
+    "name": "Octopus Power Board with USB Charging",
+    "category": "accessories",
+    "shortDescription": "Placeholder",
+    "image": {
+      "src": "/images/placeholders/products/power-board-with-usb-charging.png",
+      "alt": "Placeholder",
+      "width": 800,
+      "height": 800
+    },
+    "bestSeller": false
+  },
+  {
+    "id": "3-in-1-magnetic-charging-station",
+    "slug": "3-in-1-magnetic-charging-station",
+    "name": "Octopus 3-in-1 Magnetic Charging Station",
+    "category": "accessories",
+    "shortDescription": "Placeholder",
+    "image": {
+      "src": "/images/placeholders/products/3-in-1-magnetic-charging-station.png",
+      "alt": "Placeholder",
+      "width": 800,
+      "height": 800
+    },
+    "bestSeller": false
+  }
+]

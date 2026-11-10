@@ -1,0 +1,14 @@
+{
+  "sections": [
+    {
+      "type": "productShowcase"
+    },
+    {
+      "type": "specAccordion"
+    },
+    {
+      "type": "bestSellers",
+      "title": "Best sellers"
+    }
+  ]
+}

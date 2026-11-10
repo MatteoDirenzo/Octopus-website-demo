@@ -1,0 +1,7 @@
+---
+description: Test conventions and required tests
+globs: tests/**,**/*.test.ts,**/*.test.tsx,vitest.config.*,playwright.config.*
+alwaysApply: false
+---
+
+@.github/instructions/test.instructions.md

@@ -1,0 +1,7 @@
+---
+description: Config-driven pages, section registry, product showcase, fixed header
+globs: src/app/**,src/components/sections/**,src/data/pages/**
+alwaysApply: false
+---
+
+@.github/instructions/page-composition.instructions.md
