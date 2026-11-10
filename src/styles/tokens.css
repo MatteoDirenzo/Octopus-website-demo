@@ -1,0 +1,13 @@
+@theme {
+  --color-*: initial;
+  --color-surface: #ffffff;
+  --color-foreground: #171717;
+
+  --breakpoint-*: initial;
+  --breakpoint-tablet: 810px;
+  --breakpoint-desktop: 1200px;
+}
+
+@theme inline {
+  --font-sans: var(--font-project);
+}
