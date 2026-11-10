@@ -1,0 +1,6 @@
+---
+description: Octopus demo project rules (stack, data, styling, components, accessibility, performance, SEO, workflow)
+alwaysApply: true
+---
+
+@.github/copilot-instructions.md
