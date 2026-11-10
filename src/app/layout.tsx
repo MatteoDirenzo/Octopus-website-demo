@@ -1,17 +1,21 @@
 import type { Metadata } from "next";
-import metadataContent from "@/data/metadata.json";
+import { getSite } from "@/lib/api";
 import { fontProject } from "@/styles/fonts";
 import "./globals.css";
 
-export const metadata: Metadata = {
-  title: metadataContent.title,
-  description: metadataContent.description,
-  openGraph: {
-    title: metadataContent.title,
-    description: metadataContent.description,
-    type: "website",
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const site = await getSite();
+
+  return {
+    title: site.metadata.title,
+    description: site.metadata.description,
+    openGraph: {
+      title: site.metadata.title,
+      description: site.metadata.description,
+      type: "website",
+    },
+  };
+}
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
