@@ -1,0 +1,63 @@
+{
+  "metadata": {
+    "title": "Placeholder",
+    "description": "Placeholder"
+  },
+  "sections": [
+    {
+      "type": "hero",
+      "title": "Placeholder",
+      "productSlug": "ionic-hair-dryer",
+      "video": {
+        "sources": [
+          {
+            "src": "/videos/placeholders/hero.mp4",
+            "type": "video/mp4"
+          },
+          {
+            "src": "/videos/placeholders/hero.webm",
+            "type": "video/webm"
+          }
+        ],
+        "poster": {
+          "src": "/images/placeholders/hero-poster.png",
+          "alt": "Placeholder",
+          "width": 1600,
+          "height": 1200
+        }
+      }
+    },
+    {
+      "type": "bestSellers",
+      "title": "Best sellers"
+    },
+    {
+      "type": "categoryShowcase",
+      "category": "kitchen",
+      "layout": "feature-top",
+      "limit": 3
+    },
+    {
+      "type": "categoryShowcase",
+      "category": "hair-care",
+      "layout": "banner"
+    },
+    {
+      "type": "categoryShowcase",
+      "category": "home-security",
+      "layout": "feature-left"
+    },
+    {
+      "type": "categoryShowcase",
+      "category": "accessories",
+      "layout": "row"
+    },
+    {
+      "type": "exploreCategories",
+      "title": "Placeholder"
+    },
+    {
+      "type": "storeBanner"
+    }
+  ]
+}

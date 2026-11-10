@@ -1,0 +1,50 @@
+[
+  {
+    "id": "kitchen",
+    "title": "Kitchen",
+    "tagline": "Placeholder",
+    "tileImage": {
+      "src": "/images/placeholders/category-kitchen.png",
+      "alt": "Placeholder",
+      "width": 800,
+      "height": 800
+    },
+    "href": "/placeholder/kitchen"
+  },
+  {
+    "id": "home-security",
+    "title": "Home Security",
+    "tagline": "Placeholder",
+    "tileImage": {
+      "src": "/images/placeholders/category-home-security.png",
+      "alt": "Placeholder",
+      "width": 800,
+      "height": 800
+    },
+    "href": "/placeholder/home-security"
+  },
+  {
+    "id": "hair-care",
+    "title": "Hair Care",
+    "tagline": "Placeholder",
+    "tileImage": {
+      "src": "/images/placeholders/category-hair-care.png",
+      "alt": "Placeholder",
+      "width": 800,
+      "height": 800
+    },
+    "href": "/placeholder/hair-care"
+  },
+  {
+    "id": "accessories",
+    "title": "Accessories",
+    "tagline": "Placeholder",
+    "tileImage": {
+      "src": "/images/placeholders/category-accessories.png",
+      "alt": "Placeholder",
+      "width": 800,
+      "height": 800
+    },
+    "href": "/placeholder/accessories"
+  }
+]
