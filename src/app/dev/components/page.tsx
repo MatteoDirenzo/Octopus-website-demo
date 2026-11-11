@@ -15,6 +15,7 @@ import blender from "@/assets/images/products/mixer.webp";
 import indoorCamera from "@/assets/images/products/security-cam.webp";
 import securityCamera from "@/assets/images/security-camera.webp";
 import { Banner } from "@/components/Banner";
+import { BentoBox } from "@/components/BentoBox";
 import { Button } from "@/components/Button";
 import { Carousel } from "@/components/Carousel";
 import { CardLarge } from "@/components/CardLarge";
@@ -314,6 +315,38 @@ export default function ComponentsPage() {
             Custom
           </p>
         </Banner>
+      </section>
+      <section aria-labelledby="bento-box" className="flex flex-col gap-8">
+        <h2 id="bento-box">Bento box</h2>
+        <BentoBox
+          rows={[
+            [
+              {
+                title: "Title feature 1",
+                description: "Description feature 1",
+                image: KITCHEN,
+              },
+            ],
+            [
+              {
+                title: "Title feature F2",
+                description: "Description feature F2",
+                image: HAIRCARE,
+              },
+              {
+                title: "Title feature F3",
+                description: "Description feature F3",
+                image: HOME,
+              },
+            ],
+            [
+              {
+                title: "Title feature F4",
+                description: "Description feature F4",
+              },
+            ],
+          ]}
+        />
       </section>
       <section aria-labelledby="carousel" className="-mx-8 flex flex-col gap-16">
         <h2 id="carousel" className="px-8">

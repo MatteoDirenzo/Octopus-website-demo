@@ -147,6 +147,16 @@
   --spacing-card-small-desktop: 38.4375rem;
 
   /*
+   * Bento cards. Mobile and tablet are both 477px and stay separate so
+   * either can change. Desktop single-card rows are 325px. A desktop row
+   * of two cards is 456px.
+   */
+  --spacing-bento: 29.8125rem;
+  --spacing-bento-tablet: 29.8125rem;
+  --spacing-bento-horizontal: 20.3125rem;
+  --spacing-bento-vertical: 28.5rem;
+
+  /*
    * Banner frame. Mobile is 687px. Tablet and desktop are both 500px
    * and stay separate so either can change.
    */
