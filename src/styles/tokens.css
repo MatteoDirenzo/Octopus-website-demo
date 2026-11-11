@@ -10,6 +10,8 @@
   --color-brand-border: #c2151b;
   --color-text: #1b1b1b;
   --color-text-subtle: #414141;
+  /* Subtitle ink. `--color-text-subtle` is the darker label grey. */
+  --color-text-muted: #575757;
   --color-text-inverse: #ffffff;
   --color-text-disabled: #b9b9b9;
   --color-surface-hover: #f9f9f9;
@@ -20,8 +22,48 @@
   --color-focus: #2069e859;
   --color-transparent: transparent;
 
+  /* Design medium on Satoshi is 470, not the default 500. */
+  --font-weight-medium: 470;
+
   --text-label: 1rem;
   --text-label--line-height: 1.1;
+
+  /*
+   * Titles use line-height 110% and weight 700.
+   * `h1-s` and `h2-m` are both 40px and stay separate so either can change.
+   */
+  --text-h1-l: 3.75rem;
+  --text-h1-l--line-height: 1.1;
+  --text-h1-l--font-weight: 700;
+  --text-h1-m: 3rem;
+  --text-h1-m--line-height: 1.1;
+  --text-h1-m--font-weight: 700;
+  --text-h1-s: 2.5rem;
+  --text-h1-s--line-height: 1.1;
+  --text-h1-s--font-weight: 700;
+  --text-h2-l: 2.75rem;
+  --text-h2-l--line-height: 1.1;
+  --text-h2-l--font-weight: 700;
+  --text-h2-m: 2.5rem;
+  --text-h2-m--line-height: 1.1;
+  --text-h2-m--font-weight: 700;
+  --text-h2-s: 2rem;
+  --text-h2-s--line-height: 1.1;
+  --text-h2-s--font-weight: 700;
+
+  /*
+   * Subtitles use line-height 100% and weight 470.
+   * Mobile 18px is `subtitle-s`. The spec also calls that size Subtitle/M.
+   */
+  --text-subtitle-l: 1.5rem;
+  --text-subtitle-l--line-height: 1;
+  --text-subtitle-l--font-weight: 470;
+  --text-subtitle-m: 1.25rem;
+  --text-subtitle-m--line-height: 1;
+  --text-subtitle-m--font-weight: 470;
+  --text-subtitle-s: 1.125rem;
+  --text-subtitle-s--line-height: 1;
+  --text-subtitle-s--font-weight: 470;
 
   --breakpoint-*: initial;
   --breakpoint-tablet: 810px;

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Button } from "@/components/Button";
+import { Heading } from "@/components/Heading";
 import { Chevron } from "@/components/icons/Chevron";
 
 export const metadata: Metadata = {
@@ -97,7 +98,18 @@ function ButtonSpecimen({ title, variant, tone = "light", onDark = false }: Spec
 export default function ComponentsPage() {
   return (
     <main className="flex flex-col gap-8 p-8">
-      <h1>Button</h1>
+      <Heading
+        title="Primary"
+        subtitle="Subtitle"
+        button={{ label: "Label", href: "/dev/components" }}
+      />
+      <Heading
+        variant="secondary"
+        title="Secondary"
+        subtitle="Subtitle"
+        button={{ label: "Label" }}
+      />
+      <h2>Button</h2>
       <p className="text-label">
         Hover, focus, and press the enabled controls. Disabled stays muted.
       </p>
