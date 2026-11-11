@@ -128,6 +128,19 @@
   --spacing-header-tablet: 5.375rem;
 
   /*
+   * Space between the header and the hero heading.
+   * 29px is not on the spacing scale. From 810 the space is 84px,
+   * which is spacing step 21. The `top` values add the header height.
+   */
+  --spacing-hero-heading: 1.8125rem;
+  --spacing-hero-heading-top: calc(
+    var(--spacing-header) + var(--spacing-hero-heading)
+  );
+  --spacing-hero-heading-top-tablet: calc(
+    var(--spacing-header-tablet) + 5.25rem
+  );
+
+  /*
    * Fixed card heights. Equal pixel values stay separate so one card can change.
    * Unprefixed is mobile, `-tablet` is from 810, `-desktop` is from 1200.
    * Large vertical (1038px) and medium horizontal (413px) are desktop heights.

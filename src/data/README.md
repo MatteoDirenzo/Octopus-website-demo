@@ -4,7 +4,7 @@ JSON in this folder is the only source of page copy. Functions in `src/lib/api/`
 
 `src/data/*.json` -> `src/lib/api/` (typed functions, import from `@/lib/api`) -> pages (a route loader in `src/lib/loaders/` when the route needs one) -> `sections/registry.ts` -> components
 
-Text fields use `Placeholder` until real copy replaces the value. Image `src` values use `/images/placeholders` until exported assets replace the value. Replace values only. Leave every key in place. Stored image sizes are provisional and change to the exported ratio later.
+Text fields use `Placeholder` until real copy replaces the value. Exported images use a `/images/...` path, and the hero video uses `/videos/...`. `/images/placeholders` remains only where no file exists. Replace values only. Leave every key in place. `width` and `height` match the exported file.
 
 ## Files
 
@@ -22,7 +22,7 @@ Text fields use `Placeholder` until real copy replaces the value. Image `src` va
 
 ## Shared shapes
 
-`ImageAsset`: `src`, `alt`, `width`, and `height` are all required. `alt` must be non-empty. `width` and `height` reserve space so the layout does not shift. The numbers in the JSON are provisional.
+`ImageAsset`: `src`, `alt`, `width`, and `height` are all required. `alt` must be non-empty. `width` and `height` reserve space so the layout does not shift. They match the file when one is exported.
 
 `VideoAsset`: `sources` is a list of `{ src, type }`. `type` is `video/mp4` or `video/webm`. `poster` is an `ImageAsset`.
 
@@ -45,6 +45,8 @@ Text fields use `Placeholder` until real copy replaces the value. Image `src` va
 | `storeBanner` | Copy for the `storeBanner` section. | yes |
 | `storeBanner.title` | Banner heading. | yes |
 | `storeBanner.text` | Banner body. | yes |
+| `learnMore` | Shared product link used by the hero and the best-seller cards. | yes |
+| `learnMore.label` | Visible label of that link. | yes |
 | `footer` | Footer chrome, link groups, and legal line. | yes |
 | `footer.label` | Accessible name of the footer. | yes |
 | `footer.home` | Logo link (`label`, `href`). | yes |
@@ -57,7 +59,7 @@ Text fields use `Placeholder` until real copy replaces the value. Image `src` va
 
 ## categories.json
 
-Each entry is a category. `tileImage` is an 800 by 800 square.
+Each entry is a category. `tileImage` is the exported category image.
 
 | Key | Meaning | Required |
 | --- | --- | --- |
@@ -78,8 +80,8 @@ Each entry is a product. File order is the order of Best sellers and of each cat
 | `name` | Display name. | yes |
 | `category` | Value from `CATEGORIES`. | yes |
 | `shortDescription` | Line used on cards. | yes |
-| `image` | Cutout for small cards and the carousel (`ImageAsset`, provisional 800 by 800). | yes |
-| `featureImage` | Lifestyle image for feature cards and banners (`ImageAsset`, provisional 1600 by 1200). Required when `featured` is true, and required on the product a `banner` showcase features. | no |
+| `image` | Cutout for small cards and the carousel (`ImageAsset`). | yes |
+| `featureImage` | Lifestyle image for feature cards and banners (`ImageAsset`). Required when `featured` is true, and required on the product a `banner` showcase features. | no |
 | `bestSeller` | When true, the product is included in Best sellers. | yes |
 | `featured` | When true, this product is preferred as its category's feature card. Omit when it is not featured. | no |
 | `detail` | Detail-page content. Present only when the product has a Product Detail Page. | no |

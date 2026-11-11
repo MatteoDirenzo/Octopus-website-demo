@@ -4,10 +4,10 @@
     "title": "Kitchen",
     "tagline": "Placeholder",
     "tileImage": {
-      "src": "/images/placeholders/category-kitchen.png",
+      "src": "/images/hero-kitchen-dekstop.webp",
       "alt": "Placeholder",
-      "width": 800,
-      "height": 800
+      "width": 3200,
+      "height": 1106
     },
     "href": "/category/kitchen"
   },
@@ -16,10 +16,10 @@
     "title": "Home Security",
     "tagline": "Placeholder",
     "tileImage": {
-      "src": "/images/placeholders/category-home-security.png",
+      "src": "/images/hero-home-desktop.webp",
       "alt": "Placeholder",
-      "width": 800,
-      "height": 800
+      "width": 3200,
+      "height": 1106
     },
     "href": "/category/home-security"
   },
@@ -28,10 +28,10 @@
     "title": "Hair Care",
     "tagline": "Placeholder",
     "tileImage": {
-      "src": "/images/placeholders/category-hair-care.png",
+      "src": "/images/hero-haircare-desktop.webp",
       "alt": "Placeholder",
-      "width": 800,
-      "height": 800
+      "width": 3200,
+      "height": 1106
     },
     "href": "/category/hair-care"
   },
@@ -40,10 +40,10 @@
     "title": "Accessories",
     "tagline": "Placeholder",
     "tileImage": {
-      "src": "/images/placeholders/category-accessories.png",
+      "src": "/images/hero-accessories-desktop.webp",
       "alt": "Placeholder",
-      "width": 800,
-      "height": 800
+      "width": 3200,
+      "height": 1106
     },
     "href": "/category/accessories"
   }

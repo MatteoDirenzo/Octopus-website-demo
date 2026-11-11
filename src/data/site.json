@@ -26,6 +26,9 @@
     "title": "Placeholder",
     "text": "Placeholder"
   },
+  "learnMore": {
+    "label": "Learn more"
+  },
   "footer": {
     "label": "Footer",
     "home": {

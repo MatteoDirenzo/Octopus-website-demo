@@ -33,6 +33,22 @@ test("horizontal exposes the passed copy and one link", () => {
   expect(screen.getAllByRole("link")).toHaveLength(1);
 });
 
+test("eyebrow sits above the title", () => {
+  render(
+    <CardLarge
+      variant="horizontal"
+      eyebrow="Hair Care"
+      title="Kitchen"
+      description="Cookware"
+      image={image}
+      cta={{ label: "Open kitchen", href: "/category/kitchen" }}
+    />,
+  );
+
+  expect(screen.getByText("Hair Care")).toBeTruthy();
+  expect(screen.getByRole("heading", { level: 3, name: "Kitchen" })).toBeTruthy();
+});
+
 test("vertical exposes the passed copy and one link", () => {
   render(
     <CardLarge

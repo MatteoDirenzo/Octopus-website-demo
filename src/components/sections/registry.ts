@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { createElement, type ReactNode } from "react";
 import type { Product, Section, SectionType } from "@/types/content";
 import { BestSellers } from "./BestSellers/BestSellers";
 import { CategoryShowcase } from "./CategoryShowcase/CategoryShowcase";
@@ -10,7 +10,9 @@ import { StoreBanner } from "./StoreBanner/StoreBanner";
 import type { SectionViewProps } from "./types";
 
 type SectionRegistry = {
-  [K in SectionType]: (props: SectionViewProps<K>) => ReactNode;
+  [K in SectionType]: (
+    props: SectionViewProps<K>,
+  ) => ReactNode | Promise<ReactNode>;
 };
 
 /** Every section type has one component. A missing key fails the build. */
@@ -31,15 +33,21 @@ export const sectionRegistry = {
 export function renderSection(section: Section, product?: Product): ReactNode {
   switch (section.type) {
     case "hero":
-      return sectionRegistry.hero({ section, product });
+      return createElement(sectionRegistry.hero, { section, product });
     case "bestSellers":
-      return sectionRegistry.bestSellers({ section, product });
+      return createElement(sectionRegistry.bestSellers, { section, product });
     case "categoryShowcase":
-      return sectionRegistry.categoryShowcase({ section, product });
+      return createElement(sectionRegistry.categoryShowcase, {
+        section,
+        product,
+      });
     case "exploreCategories":
-      return sectionRegistry.exploreCategories({ section, product });
+      return createElement(sectionRegistry.exploreCategories, {
+        section,
+        product,
+      });
     case "storeBanner":
-      return sectionRegistry.storeBanner({ section, product });
+      return createElement(sectionRegistry.storeBanner, { section, product });
     case "productShowcase":
     case "specAccordion": {
       if (!product) {
@@ -47,8 +55,8 @@ export function renderSection(section: Section, product?: Product): ReactNode {
       }
 
       return section.type === "productShowcase"
-        ? sectionRegistry.productShowcase({ section, product })
-        : sectionRegistry.specAccordion({ section, product });
+        ? createElement(sectionRegistry.productShowcase, { section, product })
+        : createElement(sectionRegistry.specAccordion, { section, product });
     }
     default: {
       const unreachable: never = section;

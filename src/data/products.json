@@ -6,16 +6,16 @@
     "category": "kitchen",
     "shortDescription": "Placeholder",
     "image": {
-      "src": "/images/placeholders/products/kettle-1-7-l.png",
+      "src": "/images/products/boling-pot.webp",
       "alt": "Placeholder",
-      "width": 800,
-      "height": 800
+      "width": 719,
+      "height": 719
     },
     "featureImage": {
-      "src": "/images/placeholders/products/kettle-1-7-l-feature.png",
+      "src": "/images/hero-kitchen-dekstop.webp",
       "alt": "Placeholder",
-      "width": 1600,
-      "height": 1200
+      "width": 3200,
+      "height": 1106
     },
     "bestSeller": false,
     "featured": true
@@ -27,10 +27,10 @@
     "category": "kitchen",
     "shortDescription": "Placeholder",
     "image": {
-      "src": "/images/placeholders/products/blender.png",
+      "src": "/images/products/mixer.webp",
       "alt": "Placeholder",
-      "width": 800,
-      "height": 800
+      "width": 719,
+      "height": 719
     },
     "bestSeller": false
   },
@@ -41,10 +41,10 @@
     "category": "kitchen",
     "shortDescription": "Placeholder",
     "image": {
-      "src": "/images/placeholders/products/countertop-blender.png",
+      "src": "/images/products/mixer-big.webp",
       "alt": "Placeholder",
-      "width": 800,
-      "height": 800
+      "width": 719,
+      "height": 719
     },
     "bestSeller": false,
     "detail": {
@@ -162,10 +162,10 @@
     "category": "kitchen",
     "shortDescription": "Placeholder",
     "image": {
-      "src": "/images/placeholders/products/air-fryer-5-7-l.png",
+      "src": "/images/products/air-fryer.webp",
       "alt": "Placeholder",
-      "width": 800,
-      "height": 800
+      "width": 719,
+      "height": 719
     },
     "bestSeller": true
   },
@@ -176,16 +176,16 @@
     "category": "home-security",
     "shortDescription": "Placeholder",
     "image": {
-      "src": "/images/placeholders/products/indoor-camera.png",
+      "src": "/images/products/security-cam.webp",
       "alt": "Placeholder",
-      "width": 800,
-      "height": 800
+      "width": 724,
+      "height": 724
     },
     "featureImage": {
-      "src": "/images/placeholders/products/indoor-camera-feature.png",
+      "src": "/images/security-camera.webp",
       "alt": "Placeholder",
-      "width": 1600,
-      "height": 1200
+      "width": 992,
+      "height": 1178
     },
     "bestSeller": true,
     "featured": true
@@ -197,18 +197,18 @@
     "category": "hair-care",
     "shortDescription": "Placeholder",
     "image": {
-      "src": "/images/placeholders/products/ionic-hair-dryer.png",
+      "src": "/images/products/hair-dryer.webp",
       "alt": "Placeholder",
-      "width": 800,
-      "height": 800
+      "width": 724,
+      "height": 724
     },
     "featureImage": {
-      "src": "/images/placeholders/products/ionic-hair-dryer-feature.png",
+      "src": "/images/hero-haircare-desktop.webp",
       "alt": "Placeholder",
-      "width": 1600,
-      "height": 1200
+      "width": 3200,
+      "height": 1106
     },
-    "bestSeller": false
+    "bestSeller": true
   },
   {
     "id": "outdoor-camera",
@@ -217,10 +217,10 @@
     "category": "home-security",
     "shortDescription": "Placeholder",
     "image": {
-      "src": "/images/placeholders/products/outdoor-camera.png",
+      "src": "/images/products/security-cam-2.webp",
       "alt": "Placeholder",
-      "width": 800,
-      "height": 800
+      "width": 724,
+      "height": 724
     },
     "bestSeller": false
   },
@@ -231,10 +231,10 @@
     "category": "home-security",
     "shortDescription": "Placeholder",
     "image": {
-      "src": "/images/placeholders/products/video-doorbell.png",
+      "src": "/images/products/security-home.webp",
       "alt": "Placeholder",
-      "width": 800,
-      "height": 800
+      "width": 724,
+      "height": 724
     },
     "bestSeller": false
   },
@@ -245,10 +245,10 @@
     "category": "accessories",
     "shortDescription": "Placeholder",
     "image": {
-      "src": "/images/placeholders/products/power-bank-10000-mah.png",
+      "src": "/images/products/powerbank.webp",
       "alt": "Placeholder",
-      "width": 800,
-      "height": 800
+      "width": 724,
+      "height": 724
     },
     "bestSeller": false
   },
@@ -259,10 +259,10 @@
     "category": "accessories",
     "shortDescription": "Placeholder",
     "image": {
-      "src": "/images/placeholders/products/power-board-with-usb-charging.png",
+      "src": "/images/products/outlet.webp",
       "alt": "Placeholder",
-      "width": 800,
-      "height": 800
+      "width": 724,
+      "height": 724
     },
     "bestSeller": false
   },
@@ -273,10 +273,10 @@
     "category": "accessories",
     "shortDescription": "Placeholder",
     "image": {
-      "src": "/images/placeholders/products/3-in-1-magnetic-charging-station.png",
+      "src": "/images/products/magsafe-stand.webp",
       "alt": "Placeholder",
-      "width": 800,
-      "height": 800
+      "width": 724,
+      "height": 724
     },
     "bestSeller": false
   }

@@ -29,6 +29,29 @@ export type CarouselEndOffset = {
   desktop?: number;
 };
 
+/** How much of the next card stays in view, as a percentage of one card. */
+export type CarouselPeek = {
+  /** Percentage below 810. `50` shows half. Omitted shows two thirds. */
+  mobile?: number;
+  /** Percentage from 810. */
+  tablet?: number;
+  /** Percentage from 1200. */
+  desktop?: number;
+};
+
+/**
+ * Overflow start inset, in the same spacing steps as the padding utilities.
+ * Omitted matches the header: 4, 8, and 32.
+ */
+export type CarouselInset = {
+  /** Spacing step below 810. */
+  mobile?: number;
+  /** Spacing step from 810. */
+  tablet?: number;
+  /** Spacing step from 1200. */
+  desktop?: number;
+};
+
 export type CarouselProps = {
   /** Section heading. The region is named by this. */
   title: string;
@@ -45,15 +68,30 @@ export type CarouselProps = {
    */
   endOffset?: CarouselEndOffset;
   /**
-   * Overflow only. How much of the next card stays in view, as a percentage.
-   * `50` shows half. Omitted shows two thirds.
+   * Overflow only. How much of the next card stays in view at each breakpoint.
+   * Omitted shows two thirds.
    */
-  peek?: number;
+  peek?: CarouselPeek;
+  /**
+   * Overflow only. Start inset for the title, the controls, and the track.
+   * Omitted matches the header.
+   */
+  inset?: CarouselInset;
   /** Position dots. Off by default, so only the arrows show. */
   showDots?: boolean;
+  /** Extra classes on the section. Used for the section's vertical padding. */
+  className?: string;
   /** One slide each. */
   children: ReactNode;
 };
+
+function peekValue(value: number | undefined) {
+  if (value == null) {
+    return "calc(2 / 3)";
+  }
+
+  return String(value / 100);
+}
 
 /**
  * Horizontal scroller. Contained stays inside the parent's page inset.
@@ -68,7 +106,9 @@ export function Carousel({
   visible,
   endOffset,
   peek,
+  inset,
   showDots = false,
+  className,
   children,
 }: CarouselProps) {
   const titleId = useId();
@@ -93,7 +133,12 @@ export function Carousel({
     "--carousel-end-mobile": endMobile,
     "--carousel-end-tablet": endTablet,
     "--carousel-end-desktop": endDesktop,
-    "--carousel-peek": peek == null ? "calc(2 / 3)" : peek / 100,
+    "--carousel-peek-mobile": peekValue(peek?.mobile),
+    "--carousel-peek-tablet": peekValue(peek?.tablet),
+    "--carousel-peek-desktop": peekValue(peek?.desktop),
+    "--carousel-inset-mobile": inset?.mobile ?? 4,
+    "--carousel-inset-tablet": inset?.tablet ?? 8,
+    "--carousel-inset-desktop": inset?.desktop ?? 32,
   } as CSSProperties;
 
   return (
@@ -105,9 +150,16 @@ export function Carousel({
         "[--carousel-cards:var(--carousel-mobile)]",
         "tablet:[--carousel-cards:var(--carousel-tablet)]",
         "desktop:[--carousel-cards:var(--carousel-desktop)]",
+        "[--carousel-peek:var(--carousel-peek-mobile)]",
+        "tablet:[--carousel-peek:var(--carousel-peek-tablet)]",
+        "desktop:[--carousel-peek:var(--carousel-peek-desktop)]",
         "[--carousel-end:--spacing(var(--carousel-end-mobile))]",
         "tablet:[--carousel-end:--spacing(var(--carousel-end-tablet))]",
         "desktop:[--carousel-end:--spacing(var(--carousel-end-desktop))]",
+        "[--carousel-inset:--spacing(var(--carousel-inset-mobile))]",
+        "tablet:[--carousel-inset:--spacing(var(--carousel-inset-tablet))]",
+        "desktop:[--carousel-inset:--spacing(var(--carousel-inset-desktop))]",
+        className,
       )}
       style={style}
     >
@@ -115,7 +167,7 @@ export function Carousel({
         id={titleId}
         className={clsx(
           "text-h3-s text-text tablet:text-h3-m desktop:text-h2-s",
-          overflow && "px-4 tablet:px-8 desktop:px-32",
+          overflow && "px-(--carousel-inset)",
         )}
       >
         {title}
@@ -131,12 +183,12 @@ export function Carousel({
           "tablet:mt-8 motion-reduce:scroll-auto",
           /*
            * `scrollbar-none` covers Firefox. WebKit still needs the pseudo-element.
-           * Overflow uses the same inset as the header and footer. Scroll padding
-           * matches it, so a snapped card lines up with the title.
+           * Overflow insets the track with the title. Scroll padding matches it,
+           * so a snapped card lines up with the title.
            */
           "scrollbar-none [&::-webkit-scrollbar]:hidden",
           overflow &&
-            "ps-4 pe-(--carousel-end) scroll-ps-4 tablet:ps-8 tablet:scroll-ps-8 desktop:ps-32 desktop:scroll-ps-32",
+            "ps-(--carousel-inset) pe-(--carousel-end) scroll-ps-(--carousel-inset)",
         )}
       >
         {slides.map((slide, index) => (
@@ -163,7 +215,7 @@ export function Carousel({
       <div
         className={clsx(
           "mt-10 grid grid-cols-[1fr_auto_1fr] items-center tablet:mt-8",
-          overflow && "px-4 tablet:px-8 desktop:px-32",
+          overflow && "px-(--carousel-inset)",
         )}
       >
         {showDots ? (

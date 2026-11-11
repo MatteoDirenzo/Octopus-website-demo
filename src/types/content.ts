@@ -364,6 +364,11 @@ export type Site = {
     /** Banner body. */
     text: string;
   };
+  /** Shared product link used by the hero and the best-seller cards. */
+  learnMore: {
+    /** Visible label of the link. */
+    label: string;
+  };
   /** Footer chrome, link groups, and legal line. */
   footer: {
     /** Accessible name of the footer. */

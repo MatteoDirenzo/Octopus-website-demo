@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import Image from "next/image";
-import placeholder from "@/assets/images/placeholder.webp";
+
+const PLACEHOLDER_SRC = "/images/placeholder.webp";
 
 export type BentoImage = {
   /** Path or URL of the image file. */
@@ -49,7 +50,7 @@ export function BentoBox({ rows }: BentoBoxProps) {
             className="flex min-w-0 flex-col gap-4 desktop:flex-row"
           >
             {row.map((card, cardIndex) => {
-              const image = card.image ?? { src: placeholder, alt: "" };
+              const image = card.image ?? { src: PLACEHOLDER_SRC, alt: "" };
 
               return (
                 <article

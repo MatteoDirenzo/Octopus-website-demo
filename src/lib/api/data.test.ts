@@ -186,6 +186,7 @@ test("category and best-seller queries follow the flags and the file order", asy
   expect(bestSellers.map((product) => product.slug)).toEqual([
     "air-fryer-5-7-l",
     "indoor-camera",
+    "ionic-hair-dryer",
   ]);
 });
 

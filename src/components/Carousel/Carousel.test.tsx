@@ -139,7 +139,7 @@ test("disables the previous control at the start and the next control at the end
   );
 });
 
-test("sets the overflow peek from a percentage and keeps two thirds by default", () => {
+test("sets the overflow peek per breakpoint and keeps two thirds by default", () => {
   const { rerender } = render(
     <Carousel title="Best sellers" mode="overflow">
       <p>One</p>
@@ -148,13 +148,27 @@ test("sets the overflow peek from a percentage and keeps two thirds by default",
 
   const region = () => screen.getByRole("region", { name: "Best sellers" });
 
-  expect(region().style.getPropertyValue("--carousel-peek")).toBe("calc(2 / 3)");
+  expect(region().style.getPropertyValue("--carousel-peek-mobile")).toBe(
+    "calc(2 / 3)",
+  );
+  expect(region().style.getPropertyValue("--carousel-peek-tablet")).toBe(
+    "calc(2 / 3)",
+  );
+  expect(region().style.getPropertyValue("--carousel-peek-desktop")).toBe(
+    "calc(2 / 3)",
+  );
 
   rerender(
-    <Carousel title="Best sellers" mode="overflow" peek={50}>
+    <Carousel
+      title="Best sellers"
+      mode="overflow"
+      peek={{ mobile: 10, tablet: 20, desktop: 40 }}
+    >
       <p>One</p>
     </Carousel>,
   );
 
-  expect(region().style.getPropertyValue("--carousel-peek")).toBe("0.5");
+  expect(region().style.getPropertyValue("--carousel-peek-mobile")).toBe("0.1");
+  expect(region().style.getPropertyValue("--carousel-peek-tablet")).toBe("0.2");
+  expect(region().style.getPropertyValue("--carousel-peek-desktop")).toBe("0.4");
 });

@@ -25,6 +25,8 @@ export type CardLargeVariant = "horizontal" | "vertical";
 export type CardLargeProps = {
   /** Horizontal at every breakpoint, or vertical from 1200. */
   variant: CardLargeVariant;
+  /** Short label above the title. Omit when the card has none. */
+  eyebrow?: string;
   title: string;
   description: string;
   image: CardImage;
@@ -39,6 +41,7 @@ export type CardLargeProps = {
  */
 export function CardLarge({
   variant,
+  eyebrow,
   title,
   description,
   image,
@@ -64,6 +67,9 @@ export function CardLarge({
             "desktop:order-1 desktop:w-full desktop:shrink-0 desktop:items-center desktop:justify-start desktop:text-center",
         )}
       >
+        {eyebrow ? (
+          <p className="mb-2 text-label text-brand">{eyebrow}</p>
+        ) : null}
         <h3 className="max-w-full text-h3-s text-text tablet:text-h3-m desktop:text-h2-s">
           {title}
         </h3>
