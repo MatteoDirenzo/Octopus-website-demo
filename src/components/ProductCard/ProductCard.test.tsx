@@ -59,3 +59,13 @@ test("omits the title and description when they are not passed", () => {
   expect(screen.queryByRole("heading")).toBeNull();
   expect(screen.queryByText("Boils fast")).toBeNull();
 });
+
+test("shows the image without a link when href is omitted", () => {
+  render(<ProductCard image={image} title="Octopus Kettle" />);
+
+  expect(screen.queryByRole("link")).toBeNull();
+  expect(screen.getByRole("img", { name: "Kettle" })).toBeTruthy();
+  expect(
+    screen.getByRole("heading", { level: 3, name: "Octopus Kettle" }),
+  ).toBeTruthy();
+});

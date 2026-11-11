@@ -16,6 +16,7 @@ import indoorCamera from "@/assets/images/products/security-cam.webp";
 import securityCamera from "@/assets/images/security-camera.webp";
 import { Banner } from "@/components/Banner";
 import { Button } from "@/components/Button";
+import { Carousel } from "@/components/Carousel";
 import { CardLarge } from "@/components/CardLarge";
 import { CardMedium } from "@/components/CardMedium";
 import { CardSmall } from "@/components/CardSmall";
@@ -76,6 +77,16 @@ const BLENDER = asset(blender, "Personal blender");
 const HAIR_DRYER = asset(hairDryer, "Grey hair dryer");
 const INDOOR_CAMERA = asset(indoorCamera, "White indoor security camera");
 const CABLE = asset(cable, "Coiled USB-C cable");
+
+const CAROUSEL_SLIDES = [
+  HAIR_DRYER,
+  BLENDER,
+  AIR_FRYER,
+  INDOOR_CAMERA,
+  CABLE,
+  HAIR_DRYER,
+  BLENDER,
+];
 
 function Sample({ label, children }: { label: string; children: ReactNode }) {
   return (
@@ -246,6 +257,10 @@ export default function ComponentsPage() {
             <p className="text-label">Image only</p>
             <ProductCard image={INDOOR_CAMERA} href="/dev/components" />
           </div>
+          <div className="flex min-w-0 flex-col gap-2">
+            <p className="text-label">Image, no link</p>
+            <ProductCard image={INDOOR_CAMERA} title="Title" />
+          </div>
         </div>
       </section>
       <section
@@ -299,6 +314,45 @@ export default function ComponentsPage() {
             Custom
           </p>
         </Banner>
+      </section>
+      <section aria-labelledby="carousel" className="-mx-8 flex flex-col gap-16">
+        <h2 id="carousel" className="px-8">
+          Carousel
+        </h2>
+        <div className="px-4 tablet:px-8 desktop:px-32">
+          <p className="mb-4 text-label">Contained</p>
+          <Carousel title="Best sellers" showDots>
+            {CAROUSEL_SLIDES.map((image, index) => (
+              <ProductCard
+                key={`${image.alt}-${index}`}
+                title="Title"
+                description="Description"
+                image={image}
+                href="/dev/components"
+              />
+            ))}
+          </Carousel>
+        </div>
+        <div>
+          <p className="mb-4 px-4 text-label tablet:px-8 desktop:px-32">
+            Overflow
+          </p>
+          <Carousel
+            title="Best sellers"
+            mode="overflow"
+            endOffset={{ mobile: 4, tablet: 8, desktop: 32 }}
+          >
+            {CAROUSEL_SLIDES.map((image, index) => (
+              <ProductCard
+                key={`${image.alt}-overflow-${index}`}
+                title="Title"
+                description="Description"
+                image={image}
+                href="/dev/components"
+              />
+            ))}
+          </Carousel>
+        </div>
       </section>
     </main>
   );
