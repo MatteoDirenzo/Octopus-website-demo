@@ -24,7 +24,7 @@
 - No fixed px widths that break in-between widths. No horizontal scroll at any width.
 - The font is defined once in `src/styles/fonts.ts` and exposed as a CSS variable.
 - Use `clsx` to combine multiple classes. Do not write a local join helper.
-- Keep helpers and config for a specific case in a dedicated file under `src/helpers` (such as `src/helpers/components/button.ts`) so they stay detached from the component.
+- A file under `src/helpers` is for a decision, such as which classes a button variant uses. Classes that do not change stay on the element.
 
 ## Components
 
