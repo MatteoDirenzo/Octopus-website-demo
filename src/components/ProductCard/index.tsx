@@ -8,22 +8,28 @@ export type ProductCardProps = {
   image: ImageAsset;
   /** Destination of the image link. */
   href: string;
-  /** Card title. Omit for an image-only card. */
+  /** Card title. Omit for an image-only card. Ignored when `label` is set. */
   title?: string;
-  /** Line under the title. Omit when the card has no copy. */
+  /** Line under the title. Omit when the card has no copy. Ignored when `label` is set. */
   description?: string;
+  /**
+   * Single line under the image. Replaces `title` and `description`.
+   * Body on mobile (16px). From 810, body metrics at 20px (`subtitle-m`).
+   */
+  label?: string;
 };
 
 /**
  * Product card. Only the image is a link. Title and description are optional.
- * The first line of copy sits 16px under the image. A description under a
- * title sits 8px below it. The width comes from the parent.
+ * A label replaces both. The first line of copy sits 16px under the image.
+ * A description under a title sits 8px below it. The width comes from the parent.
  */
 export function ProductCard({
   image,
   href,
   title,
   description,
+  label,
 }: ProductCardProps) {
   return (
     <article className="flex w-full min-w-0 flex-col">
@@ -40,14 +46,27 @@ export function ProductCard({
           className="h-auto w-full"
         />
       </Link>
-      {title ? (
-        <h3 className="mt-4 text-title-bold text-text">{title}</h3>
-      ) : null}
-      {description ? (
-        <p className={clsx("text-body text-text-muted", title ? "mt-2" : "mt-4")}>
-          {description}
+      {label ? (
+        <p className="mt-4 text-center text-body text-text tablet:text-subtitle-m">
+          {label}
         </p>
-      ) : null}
+      ) : (
+        <>
+          {title ? (
+            <h3 className="mt-4 text-title-bold text-text">{title}</h3>
+          ) : null}
+          {description ? (
+            <p
+              className={clsx(
+                "text-body text-text-muted",
+                title ? "mt-2" : "mt-4",
+              )}
+            >
+              {description}
+            </p>
+          ) : null}
+        </>
+      )}
     </article>
   );
 }

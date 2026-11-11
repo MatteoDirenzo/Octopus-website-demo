@@ -38,3 +38,5 @@ Playwright uses port 3100 and will fail if another server is already using it. F
 ## Future improvements
 
 - Localization is a possible future extension; none is configured now.
+- compressed videos
+- 
