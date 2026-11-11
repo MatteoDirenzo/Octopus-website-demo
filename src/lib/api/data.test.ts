@@ -1,6 +1,7 @@
 import { expect, test } from "vitest";
 import {
   CATEGORIES,
+  FOOTER_COLUMNS,
   GALLERY_SPANS,
   SECTION_TYPES,
   SHOWCASE_LAYOUTS,
@@ -13,7 +14,9 @@ import {
   getBestSellers,
   getCategories,
   getCategory,
+  getContactPage,
   getPage,
+  getPoliciesPage,
   getProductBySlug,
   getProducts,
   getProductsByCategory,
@@ -80,6 +83,51 @@ test("the where to buy page has metadata and a heading", async () => {
   expect(page.metadata.title).toBe("Where to buy");
   expect(page.metadata.description.length).toBeGreaterThan(0);
   expect(page.heading.title).toBe("Where to buy");
+});
+
+test("the footer comes from the site", async () => {
+  const site = await getSite();
+
+  expect(site.footer.home.href).toBe("/");
+  expect(site.footer.copyright.length).toBeGreaterThan(0);
+  expect(site.footer.policies.href).toBe("/policies");
+  expect(site.footer.groups.map((group) => group.title)).toEqual([
+    "Our Products",
+    "Learn",
+  ]);
+
+  for (const group of site.footer.groups) {
+    expect(FOOTER_COLUMNS.some((columns) => columns === group.columns)).toBe(
+      true,
+    );
+  }
+
+  expect(site.footer.groups[0]?.links.map((link) => link.href)).toEqual([
+    "/category/kitchen",
+    "/category/home-security",
+    "/category/hair-care",
+    "/category/accessories",
+  ]);
+  expect(site.footer.groups[1]?.links.map((link) => link.href)).toEqual([
+    "/where-to-buy",
+    "/contact-us",
+  ]);
+});
+
+test("the contact page has metadata and a heading", async () => {
+  const page = await getContactPage();
+
+  expect(page.metadata.title).toBe("Contact us");
+  expect(page.metadata.description.length).toBeGreaterThan(0);
+  expect(page.heading.title).toBe("Contact us");
+});
+
+test("the policies page has metadata and no heading", async () => {
+  const page = await getPoliciesPage();
+
+  expect(page.metadata.title).toBe("Policies & Terms");
+  expect(page.metadata.description.length).toBeGreaterThan(0);
+  expect("heading" in page).toBe(false);
 });
 
 test("page sections use allowed values and resolve their references", async () => {

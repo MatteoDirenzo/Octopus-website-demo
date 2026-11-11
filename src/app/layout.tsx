@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import type { Metadata } from "next";
+import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { getSite } from "@/lib/api";
 import { fontProject } from "@/styles/fonts";
@@ -32,6 +33,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
       >
         <Header header={site.header} />
         {children}
+        <Footer footer={site.footer} />
       </body>
     </html>
   );

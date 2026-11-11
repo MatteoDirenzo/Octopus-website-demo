@@ -11,12 +11,14 @@ Text fields use `Placeholder` until real copy replaces the value. Image `src` va
 | File | Contains |
 | --- | --- |
 | `README.md` | This document. |
-| `site.json` | Default metadata, header, store banner copy, and footer text. |
+| `site.json` | Default metadata, header, store banner copy, and footer. |
 | `categories.json` | The four categories. |
 | `products.json` | Every product, including detail-page content where `detail` is set. |
 | `pages/home.json` | Home metadata and the ordered home sections. |
 | `pages/product.json` | Ordered product-page sections. The product comes from the route slug. |
 | `pages/where-to-buy.json` | Where to buy metadata and heading. The nav label stays in `site.json`. |
+| `pages/contact-us.json` | Contact metadata and heading. The nav label stays in `site.json`. |
+| `pages/policies.json` | Policies metadata. The page body is blank. The nav label stays in `site.json`. |
 
 ## Shared shapes
 
@@ -43,8 +45,15 @@ Text fields use `Placeholder` until real copy replaces the value. Image `src` va
 | `storeBanner` | Copy for the `storeBanner` section. | yes |
 | `storeBanner.title` | Banner heading. | yes |
 | `storeBanner.text` | Banner body. | yes |
-| `footer` | Footer copy. | yes |
-| `footer.text` | Footer text. | yes |
+| `footer` | Footer chrome, link groups, and legal line. | yes |
+| `footer.label` | Accessible name of the footer. | yes |
+| `footer.home` | Logo link (`label`, `href`). | yes |
+| `footer.groups` | Link groups, in display order. | yes |
+| `footer.groups[].title` | Group heading. | yes |
+| `footer.groups[].columns` | Columns from tablet up. `1` or `2`. Mobile stays one column. | yes |
+| `footer.groups[].links` | Links in that group, in display order. Each item is `label` and `href`. | yes |
+| `footer.copyright` | Copyright line. | yes |
+| `footer.policies` | Policies link (`label`, `href`). | yes |
 
 ## categories.json
 
@@ -98,7 +107,9 @@ Each entry is a product. File order is the order of Best sellers and of each cat
 
 A section page file is `{ metadata?, sections[] }`. `metadata` has `title` and `description`. Omit `metadata` when the page takes its title from a product (`pages/product.json` does). `sections` render in the listed order. Reordering or deleting a line changes the page.
 
-`pages/where-to-buy.json` is `{ metadata, heading }`. It has no `sections`. `heading.title` is the page heading. `heading.subtitle` is optional and omitted until there is copy. The nav label stays in `site.json`.
+`pages/where-to-buy.json` and `pages/contact-us.json` are `{ metadata, heading }`. They have no `sections`. `heading.title` is the page heading. `heading.subtitle` is optional and omitted until there is copy. The nav label stays in `site.json`.
+
+`pages/policies.json` is `{ metadata }` only. The page body is blank. The nav label stays in `site.json`.
 
 | `type` | Properties | Required on that section |
 | --- | --- | --- |
@@ -122,6 +133,7 @@ Defined once as `as const` arrays in `src/types/content.ts`. Derived types follo
 | `TEXT_TONES` | `light`, `dark` |
 | `VIDEO_TYPES` | `video/mp4`, `video/webm` |
 | `SECTION_TYPES` | `hero`, `bestSellers`, `categoryShowcase`, `exploreCategories`, `storeBanner`, `productShowcase`, `specAccordion` |
+| `FOOTER_COLUMNS` | `1`, `2` |
 
 Layouts:
 

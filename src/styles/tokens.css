@@ -30,6 +30,16 @@
   --text-label: 1rem;
   --text-label--line-height: 1.1;
 
+  /* Copyright and legal links. 14px, medium, line-height 110%. */
+  --text-small-label: 0.875rem;
+  --text-small-label--line-height: 1.1;
+  --text-small-label--font-weight: 470;
+
+  /* Footer group titles. 16px, bold, line-height 100%. */
+  --text-body-bold: 1rem;
+  --text-body-bold--line-height: 1;
+  --text-body-bold--font-weight: 700;
+
   /*
    * Titles use line-height 110% and weight 700.
    * `h1-s` and `h2-m` are both 40px and stay separate so either can change.
