@@ -31,6 +31,8 @@ type BannerCopy = BannerFrame & {
   cta: BannerCta;
   /** Button visual style. Defaults to `primary`. */
   variant?: Variant;
+  /** Id of the title, so a section can name itself from this heading. */
+  titleId?: string;
 };
 
 type BannerCustom = BannerFrame & {
@@ -66,7 +68,10 @@ export function Banner(props: BannerProps) {
             props.children
           ) : (
             <>
-              <h2 className="max-w-full text-h2-s text-text tablet:text-h2-m desktop:text-h2-l">
+              <h2
+                id={props.titleId}
+                className="max-w-full text-h2-s text-text tablet:text-h2-m desktop:text-h2-l"
+              >
                 {props.title}
               </h2>
               <p className="mt-4 max-w-full text-subtitle-s text-text-muted tablet:text-subtitle-m desktop:text-subtitle-l">

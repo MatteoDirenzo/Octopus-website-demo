@@ -195,7 +195,7 @@
     "slug": "ionic-hair-dryer",
     "name": "Octopus Ionic Hair Dryer",
     "category": "hair-care",
-    "shortDescription": "Placeholder",
+    "shortDescription": "Dry your hair faster and with less frizz with this powerful ionic hair dryer",
     "image": {
       "src": "/images/products/hair-dryer.webp",
       "alt": "Placeholder",
@@ -203,12 +203,13 @@
       "height": 724
     },
     "featureImage": {
-      "src": "/images/hero-haircare-desktop.webp",
-      "alt": "Placeholder",
-      "width": 3200,
-      "height": 1106
+      "src": "/images/banner-girl-desktop.webp",
+      "alt": "Woman drying her hair",
+      "width": 4092,
+      "height": 2075
     },
-    "bestSeller": true
+    "bestSeller": true,
+    "featured": true
   },
   {
     "id": "outdoor-camera",

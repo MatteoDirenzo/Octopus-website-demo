@@ -54,3 +54,39 @@ test("renders the kitchen feature card and two medium cards", async () => {
     "/product/countertop-blender",
   ]);
 });
+
+test("renders the hair-care banner with no category heading", async () => {
+  const page = await getPage("home");
+  const section = page.sections.find(
+    (item) => item.type === "categoryShowcase" && item.layout === "banner",
+  );
+
+  if (!section || section.type !== "categoryShowcase") {
+    throw new Error("Hair-care banner is missing");
+  }
+
+  render(await CategoryShowcase({ section }));
+
+  expect(
+    screen.getByRole("heading", {
+      level: 2,
+      name: "Octopus Ionic Hair Dryer",
+    }),
+  ).toBeTruthy();
+  expect(
+    screen.getByText(
+      "Dry your hair faster and with less frizz with this powerful ionic hair dryer",
+    ),
+  ).toBeTruthy();
+  expect(
+    screen.getByRole("img", { name: "Woman drying her hair" }),
+  ).toBeTruthy();
+  expect(
+    screen.getByRole("link", { name: "Learn more" }).getAttribute("href"),
+  ).toBe("/product/ionic-hair-dryer");
+  expect(screen.getAllByRole("link")).toHaveLength(1);
+  expect(screen.queryByRole("heading", { name: "Hair Care" })).toBeNull();
+  expect(
+    screen.queryByRole("link", { name: "Explore all products" }),
+  ).toBeNull();
+});

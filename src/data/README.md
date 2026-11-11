@@ -144,7 +144,7 @@ Layouts:
 - `feature-top`: heading, one horizontal large card for the feature product, then the other products as vertical medium cards. The heading uses the category title and tagline, and `site.exploreAll`. Cards use `product.image` and `site.learnMore`.
 - `feature-left`: category showcase. Uses the feature-card selection below.
 - `row`: category showcase. Uses the feature-card selection below.
-- `banner`: category showcase with no section header. Uses the feature-card selection below. The feature card's product must have `featureImage`.
+- `banner`: full-width Banner with no section padding and no section header. Uses the feature product's name, `shortDescription`, and `featureImage`, and `site.learnMore`. The feature card's product must have `featureImage`.
 
 ## Selection rules
 

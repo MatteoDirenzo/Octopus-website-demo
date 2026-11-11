@@ -23,7 +23,11 @@ test("renders the linked product heading and its learn more link", async () => {
       name: "Octopus Ionic Hair Dryer",
     }),
   ).toBeTruthy();
-  expect(screen.getByText("Placeholder")).toBeTruthy();
+  expect(
+    screen.getByText(
+      "Dry your hair faster and with less frizz with this powerful ionic hair dryer",
+    ),
+  ).toBeTruthy();
   expect(
     screen.getByRole("link", { name: "Learn more" }).getAttribute("href"),
   ).toBe("/product/ionic-hair-dryer");

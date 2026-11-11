@@ -1,3 +1,4 @@
+import { Banner } from "@/components/Banner";
 import { CardLarge } from "@/components/CardLarge";
 import { CardMedium } from "@/components/CardMedium";
 import { Heading } from "@/components/Heading";
@@ -7,6 +8,7 @@ import {
   getSite,
   splitCategoryProducts,
 } from "@/lib/api";
+import type { CategoryShowcaseSection } from "@/types/content";
 import type { SectionViewProps } from "../types";
 
 /**
@@ -15,11 +17,16 @@ import type { SectionViewProps } from "../types";
  * 40px, 16px, and 80px below 810; 80px, 32px, and 40px from 810; and 60px,
  * 128px, and 180px from 1200. The feature card is a horizontal large card.
  * The other cards are vertical medium cards, stacked below 810 and in one
- * row from 810. Other layouts stay as a placeholder.
+ * row from 810. `banner` is a full-width Banner with no section padding and
+ * no section header. `feature-left` and `row` stay as a placeholder.
  */
 export async function CategoryShowcase({
   section,
 }: SectionViewProps<"categoryShowcase">) {
+  if (section.layout === "banner") {
+    return renderBanner(section);
+  }
+
   if (section.layout !== "feature-top") {
     return <section aria-label={section.type}>{section.type}</section>;
   }
@@ -83,6 +90,40 @@ export async function CategoryShowcase({
           </div>
         ) : null}
       </div>
+    </section>
+  );
+}
+
+/**
+ * Full-width promo for the category feature product. The section adds no
+ * padding; the Banner keeps its own copy inset. Copy and the image come
+ * from that product, and the link uses `site.learnMore`.
+ */
+async function renderBanner(section: CategoryShowcaseSection) {
+  const [products, site] = await Promise.all([
+    getProductsByCategory(section.category),
+    getSite(),
+  ]);
+  const { feature } = splitCategoryProducts(products, section.limit);
+
+  if (!feature?.featureImage) {
+    return null;
+  }
+
+  const titleId = `${section.type}-${section.category}`;
+
+  return (
+    <section aria-labelledby={titleId}>
+      <Banner
+        titleId={titleId}
+        title={feature.name}
+        subtitle={feature.shortDescription}
+        image={feature.featureImage}
+        cta={{
+          label: site.learnMore.label,
+          href: `/product/${feature.slug}`,
+        }}
+      />
     </section>
   );
 }
