@@ -22,10 +22,13 @@
 - Design mobile-first: unprefixed utilities are mobile, `tablet:` starts at 810px, and `desktop:` starts at 1200px. Define breakpoints only in the theme.
 - No fixed px widths that break in-between widths. No horizontal scroll at any width.
 - The font is defined once in `src/styles/fonts.ts` and exposed as a CSS variable.
+- Use `clsx` to combine multiple classes. Do not write a local join helper.
+- Keep helpers and config for a specific case in a dedicated file under `src/helpers` (such as `src/helpers/components/button.ts`) so they stay detached from the component.
 
 ## Components
 
 - Give each component its own folder under `src/components` and colocate its `Component.test.tsx`.
+- Name the component file `index.tsx` so the import is the folder (`@/components/Button`) and not `Button/Button`. Keep `Component.test.tsx` beside it.
 - Shared across both pages: Button, SectionHeader, ProductCard, Carousel, Accordion, Header, Footer. Typed props, no duplicated markup.
 - Icons are inline SVG components in `src/components/icons` using `currentColor`. Decorative icons have `aria-hidden="true"`; icon-only buttons have `aria-label` on the button. The logo keeps its brand colours.
 
