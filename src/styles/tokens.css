@@ -177,6 +177,9 @@
    */
   --spacing-option-x: 0.78125rem;
   --spacing-option-y: 1.0625rem;
+
+  /* Download row. 21px vertical padding is not on the spacing scale. */
+  --spacing-download-y: 1.3125rem;
 }
 
 @theme inline {

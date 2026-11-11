@@ -27,6 +27,10 @@ import { FeatureSelector } from "@/components/FeatureSelector";
 import { Heading } from "@/components/Heading";
 import { ProductCard } from "@/components/ProductCard";
 import { ProductInfo } from "@/components/ProductInfo";
+import {
+  TechnicalSpecs,
+  type SpecsGroup,
+} from "@/components/TechnicalSpecs";
 import { Chevron } from "@/components/icons/Chevron";
 
 export const metadata: Metadata = {
@@ -90,6 +94,75 @@ const COLOURS = [
 const FEATURES = [
   { id: "20000", label: "20,000 mhA" },
   { id: "10000", label: "10,000 mhA" },
+];
+
+const SPECS_GROUPS: SpecsGroup[] = [
+  {
+    id: "technical",
+    title: "Technical specifications",
+    body: {
+      kind: "list",
+      items: [
+        "Power:",
+        "Voltage:",
+        "Frequency:",
+        "Input:",
+        "Output:",
+        "Battery:",
+        "Rated capacity:",
+        "Motor:",
+        "Capacity:",
+        "Temperature range:",
+        "Operating temperature:",
+        "Weatherproof rating:",
+      ],
+    },
+  },
+  {
+    id: "performance",
+    title: "Performance & display",
+    body: {
+      kind: "list",
+      items: ["Resolution:", "Speed & Heat settings:"],
+    },
+  },
+  {
+    id: "movement",
+    title: "Movement & control",
+    body: { kind: "text", text: "Pan and tilt:" },
+  },
+  {
+    id: "connectivity",
+    title: "Connectivity",
+    body: {
+      kind: "list",
+      items: [
+        "Wi-Fi:",
+        "Data transfer:",
+        "Connector type:",
+        "Compatibility:",
+        "Memory card support:",
+      ],
+    },
+  },
+  {
+    id: "dimensions",
+    title: "Dimensions & weight",
+    body: {
+      kind: "list",
+      items: ["Dimensions:", "Weight:", "Cable length:"],
+    },
+  },
+  {
+    id: "product",
+    title: "Product information",
+    body: { kind: "text", text: "Model:" },
+  },
+  {
+    id: "in-the-box",
+    title: "In the box",
+    body: { kind: "text", text: "-" },
+  },
 ];
 
 const BLENDER_COPY = {
@@ -402,6 +475,17 @@ export default function ComponentsPage() {
               },
             ],
           ]}
+        />
+      </section>
+      <section aria-labelledby="technical-specs" className="flex flex-col gap-4">
+        <h2 id="technical-specs">Technical specs</h2>
+        <TechnicalSpecs
+          groups={SPECS_GROUPS}
+          download={{
+            label: "Downloads",
+            fileLabel: "User manual",
+            href: "/manuals/user-manual.pdf",
+          }}
         />
       </section>
       <section aria-labelledby="carousel" className="-mx-8 flex flex-col gap-16">
