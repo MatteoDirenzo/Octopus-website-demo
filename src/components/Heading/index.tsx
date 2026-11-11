@@ -1,0 +1,52 @@
+import { Button } from "@/components/Button";
+import {
+  headingClassName,
+  type HeadingVariant,
+} from "@/helpers/components/heading";
+
+type HeadingButton = {
+  /** Accessible name of the action. */
+  label: string;
+  /** Renders a link. Omit it for a button. */
+  href?: string;
+};
+
+export type HeadingProps = {
+  /** Visual style and heading level. Primary is the page `h1`. */
+  variant?: HeadingVariant;
+  title: string;
+  subtitle?: string;
+  button?: HeadingButton;
+  className?: string;
+};
+
+/**
+ * Centered title, subtitle, and button. Primary is the only `h1` on a page.
+ * Secondary is an `h2`. The button uses the same variant.
+ */
+export function Heading({
+  variant = "primary",
+  title,
+  subtitle,
+  button,
+  className,
+}: HeadingProps) {
+  const classes = headingClassName({ variant, className });
+  const Title = variant === "primary" ? "h1" : "h2";
+
+  return (
+    <div className={classes.root}>
+      <Title className={classes.title}>{title}</Title>
+      {subtitle ? <p className={classes.subtitle}>{subtitle}</p> : null}
+      {button?.href !== undefined ? (
+        <Button variant={variant} href={button.href} className={classes.action}>
+          {button.label}
+        </Button>
+      ) : button ? (
+        <Button variant={variant} className={classes.action}>
+          {button.label}
+        </Button>
+      ) : null}
+    </div>
+  );
+}
