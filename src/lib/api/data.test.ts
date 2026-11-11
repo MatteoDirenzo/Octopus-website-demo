@@ -122,12 +122,12 @@ test("the contact page has metadata and a heading", async () => {
   expect(page.heading.title).toBe("Contact us");
 });
 
-test("the policies page has metadata and no heading", async () => {
+test("the policies page has metadata and a heading", async () => {
   const page = await getPoliciesPage();
 
   expect(page.metadata.title).toBe("Policies & Terms");
   expect(page.metadata.description.length).toBeGreaterThan(0);
-  expect("heading" in page).toBe(false);
+  expect(page.heading.title).toBe("Policies & Terms");
 });
 
 test("page sections use allowed values and resolve their references", async () => {
