@@ -8,16 +8,18 @@ import heroCategory from "@/assets/images/hero-category.webp";
 import heroHaircare from "@/assets/images/hero-haircare-desktop.webp";
 import heroHome from "@/assets/images/hero-home-desktop.webp";
 import heroKitchen from "@/assets/images/hero-kitchen-dekstop.webp";
-import securityCamera from "@/assets/images/security-camera.webp";
 import airFryer from "@/assets/images/products/air-fryer.webp";
+import cable from "@/assets/images/products/cable.webp";
 import hairDryer from "@/assets/images/products/hair-dryer.webp";
 import blender from "@/assets/images/products/mixer.webp";
 import indoorCamera from "@/assets/images/products/security-cam.webp";
+import securityCamera from "@/assets/images/security-camera.webp";
 import { Banner } from "@/components/Banner";
 import { Button } from "@/components/Button";
 import { CardLarge } from "@/components/CardLarge";
 import { CardMedium } from "@/components/CardMedium";
 import { CardSmall } from "@/components/CardSmall";
+import { ExploreCategory } from "@/components/ExploreCategory";
 import { Heading } from "@/components/Heading";
 import { ProductCard } from "@/components/ProductCard";
 import { Chevron } from "@/components/icons/Chevron";
@@ -73,6 +75,7 @@ const AIR_FRYER = asset(airFryer, "Black air fryer");
 const BLENDER = asset(blender, "Personal blender");
 const HAIR_DRYER = asset(hairDryer, "Grey hair dryer");
 const INDOOR_CAMERA = asset(indoorCamera, "White indoor security camera");
+const CABLE = asset(cable, "Coiled USB-C cable");
 
 function Sample({ label, children }: { label: string; children: ReactNode }) {
   return (
@@ -244,6 +247,37 @@ export default function ComponentsPage() {
             <ProductCard image={INDOOR_CAMERA} href="/dev/components" />
           </div>
         </div>
+      </section>
+      <section
+        aria-labelledby="explore-category"
+        className="flex flex-col gap-8"
+      >
+        <h2 id="explore-category">Explore category</h2>
+        <ExploreCategory
+          title="Explore all categories"
+          cards={[
+            {
+              image: BLENDER,
+              href: "/category/kitchen",
+              label: "Kitchen",
+            },
+            {
+              image: INDOOR_CAMERA,
+              href: "/category/home-security",
+              label: "Home Security",
+            },
+            {
+              image: HAIR_DRYER,
+              href: "/category/hair-care",
+              label: "Hair Care",
+            },
+            {
+              image: CABLE,
+              href: "/category/accessories",
+              label: "Accessories",
+            },
+          ]}
+        />
       </section>
       <section aria-labelledby="banner" className="flex flex-col gap-8">
         <h2 id="banner">Banner</h2>

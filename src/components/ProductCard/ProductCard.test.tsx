@@ -33,6 +33,24 @@ test("links the image and shows the title and description", () => {
   expect(screen.getByText("Boils fast")).toBeTruthy();
 });
 
+test("a label replaces the title and description", () => {
+  render(
+    <ProductCard
+      label="Kitchen"
+      title="Octopus Kettle"
+      description="Boils fast"
+      image={image}
+      href="/products/kettle"
+    />,
+  );
+
+  expect(screen.getByText("Kitchen")).toBeTruthy();
+  expect(screen.queryByRole("heading")).toBeNull();
+  expect(screen.queryByText("Octopus Kettle")).toBeNull();
+  expect(screen.queryByText("Boils fast")).toBeNull();
+  expect(screen.getAllByRole("link")).toHaveLength(1);
+});
+
 test("omits the title and description when they are not passed", () => {
   render(<ProductCard image={image} href="/products/kettle" />);
 
