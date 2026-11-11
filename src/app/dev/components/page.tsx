@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { Banner } from "@/components/Banner";
 import { Button } from "@/components/Button";
 import { CardLarge } from "@/components/CardLarge";
 import { CardMedium } from "@/components/CardMedium";
@@ -39,6 +40,11 @@ const CARD_IMAGE = {
   alt: "Placeholder",
   width: 800,
   height: 800,
+};
+
+const BANNER_IMAGE = {
+  src: CARD_IMAGE.src,
+  alt: CARD_IMAGE.alt,
 };
 
 function Sample({ label, children }: { label: string; children: ReactNode }) {
@@ -177,6 +183,27 @@ export default function ComponentsPage() {
           image={CARD_IMAGE}
           cta={{ label: "Label", href: "/dev/components" }}
         />
+      </section>
+      <section aria-labelledby="banner" className="flex flex-col gap-8">
+        <h2 id="banner">Banner</h2>
+        <Banner
+          title="Octopus Ionic Hair Dryer"
+          subtitle="Dry your hair faster and with less frizz with this powerful ionic hair dryer"
+          image={BANNER_IMAGE}
+          cta={{ label: "Learn more", href: "/dev/components" }}
+        />
+        <Banner
+          variant="secondary"
+          title="Secondary"
+          subtitle="Subtitle"
+          image={BANNER_IMAGE}
+          cta={{ label: "Learn more", href: "/dev/components" }}
+        />
+        <Banner image={BANNER_IMAGE}>
+          <p className="text-h2-s text-text tablet:text-h2-m desktop:text-h2-l">
+            Custom
+          </p>
+        </Banner>
       </section>
     </main>
   );

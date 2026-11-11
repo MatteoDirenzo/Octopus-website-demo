@@ -145,6 +145,14 @@
   --spacing-card-small: 33.5625rem;
   --spacing-card-small-tablet: 28.5625rem;
   --spacing-card-small-desktop: 38.4375rem;
+
+  /*
+   * Banner frame. Mobile is 687px. Tablet and desktop are both 500px
+   * and stay separate so either can change.
+   */
+  --spacing-banner: 42.9375rem;
+  --spacing-banner-tablet: 31.25rem;
+  --spacing-banner-desktop: 31.25rem;
 }
 
 @theme inline {
