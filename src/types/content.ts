@@ -290,16 +290,45 @@ export type PageConfig = {
   sections: Section[];
 };
 
-/** Site-wide copy. Navigation links come from categories, not from this object. */
+/** Where to buy page. The nav label stays on `site.header.whereToBuy`. */
+export type WhereToBuyPage = {
+  /** Document title and description. */
+  metadata: PageMetadata;
+  /** Heading rendered on the page. */
+  heading: {
+    /** Visible heading. */
+    title: string;
+    /** Line under the title. Omit when the page has none. */
+    subtitle?: string;
+  };
+};
+
+/** A labelled destination used by the header. */
+export type SiteLink = {
+  /** Visible label. On the home control this is the accessible name. */
+  label: string;
+  /** Destination. */
+  href: string;
+};
+
+/** Site-wide copy. The header is rendered from `header`. */
 export type Site = {
   /** Default title and description. */
   metadata: PageMetadata;
-  /** Label and destination of the Where to buy control. */
-  whereToBuy: {
-    /** Button label. */
+  /** Header chrome, category links, and Where to buy. */
+  header: {
+    /** Accessible name of the navigation. */
     label: string;
-    /** Button destination. */
-    href: string;
+    /** Logo link. */
+    home: SiteLink;
+    /** Accessible name of the closed menu toggle. */
+    openMenuLabel: string;
+    /** Accessible name of the open menu toggle. */
+    closeMenuLabel: string;
+    /** Category links, in display order. */
+    links: SiteLink[];
+    /** Label and destination of the Where to buy control. */
+    whereToBuy: SiteLink;
   };
   /** Copy for the `storeBanner` section. */
   storeBanner: {

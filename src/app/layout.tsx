@@ -1,4 +1,6 @@
+import clsx from "clsx";
 import type { Metadata } from "next";
+import { Header } from "@/components/Header";
 import { getSite } from "@/lib/api";
 import { fontProject } from "@/styles/fonts";
 import "./globals.css";
@@ -17,12 +19,18 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  const site = await getSite();
+
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-pt-header tablet:scroll-pt-header-tablet">
       <body
-        className={`${fontProject.variable} bg-surface font-sans text-foreground`}
+        className={clsx(
+          fontProject.variable,
+          " pt-header font-sans  tablet:pt-header-tablet",
+        )}
       >
+        <Header header={site.header} />
         {children}
       </body>
     </html>

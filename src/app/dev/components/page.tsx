@@ -40,16 +40,19 @@ function Sample({ label, children }: { label: string; children: ReactNode }) {
   );
 }
 
-function ButtonSpecimen({ title, variant, tone = "light", onDark = false }: Specimen) {
+function ButtonSpecimen({
+  title,
+  variant,
+  tone = "light",
+  onDark = false,
+}: Specimen) {
   const headingId = title.toLowerCase().replace(/ /g, "-");
 
   return (
     <section
       aria-labelledby={headingId}
       className={
-        onDark
-          ? "flex flex-col gap-4 bg-foreground p-4"
-          : "flex flex-col gap-4"
+        onDark ? "flex flex-col gap-4 bg-foreground p-4" : "flex flex-col gap-4"
       }
     >
       <h2 id={headingId} className={onDark ? "text-text-inverse" : undefined}>

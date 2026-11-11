@@ -1,0 +1,1 @@
+export { loadCategory } from "./categories";

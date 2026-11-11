@@ -1,8 +1,8 @@
 # Content data
 
-JSON in this folder is the only source of page copy. Loaders in `src/lib/api/` cast it to the types in `src/types/content.ts`. Import loaders from `@/lib/api`. Components never import these files.
+JSON in this folder is the only source of page copy. Functions in `src/lib/api/` cast it to the types in `src/types/content.ts`. Import them from `@/lib/api`. Route loaders in `src/lib/loaders/` call those functions and do not read these files. Components never import these files.
 
-`src/data/*.json` -> `src/lib/api/` (typed loaders, import from `@/lib/api`) -> pages -> `sections/registry.ts` -> components
+`src/data/*.json` -> `src/lib/api/` (typed functions, import from `@/lib/api`) -> pages (a route loader in `src/lib/loaders/` when the route needs one) -> `sections/registry.ts` -> components
 
 Text fields use `Placeholder` until real copy replaces the value. Image `src` values use `/images/placeholders` until exported assets replace the value. Replace values only. Leave every key in place. Stored image sizes are provisional and change to the exported ratio later.
 
@@ -11,11 +11,12 @@ Text fields use `Placeholder` until real copy replaces the value. Image `src` va
 | File | Contains |
 | --- | --- |
 | `README.md` | This document. |
-| `site.json` | Default metadata, Where to buy, store banner copy, and footer text. |
-| `categories.json` | The four categories. Navigation links are built from this file. |
+| `site.json` | Default metadata, header, store banner copy, and footer text. |
+| `categories.json` | The four categories. |
 | `products.json` | Every product, including detail-page content where `detail` is set. |
 | `pages/home.json` | Home metadata and the ordered home sections. |
 | `pages/product.json` | Ordered product-page sections. The product comes from the route slug. |
+| `pages/where-to-buy.json` | Where to buy metadata and heading. The nav label stays in `site.json`. |
 
 ## Shared shapes
 
@@ -32,9 +33,13 @@ Text fields use `Placeholder` until real copy replaces the value. Image `src` va
 | `metadata` | Default title and description. | yes |
 | `metadata.title` | Default document title. | yes |
 | `metadata.description` | Default meta description. | yes |
-| `whereToBuy` | Where to buy control. | yes |
-| `whereToBuy.label` | Button label. | yes |
-| `whereToBuy.href` | Button destination. | yes |
+| `header` | Header chrome and category links. | yes |
+| `header.label` | Accessible name of the navigation. | yes |
+| `header.home` | Logo link (`label`, `href`). | yes |
+| `header.openMenuLabel` | Accessible name of the closed menu toggle. | yes |
+| `header.closeMenuLabel` | Accessible name of the open menu toggle. | yes |
+| `header.links` | Category links, in display order. Each item is `label` and `href`. | yes |
+| `header.whereToBuy` | Where to buy control (`label`, `href`). | yes |
 | `storeBanner` | Copy for the `storeBanner` section. | yes |
 | `storeBanner.title` | Banner heading. | yes |
 | `storeBanner.text` | Banner body. | yes |
@@ -91,7 +96,9 @@ Each entry is a product. File order is the order of Best sellers and of each cat
 
 ## Page configs
 
-A page file is `{ metadata?, sections[] }`. `metadata` has `title` and `description`. Omit `metadata` when the page takes its title from a product (`pages/product.json` does). `sections` render in the listed order. Reordering or deleting a line changes the page.
+A section page file is `{ metadata?, sections[] }`. `metadata` has `title` and `description`. Omit `metadata` when the page takes its title from a product (`pages/product.json` does). `sections` render in the listed order. Reordering or deleting a line changes the page.
+
+`pages/where-to-buy.json` is `{ metadata, heading }`. It has no `sections`. `heading.title` is the page heading. `heading.subtitle` is optional and omitted until there is copy. The nav label stays in `site.json`.
 
 | `type` | Properties | Required on that section |
 | --- | --- | --- |

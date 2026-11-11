@@ -9,7 +9,7 @@
       "width": 800,
       "height": 800
     },
-    "href": "/placeholder/kitchen"
+    "href": "/category/kitchen"
   },
   {
     "id": "home-security",
@@ -21,7 +21,7 @@
       "width": 800,
       "height": 800
     },
-    "href": "/placeholder/home-security"
+    "href": "/category/home-security"
   },
   {
     "id": "hair-care",
@@ -33,7 +33,7 @@
       "width": 800,
       "height": 800
     },
-    "href": "/placeholder/hair-care"
+    "href": "/category/hair-care"
   },
   {
     "id": "accessories",
@@ -45,6 +45,6 @@
       "width": 800,
       "height": 800
     },
-    "href": "/placeholder/accessories"
+    "href": "/category/accessories"
   }
 ]
