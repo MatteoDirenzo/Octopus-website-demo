@@ -40,6 +40,11 @@
   --text-body-bold--line-height: 1;
   --text-body-bold--font-weight: 700;
 
+  /* Card body. 16px, medium, line-height 100%. `label` is 16px at 110%. */
+  --text-body: 1rem;
+  --text-body--line-height: 1;
+  --text-body--font-weight: 470;
+
   /*
    * Titles use line-height 110% and weight 700.
    * `h1-s` and `h2-m` are both 40px and stay separate so either can change.
@@ -64,6 +69,18 @@
   --text-h2-s--font-weight: 700;
 
   /*
+   * Card titles. H3/L is `h2-s` (32px, 110%, 700).
+   * `h3-m` is 28px. `h3-s` is 24px at 100% and weight 600.
+   * `subtitle-l` is the same size and line-height at weight 470.
+   */
+  --text-h3-m: 1.75rem;
+  --text-h3-m--line-height: 1.1;
+  --text-h3-m--font-weight: 700;
+  --text-h3-s: 1.5rem;
+  --text-h3-s--line-height: 1;
+  --text-h3-s--font-weight: 600;
+
+  /*
    * Subtitles use line-height 100% and weight 470.
    * Mobile 18px is `subtitle-s`. The spec also calls that size Subtitle/M.
    */
@@ -77,12 +94,28 @@
   --text-subtitle-s--line-height: 1;
   --text-subtitle-s--font-weight: 470;
 
+  /*
+   * Card titles at line-height 100% and weight 700.
+   * 24px is not `subtitle-l`. 20px is not `subtitle-m`. Both of those are weight 470.
+   */
+  --text-title-bold: 1.5rem;
+  --text-title-bold--line-height: 1;
+  --text-title-bold--font-weight: 700;
+  --text-title-bold-thinner: 1.25rem;
+  --text-title-bold-thinner--line-height: 1;
+  --text-title-bold-thinner--font-weight: 700;
+
+  /* 40px. `rounded-4xl` is 32px and is the header radius. */
+  --radius-card: 2.5rem;
+
   --breakpoint-*: initial;
   --breakpoint-tablet: 810px;
   --breakpoint-desktop: 1200px;
 
   /* 1344px. The header fills the side insets up to this width. */
   --container-navbar: 84rem;
+  /* 496px. Horizontal card images do not grow past this. */
+  --container-card-image: 31rem;
 
   --shadow-navbar: 0 0 16px 8px rgb(0 0 0 / 0.08);
 
@@ -93,6 +126,25 @@
    */
   --spacing-header: 4.375rem;
   --spacing-header-tablet: 5.375rem;
+
+  /*
+   * Fixed card heights. Equal pixel values stay separate so one card can change.
+   * Unprefixed is mobile, `-tablet` is from 810, `-desktop` is from 1200.
+   * Large vertical (1038px) and medium horizontal (413px) are desktop heights.
+   * `card-large-vertical-y` is the 105px top inset, the only padding off the scale.
+   */
+  --spacing-card-large: 33.5625rem;
+  --spacing-card-large-tablet: 25.8125rem;
+  --spacing-card-large-desktop: 36.8125rem;
+  --spacing-card-large-vertical: 64.875rem;
+  --spacing-card-large-vertical-y: 6.5625rem;
+  --spacing-card-medium: 33.5625rem;
+  --spacing-card-medium-tablet: 30.4375rem;
+  --spacing-card-medium-desktop: 45rem;
+  --spacing-card-medium-horizontal: 25.8125rem;
+  --spacing-card-small: 33.5625rem;
+  --spacing-card-small-tablet: 28.5625rem;
+  --spacing-card-small-desktop: 38.4375rem;
 }
 
 @theme inline {
