@@ -6,4 +6,4 @@ export {
   getProductsByCategory,
   splitCategoryProducts,
 } from "./products";
-export { getPage } from "./pages";
+export { getPage, getWhereToBuyPage } from "./pages";

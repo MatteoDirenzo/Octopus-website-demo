@@ -3,12 +3,12 @@ import siteData from "../../data/site.json";
 import type { Category, Site } from "../../types/content";
 import { readContent } from "./shared";
 
-/** Default metadata, Where to buy, store banner, and footer. */
+/** Default metadata, header, store banner, and footer. */
 export async function getSite(): Promise<Site> {
   return readContent<Site>(siteData);
 }
 
-/** Categories in file order. Navigation is built from this list. */
+/** Categories in file order. */
 export async function getCategories(): Promise<Category[]> {
   return readContent<Category[]>(categoriesData);
 }

@@ -3,9 +3,24 @@
     "title": "Placeholder",
     "description": "Placeholder"
   },
-  "whereToBuy": {
-    "label": "Where to buy",
-    "href": "/placeholder"
+  "header": {
+    "label": "Main",
+    "home": {
+      "label": "Home",
+      "href": "/"
+    },
+    "openMenuLabel": "Open menu",
+    "closeMenuLabel": "Close menu",
+    "links": [
+      { "label": "Kitchen", "href": "/category/kitchen" },
+      { "label": "Home Security", "href": "/category/home-security" },
+      { "label": "Hair Care", "href": "/category/hair-care" },
+      { "label": "Accessories", "href": "/category/accessories" }
+    ],
+    "whereToBuy": {
+      "label": "Where to buy",
+      "href": "/where-to-buy"
+    }
   },
   "storeBanner": {
     "title": "Placeholder",

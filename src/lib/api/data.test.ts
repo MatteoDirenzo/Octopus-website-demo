@@ -17,6 +17,8 @@ import {
   getProductBySlug,
   getProducts,
   getProductsByCategory,
+  getSite,
+  getWhereToBuyPage,
   splitCategoryProducts,
 } from "./index";
 
@@ -48,11 +50,36 @@ test("products have unique ids and slugs and a known category", async () => {
   }
 });
 
-test("categories have unique ids", async () => {
+test("categories have unique ids and hrefs", async () => {
   const categories = await getCategories();
   const ids = categories.map((category) => category.id);
 
   expect(new Set(ids).size).toBe(ids.length);
+
+  for (const category of categories) {
+    expect(category.href).toBe(`/category/${category.id}`);
+  }
+});
+
+test("the header and where to buy come from the site", async () => {
+  const site = await getSite();
+
+  expect(site.header.home.href).toBe("/");
+  expect(site.header.links.map((link) => link.href)).toEqual([
+    "/category/kitchen",
+    "/category/home-security",
+    "/category/hair-care",
+    "/category/accessories",
+  ]);
+  expect(site.header.whereToBuy.href).toBe("/where-to-buy");
+});
+
+test("the where to buy page has metadata and a heading", async () => {
+  const page = await getWhereToBuyPage();
+
+  expect(page.metadata.title).toBe("Where to buy");
+  expect(page.metadata.description.length).toBeGreaterThan(0);
+  expect(page.heading.title).toBe("Where to buy");
 });
 
 test("page sections use allowed values and resolve their references", async () => {
