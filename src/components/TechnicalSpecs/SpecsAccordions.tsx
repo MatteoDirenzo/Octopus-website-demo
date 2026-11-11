@@ -1,0 +1,93 @@
+"use client";
+
+import clsx from "clsx";
+import { useId, useState } from "react";
+import { Chevron } from "@/components/icons/Chevron";
+
+export type SpecsBody =
+  | { kind: "list"; items: string[] }
+  | { kind: "text"; text: string };
+
+export type SpecsGroup = {
+  id: string;
+  title: string;
+  body: SpecsBody;
+};
+
+type SpecsAccordionsProps = {
+  groups: SpecsGroup[];
+};
+
+/**
+ * One card of specification groups. The card is 20px on the x axis and 0 on y.
+ * Each group is 16px, with 8px between its header and its body.
+ * Groups start open and close on their own. The chevron points right when
+ * closed and turns down when open.
+ * The list uses space-y. A flex list would drop the disc markers.
+ */
+export function SpecsAccordions({ groups }: SpecsAccordionsProps) {
+  return (
+    <div className="w-full min-w-0 rounded-card bg-surface-hover px-5 py-0">
+      {groups.map((group, index) => (
+        <SpecsAccordionItem
+          key={group.id}
+          group={group}
+          isLast={index === groups.length - 1}
+        />
+      ))}
+    </div>
+  );
+}
+
+function SpecsAccordionItem({
+  group,
+  isLast,
+}: {
+  group: SpecsGroup;
+  isLast: boolean;
+}) {
+  const headerId = useId();
+  const panelId = useId();
+  const [open, setOpen] = useState(true);
+
+  return (
+    <div className={clsx("p-4", !isLast && "border-b border-border-subtle")}>
+      <h3>
+        <button
+          id={headerId}
+          type="button"
+          aria-expanded={open}
+          aria-controls={panelId}
+          onClick={() => setOpen((current) => !current)}
+          className="flex w-full items-center justify-between text-left text-body-bold text-text outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-focus"
+        >
+          {group.title}
+          <Chevron className={clsx("shrink-0", open && "rotate-90")} />
+        </button>
+      </h3>
+      <div
+        id={panelId}
+        role="region"
+        aria-labelledby={headerId}
+        hidden={!open}
+        className="mt-2"
+      >
+        <SpecsBodyView body={group.body} />
+      </div>
+    </div>
+  );
+}
+
+function SpecsBodyView({ body }: { body: SpecsBody }) {
+  if (body.kind === "list") {
+    return (
+      <ul className="list-disc space-y-2 ps-5 text-body text-text">
+        {body.items.map((item) => (
+          <li key={item}>{item}</li>
+        ))}
+      </ul>
+    );
+  }
+
+  return <p className="text-body text-text">{body.text}</p>;
+}
