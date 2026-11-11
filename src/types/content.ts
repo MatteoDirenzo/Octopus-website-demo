@@ -265,11 +265,7 @@ export type Section =
   | ProductShowcaseSection
   | SpecAccordionSection;
 
-type Equals<A, B> = [A] extends [B]
-  ? [B] extends [A]
-    ? true
-    : false
-  : false;
+type Equals<A, B> = [A] extends [B] ? ([B] extends [A] ? true : false) : false;
 
 type AssertTrue<T extends true> = T;
 
@@ -303,7 +299,22 @@ export type WhereToBuyPage = {
   };
 };
 
-/** A labelled destination used by the header. */
+/** Contact page. Same shape as Where to buy. The nav label stays in `site.json`. */
+export type ContactPage = WhereToBuyPage;
+
+/** Policies page. The body is blank. The nav label stays in `site.json`. */
+export type PoliciesPage = {
+  /** Document title and description. */
+  metadata: PageMetadata;
+  heading: {
+    /** Visible heading. */
+    title: string;
+    /** Line under the title. Omit when the page has none. */
+    subtitle?: string;
+  };
+};
+
+/** A labelled destination used by the header and the footer. */
 export type SiteLink = {
   /** Visible label. On the home control this is the accessible name. */
   label: string;
@@ -311,7 +322,23 @@ export type SiteLink = {
   href: string;
 };
 
-/** Site-wide copy. The header is rendered from `header`. */
+/** Column count of a footer link group from tablet up. Mobile is always one column. */
+export const FOOTER_COLUMNS = [1, 2] as const;
+
+/** One of `FOOTER_COLUMNS`. */
+export type FooterColumns = (typeof FOOTER_COLUMNS)[number];
+
+/** A titled group of footer links. */
+export type FooterGroup = {
+  /** Group heading. */
+  title: string;
+  /** Columns from tablet up. Mobile stays one column. */
+  columns: FooterColumns;
+  /** Links, in display order. */
+  links: SiteLink[];
+};
+
+/** Site-wide copy. The header and footer are rendered from this. */
 export type Site = {
   /** Default title and description. */
   metadata: PageMetadata;
@@ -337,9 +364,17 @@ export type Site = {
     /** Banner body. */
     text: string;
   };
-  /** Footer copy. */
+  /** Footer chrome, link groups, and legal line. */
   footer: {
-    /** Footer text. */
-    text: string;
+    /** Accessible name of the footer. */
+    label: string;
+    /** Logo link. */
+    home: SiteLink;
+    /** Link groups, in display order. */
+    groups: FooterGroup[];
+    /** Copyright line. */
+    copyright: string;
+    /** Policies link. */
+    policies: SiteLink;
   };
 };

@@ -65,13 +65,13 @@ function FooterGroupNav({ group }: { group: FooterGroup }) {
        */}
       <ul
         className={clsx(
-          "flex flex-col items-start gap-6 tablet:gap-4",
+          "flex w-full flex-col gap-6 tablet:w-auto tablet:gap-4",
           group.columns === 2 &&
             "tablet:grid tablet:grid-flow-col tablet:grid-rows-2 tablet:justify-items-start",
         )}
       >
         {group.links.map((link) => (
-          <li key={link.href}>
+          <li key={link.href} className="w-full tablet:w-auto tablet:min-w-30.75">
             {/* `p-0!` clears the shared ghost padding from this call site. */}
             <Button
               href={link.href}
