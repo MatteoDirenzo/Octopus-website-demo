@@ -47,6 +47,8 @@ Text fields use `Placeholder` until real copy replaces the value. Exported image
 | `storeBanner.text` | Banner body. | yes |
 | `learnMore` | Shared product link used by the hero and the best-seller cards. | yes |
 | `learnMore.label` | Visible label of that link. | yes |
+| `exploreAll` | Shared category link used by the feature-top heading. | yes |
+| `exploreAll.label` | Visible label of that link. | yes |
 | `footer` | Footer chrome, link groups, and legal line. | yes |
 | `footer.label` | Accessible name of the footer. | yes |
 | `footer.home` | Logo link (`label`, `href`). | yes |
@@ -139,7 +141,7 @@ Defined once as `as const` arrays in `src/types/content.ts`. Derived types follo
 
 Layouts:
 
-- `feature-top`: category showcase. Uses the feature-card selection below.
+- `feature-top`: heading, one horizontal large card for the feature product, then the other products as vertical medium cards. The heading uses the category title and tagline, and `site.exploreAll`. Cards use `product.image` and `site.learnMore`.
 - `feature-left`: category showcase. Uses the feature-card selection below.
 - `row`: category showcase. Uses the feature-card selection below.
 - `banner`: category showcase with no section header. Uses the feature-card selection below. The feature card's product must have `featureImage`.

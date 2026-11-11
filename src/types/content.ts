@@ -369,6 +369,11 @@ export type Site = {
     /** Visible label of the link. */
     label: string;
   };
+  /** Shared category link used by the feature-top heading. */
+  exploreAll: {
+    /** Visible label of the link. */
+    label: string;
+  };
   /** Footer chrome, link groups, and legal line. */
   footer: {
     /** Accessible name of the footer. */

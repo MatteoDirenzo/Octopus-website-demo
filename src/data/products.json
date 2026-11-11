@@ -4,10 +4,10 @@
     "slug": "kettle-1-7-l",
     "name": "Octopus Kettle 1.7 L",
     "category": "kitchen",
-    "shortDescription": "Placeholder",
+    "shortDescription": "A 1.7 L kettle that boils fast on 1800W, with a body that stays cool to the touch",
     "image": {
       "src": "/images/products/boling-pot.webp",
-      "alt": "Placeholder",
+      "alt": "Octopus Kettle 1.7 L",
       "width": 719,
       "height": 719
     },
@@ -25,10 +25,10 @@
     "slug": "blender",
     "name": "Octopus Blender",
     "category": "kitchen",
-    "shortDescription": "Placeholder",
+    "shortDescription": "A portable blender that blends straight into a cup you can take with you",
     "image": {
       "src": "/images/products/mixer.webp",
-      "alt": "Placeholder",
+      "alt": "Octopus Blender",
       "width": 719,
       "height": 719
     },
@@ -39,10 +39,10 @@
     "slug": "countertop-blender",
     "name": "Octopus Countertop Blender",
     "category": "kitchen",
-    "shortDescription": "Placeholder",
+    "shortDescription": "A powerful blender that crushes ice and blends smooth with seven presets",
     "image": {
       "src": "/images/products/mixer-big.webp",
-      "alt": "Placeholder",
+      "alt": "Octopus Countertop Blender",
       "width": 719,
       "height": 719
     },
