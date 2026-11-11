@@ -11,7 +11,8 @@ type ButtonClassNameOptions = {
 };
 
 /*
- * Keyboard focus matches hover and adds the focus ring. A click uses pressed instead.
+ * Keyboard focus matches hover and adds the focus ring.
+ * Secondary and icon ghost keep only the ring on focus. A click uses pressed instead.
  * Disabled keeps the native disabled state, so the control stays in the accessibility tree.
  * The blocked cursor is visual only. Links are never disabled.
  */
@@ -21,7 +22,7 @@ const BASE = clsx(
   "disabled:cursor-not-allowed",
 );
 
-const VARIANT: Record<Variant, string> = {
+const VARIANT: Record<Exclude<Variant, "ghost">, string> = {
   primary: clsx(
     "border-brand-border bg-brand text-text-inverse",
     "hover:bg-brand-hover focus-visible:bg-brand-hover",
@@ -30,23 +31,32 @@ const VARIANT: Record<Variant, string> = {
   ),
   secondary: clsx(
     "border-border-subtle bg-surface text-text",
-    "hover:bg-surface-hover focus-visible:bg-surface-hover",
+    "hover:bg-surface-hover",
     "active:bg-neutral-muted",
     "disabled:border-border-subtle disabled:bg-neutral-muted disabled:text-text-disabled",
   ),
-  /* Transparent border keeps ghost the same height as the bordered variants. */
-  ghost: clsx(
-    "border-transparent bg-surface text-text-subtle",
-    "hover:bg-tint-hover focus-visible:bg-tint-hover",
-    "active:bg-tint-pressed",
-    "disabled:border-transparent disabled:bg-transparent disabled:text-text-disabled",
-  ),
 };
+
+/*
+ * Transparent border keeps ghost the same height as the bordered variants.
+ * Text ghost darkens the label. Icon ghost keeps the tint on hover and press, and only the ring on focus.
+ * Dark ghost, text and icon, does not change its fill or its text.
+ */
+const GHOST_TEXT = clsx(
+  "border-transparent bg-surface text-text-subtle",
+  "hover:text-text focus-visible:text-text active:text-text",
+  "disabled:border-transparent disabled:bg-transparent disabled:text-text-disabled",
+);
+
+const GHOST_ICON = clsx(
+  "border-transparent bg-surface text-text-subtle",
+  "hover:bg-tint-hover",
+  "active:bg-tint-pressed",
+  "disabled:border-transparent disabled:bg-transparent disabled:text-text-disabled",
+);
 
 const GHOST_DARK = clsx(
   "border-transparent bg-transparent text-text-inverse",
-  "hover:bg-tint-hover focus-visible:bg-tint-hover",
-  "active:bg-tint-pressed",
   "disabled:border-transparent disabled:bg-transparent disabled:text-text-disabled",
 );
 
@@ -57,7 +67,13 @@ export function buttonClassName({
   className,
 }: ButtonClassNameOptions) {
   const colors =
-    variant === "ghost" && tone === "dark" ? GHOST_DARK : VARIANT[variant];
+    variant !== "ghost"
+      ? VARIANT[variant]
+      : tone === "dark"
+        ? GHOST_DARK
+        : iconOnly
+          ? GHOST_ICON
+          : GHOST_TEXT;
 
   return clsx(BASE, iconOnly ? "p-2" : "px-3.5 py-1.5", colors, className);
 }
