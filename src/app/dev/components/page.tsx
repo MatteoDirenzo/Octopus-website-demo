@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Button } from "@/components/Button";
+import { CardLarge } from "@/components/CardLarge";
+import { CardMedium } from "@/components/CardMedium";
+import { CardSmall } from "@/components/CardSmall";
 import { Heading } from "@/components/Heading";
 import { Chevron } from "@/components/icons/Chevron";
 
@@ -30,6 +33,13 @@ const SPECIMENS: Specimen[] = [
   { title: "Ghost", variant: "ghost" },
   { title: "Ghost dark", variant: "ghost", tone: "dark", onDark: true },
 ];
+
+const CARD_IMAGE = {
+  src: "/images/placeholders/category-kitchen.png",
+  alt: "Placeholder",
+  width: 800,
+  height: 800,
+};
 
 function Sample({ label, children }: { label: string; children: ReactNode }) {
   return (
@@ -124,6 +134,49 @@ export default function ComponentsPage() {
         <Sample label="Text">
           <Button href="/dev/components">Label</Button>
         </Sample>
+      </section>
+      <section aria-labelledby="card-large" className="flex flex-col gap-8">
+        <h2 id="card-large">Card large</h2>
+        <CardLarge
+          variant="horizontal"
+          title="Horizontal"
+          description="Description"
+          image={CARD_IMAGE}
+          cta={{ label: "Label", href: "/dev/components" }}
+        />
+        <CardLarge
+          variant="vertical"
+          title="Vertical"
+          description="Description"
+          image={CARD_IMAGE}
+          cta={{ label: "Label", href: "/dev/components" }}
+        />
+      </section>
+      <section aria-labelledby="card-medium" className="flex flex-col gap-8">
+        <h2 id="card-medium">Card medium</h2>
+        <CardMedium
+          variant="vertical"
+          title="Vertical"
+          description="Description"
+          image={CARD_IMAGE}
+          cta={{ label: "Label", href: "/dev/components" }}
+        />
+        <CardMedium
+          variant="horizontal"
+          title="Horizontal"
+          description="Description"
+          image={CARD_IMAGE}
+          cta={{ label: "Label", href: "/dev/components" }}
+        />
+      </section>
+      <section aria-labelledby="card-small" className="flex flex-col gap-8">
+        <h2 id="card-small">Card small</h2>
+        <CardSmall
+          title="Small"
+          description="Description"
+          image={CARD_IMAGE}
+          cta={{ label: "Label", href: "/dev/components" }}
+        />
       </section>
     </main>
   );

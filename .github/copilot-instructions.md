@@ -23,8 +23,7 @@
 - Design mobile-first: unprefixed utilities are mobile, `tablet:` starts at 810px, and `desktop:` starts at 1200px. Define breakpoints only in the theme.
 - No fixed px widths that break in-between widths. No horizontal scroll at any width.
 - The font is defined once in `src/styles/fonts.ts` and exposed as a CSS variable.
-- Use `clsx` to combine multiple classes. Do not write a local join helper.
-- A file under `src/helpers` is for a decision, such as which classes a button variant uses. Classes that do not change stay on the element.
+- Use `clsx` to combine multiple classes. Do not write a local join helper. Put the classes on the element.
 
 ## Components
 
