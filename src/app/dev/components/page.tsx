@@ -21,9 +21,12 @@ import { Carousel } from "@/components/Carousel";
 import { CardLarge } from "@/components/CardLarge";
 import { CardMedium } from "@/components/CardMedium";
 import { CardSmall } from "@/components/CardSmall";
+import { ColourSelector } from "@/components/ColourSelector";
 import { ExploreCategory } from "@/components/ExploreCategory";
+import { FeatureSelector } from "@/components/FeatureSelector";
 import { Heading } from "@/components/Heading";
 import { ProductCard } from "@/components/ProductCard";
+import { ProductInfo } from "@/components/ProductInfo";
 import { Chevron } from "@/components/icons/Chevron";
 
 export const metadata: Metadata = {
@@ -78,6 +81,22 @@ const BLENDER = asset(blender, "Personal blender");
 const HAIR_DRYER = asset(hairDryer, "Grey hair dryer");
 const INDOOR_CAMERA = asset(indoorCamera, "White indoor security camera");
 const CABLE = asset(cable, "Coiled USB-C cable");
+
+const COLOURS = [
+  { id: "black", label: "Black", hex: "#1b1b1b" },
+  { id: "white", label: "White", hex: "#ffffff" },
+];
+
+const FEATURES = [
+  { id: "20000", label: "20,000 mhA" },
+  { id: "10000", label: "10,000 mhA" },
+];
+
+const BLENDER_COPY = {
+  title: "Octopus Blender Pro",
+  description:
+    "Crushes ice and frozen fruit to silky-smooth in seconds. 1500W motor, 7 preset programs, pulse for manual control. Cleans itself in one touch.",
+};
 
 const CAROUSEL_SLIDES = [
   HAIR_DRYER,
@@ -262,6 +281,43 @@ export default function ComponentsPage() {
             <p className="text-label">Image, no link</p>
             <ProductCard image={INDOOR_CAMERA} title="Title" />
           </div>
+        </div>
+      </section>
+      <section aria-labelledby="product-info" className="flex flex-col gap-8">
+        <h2 id="product-info">Product info</h2>
+        <div className="grid gap-8 tablet:grid-cols-2">
+          <div className="flex min-w-0 flex-col gap-2">
+            <p className="text-label">Colour</p>
+            <ProductInfo
+              {...BLENDER_COPY}
+              selectionLabel="Colour - Black"
+              action={{ label: "Where to buy", href: "/dev/components" }}
+            >
+              <ColourSelector label="Colour" options={COLOURS} value="black" />
+            </ProductInfo>
+          </div>
+          <div className="flex min-w-0 flex-col gap-2">
+            <p className="text-label">Feature</p>
+            <ProductInfo
+              {...BLENDER_COPY}
+              selectionLabel="Battery - 20,000 mhA"
+              action={{ label: "Where to buy", href: "/dev/components" }}
+            >
+              <FeatureSelector
+                label="Battery"
+                options={FEATURES}
+                value="20000"
+              />
+            </ProductInfo>
+          </div>
+        </div>
+        <div className="flex min-w-0 flex-col gap-2">
+          <p className="text-label">Colour selector</p>
+          <ColourSelector label="Colour" options={COLOURS} value="black" />
+        </div>
+        <div className="flex min-w-0 flex-col gap-2">
+          <p className="text-label">Feature selector</p>
+          <FeatureSelector label="Feature" options={FEATURES} value="20000" />
         </div>
       </section>
       <section

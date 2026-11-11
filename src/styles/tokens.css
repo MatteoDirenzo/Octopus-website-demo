@@ -163,6 +163,20 @@
   --spacing-banner: 42.9375rem;
   --spacing-banner-tablet: 31.25rem;
   --spacing-banner-desktop: 31.25rem;
+
+  /*
+   * Colour swatch. The disc is 30px. The selected ring sits 7px outside it.
+   * Neither size is on the spacing scale.
+   */
+  --spacing-swatch: 1.875rem;
+  --spacing-swatch-ring: 0.4375rem;
+
+  /*
+   * Text option padding. 12.5px across and 17px down.
+   * Neither size is on the spacing scale.
+   */
+  --spacing-option-x: 0.78125rem;
+  --spacing-option-y: 1.0625rem;
 }
 
 @theme inline {
