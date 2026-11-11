@@ -1,5 +1,18 @@
 import type { Metadata } from "next";
+import type { StaticImageData } from "next/image";
 import type { ReactNode } from "react";
+import bannerGirl from "@/assets/images/banner-girl.webp";
+import bannerRed from "@/assets/images/banner-red-desktop.webp";
+import heroAccessories from "@/assets/images/hero-accessories-desktop.webp";
+import heroCategory from "@/assets/images/hero-category.webp";
+import heroHaircare from "@/assets/images/hero-haircare-desktop.webp";
+import heroHome from "@/assets/images/hero-home-desktop.webp";
+import heroKitchen from "@/assets/images/hero-kitchen-dekstop.webp";
+import securityCamera from "@/assets/images/security-camera.webp";
+import airFryer from "@/assets/images/products/air-fryer.webp";
+import hairDryer from "@/assets/images/products/hair-dryer.webp";
+import blender from "@/assets/images/products/mixer.webp";
+import indoorCamera from "@/assets/images/products/security-cam.webp";
 import { Banner } from "@/components/Banner";
 import { Button } from "@/components/Button";
 import { CardLarge } from "@/components/CardLarge";
@@ -36,17 +49,30 @@ const SPECIMENS: Specimen[] = [
   { title: "Ghost dark", variant: "ghost", tone: "dark", onDark: true },
 ];
 
-const CARD_IMAGE = {
-  src: "/images/placeholders/category-kitchen.png",
-  alt: "Placeholder",
-  width: 800,
-  height: 800,
-};
+function asset(file: StaticImageData, alt: string) {
+  return {
+    src: file.src,
+    alt,
+    width: file.width,
+    height: file.height,
+  };
+}
 
-const BANNER_IMAGE = {
-  src: CARD_IMAGE.src,
-  alt: CARD_IMAGE.alt,
-};
+const KITCHEN = asset(
+  heroKitchen,
+  "Person using a blender on a kitchen counter",
+);
+const HAIRCARE = asset(heroHaircare, "Woman drying her hair");
+const HOME = asset(heroHome, "Hand pressing a video doorbell");
+const ACCESSORIES = asset(
+  heroAccessories,
+  "Person placing a power bank into a bag",
+);
+const CAMERA = asset(securityCamera, "White indoor security camera");
+const AIR_FRYER = asset(airFryer, "Black air fryer");
+const BLENDER = asset(blender, "Personal blender");
+const HAIR_DRYER = asset(hairDryer, "Grey hair dryer");
+const INDOOR_CAMERA = asset(indoorCamera, "White indoor security camera");
 
 function Sample({ label, children }: { label: string; children: ReactNode }) {
   return (
@@ -148,14 +174,14 @@ export default function ComponentsPage() {
           variant="horizontal"
           title="Horizontal"
           description="Description"
-          image={CARD_IMAGE}
+          image={KITCHEN}
           cta={{ label: "Label", href: "/dev/components" }}
         />
         <CardLarge
           variant="vertical"
           title="Vertical"
           description="Description"
-          image={CARD_IMAGE}
+          image={HAIRCARE}
           cta={{ label: "Label", href: "/dev/components" }}
         />
       </section>
@@ -165,14 +191,14 @@ export default function ComponentsPage() {
           variant="vertical"
           title="Vertical"
           description="Description"
-          image={CARD_IMAGE}
+          image={HOME}
           cta={{ label: "Label", href: "/dev/components" }}
         />
         <CardMedium
           variant="horizontal"
           title="Horizontal"
           description="Description"
-          image={CARD_IMAGE}
+          image={ACCESSORIES}
           cta={{ label: "Label", href: "/dev/components" }}
         />
       </section>
@@ -181,7 +207,7 @@ export default function ComponentsPage() {
         <CardSmall
           title="Small"
           description="Description"
-          image={CARD_IMAGE}
+          image={CAMERA}
           cta={{ label: "Label", href: "/dev/components" }}
         />
       </section>
@@ -193,7 +219,7 @@ export default function ComponentsPage() {
             <ProductCard
               title="Title"
               description="Description"
-              image={CARD_IMAGE}
+              image={AIR_FRYER}
               href="/dev/components"
             />
           </div>
@@ -201,7 +227,7 @@ export default function ComponentsPage() {
             <p className="text-label">Title only</p>
             <ProductCard
               title="Title"
-              image={CARD_IMAGE}
+              image={BLENDER}
               href="/dev/components"
             />
           </div>
@@ -209,13 +235,13 @@ export default function ComponentsPage() {
             <p className="text-label">Description only</p>
             <ProductCard
               description="Description"
-              image={CARD_IMAGE}
+              image={HAIR_DRYER}
               href="/dev/components"
             />
           </div>
           <div className="flex min-w-0 flex-col gap-2">
             <p className="text-label">Image only</p>
-            <ProductCard image={CARD_IMAGE} href="/dev/components" />
+            <ProductCard image={INDOOR_CAMERA} href="/dev/components" />
           </div>
         </div>
       </section>
@@ -224,17 +250,17 @@ export default function ComponentsPage() {
         <Banner
           title="Octopus Ionic Hair Dryer"
           subtitle="Dry your hair faster and with less frizz with this powerful ionic hair dryer"
-          image={BANNER_IMAGE}
+          image={asset(bannerGirl, "Woman drying her hair")}
           cta={{ label: "Learn more", href: "/dev/components" }}
         />
         <Banner
           variant="secondary"
           title="Secondary"
           subtitle="Subtitle"
-          image={BANNER_IMAGE}
+          image={asset(bannerRed, "Kettle, blender, and air fryer on a red set")}
           cta={{ label: "Learn more", href: "/dev/components" }}
         />
-        <Banner image={BANNER_IMAGE}>
+        <Banner image={asset(heroCategory, "Woman drying her hair")}>
           <p className="text-h2-s text-text tablet:text-h2-m desktop:text-h2-l">
             Custom
           </p>
