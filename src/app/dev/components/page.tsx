@@ -6,6 +6,7 @@ import { CardLarge } from "@/components/CardLarge";
 import { CardMedium } from "@/components/CardMedium";
 import { CardSmall } from "@/components/CardSmall";
 import { Heading } from "@/components/Heading";
+import { ProductCard } from "@/components/ProductCard";
 import { Chevron } from "@/components/icons/Chevron";
 
 export const metadata: Metadata = {
@@ -183,6 +184,40 @@ export default function ComponentsPage() {
           image={CARD_IMAGE}
           cta={{ label: "Label", href: "/dev/components" }}
         />
+      </section>
+      <section aria-labelledby="product-card" className="flex flex-col gap-8">
+        <h2 id="product-card">Product card</h2>
+        <div className="grid gap-8 tablet:grid-cols-2">
+          <div className="flex min-w-0 flex-col gap-2">
+            <p className="text-label">Title and description</p>
+            <ProductCard
+              title="Title"
+              description="Description"
+              image={CARD_IMAGE}
+              href="/dev/components"
+            />
+          </div>
+          <div className="flex min-w-0 flex-col gap-2">
+            <p className="text-label">Title only</p>
+            <ProductCard
+              title="Title"
+              image={CARD_IMAGE}
+              href="/dev/components"
+            />
+          </div>
+          <div className="flex min-w-0 flex-col gap-2">
+            <p className="text-label">Description only</p>
+            <ProductCard
+              description="Description"
+              image={CARD_IMAGE}
+              href="/dev/components"
+            />
+          </div>
+          <div className="flex min-w-0 flex-col gap-2">
+            <p className="text-label">Image only</p>
+            <ProductCard image={CARD_IMAGE} href="/dev/components" />
+          </div>
+        </div>
       </section>
       <section aria-labelledby="banner" className="flex flex-col gap-8">
         <h2 id="banner">Banner</h2>
