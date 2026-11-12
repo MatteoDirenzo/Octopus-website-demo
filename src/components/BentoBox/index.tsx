@@ -61,9 +61,9 @@ export function BentoBox({ rows }: BentoBoxProps) {
                         : "desktop:items-start desktop:justify-center desktop:px-10 desktop:py-0 desktop:text-left",
                     )}
                   >
-                    <h3 className="max-w-full text-title-bold-thinner text-text tablet:text-h3-m desktop:text-title-bold-thinner">
+                    <h2 className="max-w-full text-title-bold-thinner text-text tablet:text-h3-m desktop:text-title-bold-thinner">
                       {card.title}
-                    </h3>
+                    </h2>
                     <p className="max-w-full text-body text-text-muted tablet:text-subtitle-m desktop:text-body">
                       {card.description}
                     </p>
