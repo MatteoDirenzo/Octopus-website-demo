@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { getProductBySlug } from "@/lib/api";
-import type { Product } from "@/types/content";
+import type { Product } from "@/types";
 
 /**
  * Product for this slug.

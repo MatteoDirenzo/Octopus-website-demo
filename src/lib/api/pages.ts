@@ -10,7 +10,7 @@ import type {
   PageConfig,
   PoliciesPage,
   WhereToBuyPage,
-} from "../../types/content";
+} from "@/types";
 import { readContent } from "./shared";
 
 /** Home or product page config. The product page does not name a product. */

@@ -1,6 +1,6 @@
 # Content data
 
-JSON in this folder is the only source of page copy. Functions in `src/lib/api/` cast it to the types in `src/types/content.ts`. Import them from `@/lib/api`. Route loaders in `src/lib/loaders/` call those functions and do not read these files. Components never import these files.
+JSON in this folder is the only source of page copy. Functions in `src/lib/api/` cast it to the types in `src/types/`. Import them from `@/lib/api`. Route loaders in `src/lib/loaders/` call those functions and do not read these files. Components never import these files.
 
 `src/data/*.json` -> `src/lib/api/` (typed functions, import from `@/lib/api`) -> pages (a route loader in `src/lib/loaders/` when the route needs one) -> `PageSections` -> components
 
@@ -133,7 +133,7 @@ A section page file is `{ metadata?, sections[] }`. `metadata` has `title` and `
 
 ## Allowed values
 
-Defined once as `as const` arrays in `src/types/content.ts`. Derived types follow the arrays.
+Defined once as `as const` arrays in `src/types/`, in the file for their domain (`category.ts`, `sections.ts`, `cards.ts`, `gallery.ts`, and so on). Derived types follow the arrays.
 
 | Array | Values |
 | --- | --- |

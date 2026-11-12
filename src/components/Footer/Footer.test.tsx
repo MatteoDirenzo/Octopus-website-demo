@@ -1,6 +1,6 @@
 import { cleanup, render, screen } from "@testing-library/react";
 import { afterEach, expect, test } from "vitest";
-import type { Site } from "@/types/content";
+import type { Site } from "@/types";
 import { Footer } from "./index";
 
 const footer: Site["footer"] = {

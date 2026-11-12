@@ -1,6 +1,6 @@
 import { cleanup, render, screen } from "@testing-library/react";
 import { afterEach, expect, test } from "vitest";
-import type { ImageAsset } from "@/types/content";
+import type { ImageAsset } from "@/types";
 import { ImageHero } from "./index";
 
 const mobile: ImageAsset = {

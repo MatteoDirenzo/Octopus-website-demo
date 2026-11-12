@@ -1,25 +1,10 @@
-import type { BentoCard, BentoRow } from "@/components/BentoBox";
-import type { GalleryItem, ImageAsset } from "@/types/content";
-
-/** A gallery cell with no title. It renders as a full-width image. */
-export type GalleryImageBlock = {
-  kind: "image";
-  image: ImageAsset;
-};
-
-/** Consecutive titled cells. `full` is one row. Two `half` cells share a row. */
-export type GalleryBentoBlock = {
-  kind: "bento";
-  rows: BentoRow[];
-};
-
-/** One step of the product gallery, in display order. */
-export type GalleryBlock = GalleryImageBlock | GalleryBentoBlock;
-
-type Caption = {
-  card: BentoCard;
-  span: GalleryItem["span"];
-};
+import type {
+  BentoCard,
+  BentoRow,
+  GalleryBlock,
+  GalleryCaption,
+  GalleryItem,
+} from "@/types";
 
 /**
  * Walks the gallery in order.
@@ -30,7 +15,7 @@ type Caption = {
  */
 export function groupGallery(items: readonly GalleryItem[]): GalleryBlock[] {
   const blocks: GalleryBlock[] = [];
-  let captions: Caption[] = [];
+  let captions: GalleryCaption[] = [];
 
   const flush = () => {
     if (captions.length === 0) {
@@ -63,7 +48,7 @@ export function groupGallery(items: readonly GalleryItem[]): GalleryBlock[] {
   return blocks;
 }
 
-function toRows(captions: readonly Caption[]): BentoRow[] {
+function toRows(captions: readonly GalleryCaption[]): BentoRow[] {
   const rows: BentoRow[] = [];
   let pending: BentoCard | undefined;
 

@@ -1,15 +1,6 @@
 import { useId } from "react";
 import { ProductCard } from "@/components/ProductCard";
-import type { ImageAsset } from "@/types/content";
-
-export type ExploreCategoryCard = {
-  /** Cutout shown on the card. The link name comes from `alt`. */
-  image: ImageAsset;
-  /** Destination of the image link. */
-  href: string;
-  /** Name under the image. Replaces the product title and description. */
-  label: string;
-};
+import type { ExploreCategoryCard } from "@/types";
 
 export type ExploreCategoryProps = {
   title: string;

@@ -1,50 +1,13 @@
 import clsx from "clsx";
 import Image, { getImageProps } from "next/image";
-import type { ReactNode } from "react";
 import { Button } from "@/components/Button";
-import type { Variant } from "@/helpers/components/button";
 import { responsiveImages } from "@/helpers/components/image";
-import type { BannerImages } from "@/types/content";
-
-export type BannerImage = {
-  /** Path or URL of the image file. */
-  src: string;
-  /**
-   * Accessible description. Pass an empty string when the photo is decorative.
-   */
-  alt: string;
-};
-
-export type BannerCta = {
-  /** Accessible name of the action. */
-  label: string;
-  /** Destination of the action. */
-  href: string;
-};
-
-type BannerFrame = {
-  /** One file, or a base path whose crops are `-desktop`, `-mobile`, and `-tablet`. */
-  image: BannerImage | BannerImages;
-  /** Set only when this banner is the page hero. */
-  priority?: boolean;
-};
-
-type BannerCopy = BannerFrame & {
-  /** Heading. Omit, with `subtitle`, to show only the button. */
-  title?: string;
-  /** Line under the title. Omit, with `title`, to show only the button. */
-  subtitle?: string;
-  cta: BannerCta;
-  /** Button visual style. Defaults to `primary`. */
-  variant?: Variant;
-  /** Id of the title, so a section can name itself from this heading. */
-  titleId?: string;
-};
-
-type BannerCustom = BannerFrame & {
-  /** Replaces the title, subtitle, and button. The frame alignment stays. */
-  children: ReactNode;
-};
+import type {
+  BannerCopy,
+  BannerCustom,
+  ImageSource,
+  ResponsiveImage,
+} from "@/types";
 
 export type BannerProps = BannerCopy | BannerCustom;
 
@@ -116,7 +79,7 @@ function BannerPicture({
   image,
   priority,
 }: {
-  image: BannerImage | BannerImages;
+  image: ImageSource | ResponsiveImage;
   priority: boolean;
 }) {
   const frameClass = "h-full w-full object-cover object-bottom tablet:object-right";
@@ -188,7 +151,7 @@ function BannerPicture({
 }
 
 function isBannerImages(
-  image: BannerImage | BannerImages,
-): image is BannerImages {
+  image: ImageSource | ResponsiveImage,
+): image is ResponsiveImage {
   return "mobile" in image;
 }

@@ -7,7 +7,7 @@ import { Hamburger } from "@/components/icons/Hamburger";
 import { LogoMarkRed } from "@/components/icons/LogoMarkRed";
 import { LogoWordmarkRed } from "@/components/icons/LogoWordmarkRed";
 import { useHeader } from "@/helpers/hooks/useHeader";
-import type { Site } from "@/types/content";
+import type { Site } from "@/types";
 
 const MENU_ID = "site-menu";
 

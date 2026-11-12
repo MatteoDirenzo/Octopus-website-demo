@@ -14,7 +14,7 @@ import {
   type BlockSpacing,
   type ImageAsset,
   type Section,
-} from "../../types/content";
+} from "@/types";
 import {
   getBestSellers,
   getCategories,

@@ -2,12 +2,7 @@
 
 import clsx from "clsx";
 import { useId } from "react";
-
-export type FeatureOption = {
-  id: string;
-  /** Text shown on the chip. */
-  label: string;
-};
+import type { FeatureOption } from "@/types";
 
 export type FeatureSelectorProps = {
   /** Accessible name of the group, for example "Battery". */

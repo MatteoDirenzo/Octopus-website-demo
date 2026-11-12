@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import type { GalleryItem, GallerySpan } from "@/types/content";
+import type { GalleryItem, GallerySpan } from "@/types";
 import { groupGallery } from "./gallery";
 
 function item(span: GallerySpan, title?: string): GalleryItem {

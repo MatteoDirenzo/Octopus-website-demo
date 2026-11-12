@@ -5,52 +5,13 @@ import { Children, useId, type CSSProperties, type ReactNode } from "react";
 import { Button } from "@/components/Button";
 import { Chevron } from "@/components/icons/Chevron";
 import { slideKey, useCarousel } from "@/helpers/hooks/useCarousel";
-
-export type CarouselMode = "contained" | "overflow";
-
-export type CarouselVisible = {
-  /** Full cards below 810. The overflow peek is not included. */
-  mobile?: number;
-  /** Full cards from 810. */
-  tablet?: number;
-  /** Full cards from 1200. */
-  desktop?: number;
-};
-
-export type CarouselEndOffset = {
-  /**
-   * Spacing step below 810. The same number as the padding utility:
-   * `4` matches `px-4`.
-   */
-  mobile?: number;
-  /** Spacing step from 810. */
-  tablet?: number;
-  /** Spacing step from 1200. */
-  desktop?: number;
-};
-
-/** How much of the next card stays in view, as a percentage of one card. */
-export type CarouselPeek = {
-  /** Percentage below 810. `50` shows half. Omitted shows two thirds. */
-  mobile?: number;
-  /** Percentage from 810. */
-  tablet?: number;
-  /** Percentage from 1200. */
-  desktop?: number;
-};
-
-/**
- * Overflow start inset, in the same spacing steps as the padding utilities.
- * Omitted matches the header: 4, 8, and 32.
- */
-export type CarouselInset = {
-  /** Spacing step below 810. */
-  mobile?: number;
-  /** Spacing step from 810. */
-  tablet?: number;
-  /** Spacing step from 1200. */
-  desktop?: number;
-};
+import type {
+  CarouselEndOffset,
+  CarouselInset,
+  CarouselMode,
+  CarouselPeek,
+  CarouselVisible,
+} from "@/types";
 
 export type CarouselProps = {
   /** Section heading. The region is named by this. */

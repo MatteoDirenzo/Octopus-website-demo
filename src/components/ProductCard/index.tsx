@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
-import type { ImageAsset } from "@/types/content";
+import type { ImageAsset } from "@/types";
 
 export type ProductCardProps = {
   /** Cutout shown on the card. The link name comes from `alt`. */

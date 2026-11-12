@@ -13,11 +13,9 @@ import { FeatureSelector } from "@/components/FeatureSelector";
 import { Heading } from "@/components/Heading";
 import { ProductCard } from "@/components/ProductCard";
 import { ProductInfo } from "@/components/ProductInfo";
-import {
-  TechnicalSpecs,
-  type SpecsGroup,
-} from "@/components/TechnicalSpecs";
+import { TechnicalSpecs } from "@/components/TechnicalSpecs";
 import { Chevron } from "@/components/icons/Chevron";
+import type { ButtonTone, ButtonVariant, SpecsGroup } from "@/types";
 
 export const metadata: Metadata = {
   title: "Components",
@@ -29,13 +27,10 @@ export const metadata: Metadata = {
   },
 };
 
-type Variant = "primary" | "secondary" | "ghost";
-type Tone = "light" | "dark";
-
 type Specimen = {
   title: string;
-  variant: Variant;
-  tone?: Tone;
+  variant: ButtonVariant;
+  tone?: ButtonTone;
   onDark?: boolean;
 };
 

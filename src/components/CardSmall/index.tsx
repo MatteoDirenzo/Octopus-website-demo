@@ -1,35 +1,18 @@
 import clsx from "clsx";
 import Image from "next/image";
 import { Button } from "@/components/Button";
-
-export type CardImage = {
-  /** Path or URL of the image file. */
-  src: string;
-  /** Accessible description. */
-  alt: string;
-  /** Pixel width used to keep the ratio. */
-  width: number;
-  /** Pixel height used to keep the ratio. */
-  height: number;
-};
-
-export type CardCta = {
-  /** Accessible name of the action. */
-  label: string;
-  /** Destination of the action. */
-  href: string;
-};
+import type { Cta, ImageAsset } from "@/types";
 
 export type CardSmallProps = {
   title: string;
   description: string;
-  image: CardImage;
+  image: ImageAsset;
   /**
    * Paint `image` across the card, behind the copy.
    * Use this for a product `featuredImage`. The copy keeps its place.
    */
   background?: boolean;
-  cta: CardCta;
+  cta: Cta;
 };
 
 /**

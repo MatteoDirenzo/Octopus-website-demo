@@ -1,22 +1,13 @@
 import { Button } from "@/components/Button";
-import {
-  headingClassName,
-  type HeadingVariant,
-} from "@/helpers/components/heading";
-
-type HeadingButton = {
-  /** Accessible name of the action. */
-  label: string;
-  /** Renders a link. Omit it for a button. */
-  href?: string;
-};
+import { headingClassName } from "@/helpers/components/heading";
+import type { ButtonAction, HeadingVariant } from "@/types";
 
 export type HeadingProps = {
   /** Visual style and heading level. Primary is the page `h1`. */
   variant?: HeadingVariant;
   title: string;
   subtitle?: string;
-  button?: HeadingButton;
+  button?: ButtonAction;
   /** Id of the title, so a section can name itself from this heading. */
   titleId?: string;
   className?: string;

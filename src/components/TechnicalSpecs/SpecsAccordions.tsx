@@ -3,16 +3,7 @@
 import clsx from "clsx";
 import { useId, useState } from "react";
 import { Chevron } from "@/components/icons/Chevron";
-
-export type SpecsBody =
-  | { kind: "list"; items: string[] }
-  | { kind: "text"; text: string };
-
-export type SpecsGroup = {
-  id: string;
-  title: string;
-  body: SpecsBody;
-};
+import type { SpecsBody, SpecsGroup } from "@/types";
 
 type SpecsAccordionsProps = {
   groups: SpecsGroup[];
