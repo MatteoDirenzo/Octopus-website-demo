@@ -2,12 +2,12 @@
   {
     "id": "kitchen",
     "title": "Kitchen",
-    "tagline": "Placeholder",
+    "tagline": "Powerful appliances for everyday cooking",
     "tileImage": {
-      "src": "/images/placeholders/category-kitchen.png",
-      "alt": "Placeholder",
-      "width": 800,
-      "height": 800
+      "src": "/images/products/mixer.webp",
+      "alt": "Personal blender",
+      "width": 719,
+      "height": 719
     },
     "href": "/category/kitchen"
   },
@@ -16,10 +16,10 @@
     "title": "Home Security",
     "tagline": "Placeholder",
     "tileImage": {
-      "src": "/images/placeholders/category-home-security.png",
-      "alt": "Placeholder",
-      "width": 800,
-      "height": 800
+      "src": "/images/products/security-cam.webp",
+      "alt": "White indoor security camera",
+      "width": 724,
+      "height": 724
     },
     "href": "/category/home-security"
   },
@@ -28,10 +28,10 @@
     "title": "Hair Care",
     "tagline": "Placeholder",
     "tileImage": {
-      "src": "/images/placeholders/category-hair-care.png",
-      "alt": "Placeholder",
-      "width": 800,
-      "height": 800
+      "src": "/images/products/hair-dryer.webp",
+      "alt": "Grey hair dryer",
+      "width": 724,
+      "height": 724
     },
     "href": "/category/hair-care"
   },
@@ -40,10 +40,10 @@
     "title": "Accessories",
     "tagline": "Placeholder",
     "tileImage": {
-      "src": "/images/placeholders/category-accessories.png",
-      "alt": "Placeholder",
-      "width": 800,
-      "height": 800
+      "src": "/images/products/cable.webp",
+      "alt": "Coiled USB-C cable",
+      "width": 724,
+      "height": 724
     },
     "href": "/category/accessories"
   }

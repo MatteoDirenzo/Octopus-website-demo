@@ -17,6 +17,8 @@ export type HeadingProps = {
   title: string;
   subtitle?: string;
   button?: HeadingButton;
+  /** Id of the title, so a section can name itself from this heading. */
+  titleId?: string;
   className?: string;
 };
 
@@ -29,6 +31,7 @@ export function Heading({
   title,
   subtitle,
   button,
+  titleId,
   className,
 }: HeadingProps) {
   const classes = headingClassName({ variant, className });
@@ -36,7 +39,9 @@ export function Heading({
 
   return (
     <div className={classes.root}>
-      <Title className={classes.title}>{title}</Title>
+      <Title id={titleId} className={classes.title}>
+        {title}
+      </Title>
       {subtitle ? <p className={classes.subtitle}>{subtitle}</p> : null}
       {button?.href !== undefined ? (
         <Button variant={variant} href={button.href} className={classes.action}>

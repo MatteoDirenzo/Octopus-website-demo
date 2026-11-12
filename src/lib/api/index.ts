@@ -4,6 +4,7 @@ export {
   getProductBySlug,
   getProducts,
   getProductsByCategory,
+  getProductsBySlugs,
   splitCategoryProducts,
 } from "./products";
 export {

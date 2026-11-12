@@ -1,19 +1,5 @@
 import type { Metadata } from "next";
-import type { StaticImageData } from "next/image";
 import type { ReactNode } from "react";
-import bannerGirl from "@/assets/images/banner-girl.webp";
-import bannerRed from "@/assets/images/banner-red-desktop.webp";
-import heroAccessories from "@/assets/images/hero-accessories-desktop.webp";
-import heroCategory from "@/assets/images/hero-category.webp";
-import heroHaircare from "@/assets/images/hero-haircare-desktop.webp";
-import heroHome from "@/assets/images/hero-home-desktop.webp";
-import heroKitchen from "@/assets/images/hero-kitchen-dekstop.webp";
-import airFryer from "@/assets/images/products/air-fryer.webp";
-import cable from "@/assets/images/products/cable.webp";
-import hairDryer from "@/assets/images/products/hair-dryer.webp";
-import blender from "@/assets/images/products/mixer.webp";
-import indoorCamera from "@/assets/images/products/security-cam.webp";
-import securityCamera from "@/assets/images/security-camera.webp";
 import { Banner } from "@/components/Banner";
 import { BentoBox } from "@/components/BentoBox";
 import { Button } from "@/components/Button";
@@ -60,31 +46,65 @@ const SPECIMENS: Specimen[] = [
   { title: "Ghost dark", variant: "ghost", tone: "dark", onDark: true },
 ];
 
-function asset(file: StaticImageData, alt: string) {
-  return {
-    src: file.src,
-    alt,
-    width: file.width,
-    height: file.height,
-  };
+function asset(src: string, alt: string, width: number, height: number) {
+  return { src, alt, width, height };
 }
 
 const KITCHEN = asset(
-  heroKitchen,
+  "/images/hero-kitchen-dekstop.webp",
   "Person using a blender on a kitchen counter",
+  3200,
+  1106,
 );
-const HAIRCARE = asset(heroHaircare, "Woman drying her hair");
-const HOME = asset(heroHome, "Hand pressing a video doorbell");
+const HAIRCARE = asset(
+  "/images/hero-haircare-desktop.webp",
+  "Woman drying her hair",
+  3200,
+  1106,
+);
+const HOME = asset(
+  "/images/hero-home-desktop.webp",
+  "Hand pressing a video doorbell",
+  3200,
+  1106,
+);
 const ACCESSORIES = asset(
-  heroAccessories,
+  "/images/hero-accessories-desktop.webp",
   "Person placing a power bank into a bag",
+  3200,
+  1106,
 );
-const CAMERA = asset(securityCamera, "White indoor security camera");
-const AIR_FRYER = asset(airFryer, "Black air fryer");
-const BLENDER = asset(blender, "Personal blender");
-const HAIR_DRYER = asset(hairDryer, "Grey hair dryer");
-const INDOOR_CAMERA = asset(indoorCamera, "White indoor security camera");
-const CABLE = asset(cable, "Coiled USB-C cable");
+const CAMERA = asset(
+  "/images/security-camera.webp",
+  "White indoor security camera",
+  992,
+  1178,
+);
+const AIR_FRYER = asset(
+  "/images/products/air-fryer.webp",
+  "Black air fryer",
+  719,
+  719,
+);
+const BLENDER = asset(
+  "/images/products/mixer.webp",
+  "Personal blender",
+  719,
+  719,
+);
+const HAIR_DRYER = asset(
+  "/images/products/hair-dryer.webp",
+  "Grey hair dryer",
+  724,
+  724,
+);
+const INDOOR_CAMERA = asset(
+  "/images/products/security-cam.webp",
+  "White indoor security camera",
+  724,
+  724,
+);
+const CABLE = asset("/images/products/cable.webp", "Coiled USB-C cable", 724, 724);
 
 const COLOURS = [
   { id: "black", label: "Black", hex: "#1b1b1b" },
@@ -429,17 +449,29 @@ export default function ComponentsPage() {
         <Banner
           title="Octopus Ionic Hair Dryer"
           subtitle="Dry your hair faster and with less frizz with this powerful ionic hair dryer"
-          image={asset(bannerGirl, "Woman drying her hair")}
+          image={asset("/images/banner-girl.webp", "Woman drying her hair", 4092, 2075)}
           cta={{ label: "Learn more", href: "/dev/components" }}
         />
         <Banner
           variant="secondary"
           title="Secondary"
           subtitle="Subtitle"
-          image={asset(bannerRed, "Kettle, blender, and air fryer on a red set")}
+          image={asset(
+            "/images/banner-red-desktop.webp",
+            "Kettle, blender, and air fryer on a red set",
+            4096,
+            1755,
+          )}
           cta={{ label: "Learn more", href: "/dev/components" }}
         />
-        <Banner image={asset(heroCategory, "Woman drying her hair")}>
+        <Banner
+          image={asset(
+            "/images/hero-category.webp",
+            "Woman drying her hair",
+            4092,
+            1294,
+          )}
+        >
           <p className="text-h2-s text-text tablet:text-h2-m desktop:text-h2-l">
             Custom
           </p>

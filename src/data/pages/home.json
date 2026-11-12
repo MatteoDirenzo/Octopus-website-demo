@@ -5,59 +5,111 @@
   },
   "sections": [
     {
-      "type": "hero",
-      "title": "Placeholder",
-      "productSlug": "ionic-hair-dryer",
-      "video": {
-        "sources": [
-          {
-            "src": "/videos/placeholders/hero.mp4",
-            "type": "video/mp4"
-          },
-          {
-            "src": "/videos/placeholders/hero.webm",
-            "type": "video/webm"
-          }
-        ],
-        "poster": {
-          "src": "/images/placeholders/hero-poster.png",
-          "alt": "Placeholder",
-          "width": 1600,
-          "height": 1200
-        }
+      "component": "hero",
+      "title": "Octopus Ionic Hair Dryer",
+      "subtitle": "Dry your hair faster and with less frizz with this powerful ionic hair dryer",
+      "href": "/product/ionic-hair-dryer",
+      "productSlug": "ionic-hair-dryer"
+    },
+    {
+      "component": "carousel",
+      "title": "Best sellers",
+      "cardType": "large",
+      "cardVariant": "horizontal",
+      "mode": "overflow",
+      "visible": { "mobile": 1, "tablet": 1, "desktop": 1 },
+      "peek": { "mobile": 10, "tablet": 20, "desktop": 40 },
+      "inset": { "mobile": 4, "tablet": 20, "desktop": 32 },
+      "endOffset": { "mobile": 4, "tablet": 20, "desktop": 32 },
+      "productSlugs": ["air-fryer-5-7-l", "indoor-camera", "ionic-hair-dryer"],
+      "spacing": {
+        "mobile": { "top": 20, "bottom": 10 },
+        "tablet": { "top": 8, "bottom": 8 },
+        "desktop": { "top": 30, "bottom": 15 }
       }
     },
     {
-      "type": "bestSellers",
-      "title": "Best sellers"
-    },
-    {
-      "type": "categoryShowcase",
-      "category": "kitchen",
+      "component": "categoryShowcase",
+      "title": "Kitchen",
+      "subtitle": "Powerful appliances for everyday cooking",
+      "href": "/category/kitchen",
       "layout": "feature-top",
-      "limit": 3
+      "featureProductSlug": "kettle-1-7-l",
+      "productSlugs": ["blender", "countertop-blender"],
+      "spacing": {
+        "mobile": { "top": 10, "right": 4, "bottom": 20, "left": 4 },
+        "tablet": { "top": 20, "right": 8, "bottom": 10, "left": 8 },
+        "desktop": { "top": 15, "right": 32, "bottom": 45, "left": 32 }
+      }
     },
     {
-      "type": "categoryShowcase",
-      "category": "hair-care",
-      "layout": "banner"
+      "component": "banner",
+      "title": "Hair Care",
+      "subtitle": "Placeholder",
+      "href": "/category/hair-care",
+      "variant": "primary",
+      "images": {
+        "src": "/images/banner-girl.webp",
+        "alt": "Woman drying her hair",
+        "desktop": { "width": 1200, "height": 500 },
+        "mobile": { "width": 4092, "height": 2075 },
+        "tablet": { "width": 1200, "height": 500 }
+      }
     },
     {
-      "type": "categoryShowcase",
-      "category": "home-security",
-      "layout": "feature-left"
+      "component": "categoryShowcase",
+      "title": "Home Security",
+      "subtitle": "Placeholder",
+      "href": "/category/home-security",
+      "layout": "feature-left",
+      "featureProductSlug": "indoor-camera",
+      "productSlugs": ["outdoor-camera", "video-doorbell"],
+      "spacing": {
+        "mobile": { "top": 10, "right": 4, "bottom": 20, "left": 4 },
+        "tablet": { "top": 20, "right": 8, "bottom": 10, "left": 8 },
+        "desktop": { "top": 15, "right": 32, "bottom": 45, "left": 32 }
+      }
     },
     {
-      "type": "categoryShowcase",
-      "category": "accessories",
-      "layout": "row"
+      "component": "categoryShowcase",
+      "title": "Accessories",
+      "subtitle": "Placeholder",
+      "href": "/category/accessories",
+      "layout": "row",
+      "productSlugs": [
+        "power-bank-10000-mah",
+        "power-board-with-usb-charging",
+        "3-in-1-magnetic-charging-station"
+      ],
+      "spacing": {
+        "mobile": { "top": 10, "right": 4, "bottom": 20, "left": 4 },
+        "tablet": { "top": 20, "right": 8, "bottom": 10, "left": 8 },
+        "desktop": { "top": 15, "right": 32, "bottom": 45, "left": 32 }
+      }
     },
     {
-      "type": "exploreCategories",
-      "title": "Placeholder"
+      "component": "exploreCategories",
+      "title": "Explore all categories",
+      "spacing": {
+        "mobile": { "top": 10, "right": 4, "bottom": 30, "left": 4 },
+        "tablet": { "top": 20, "right": 8, "bottom": 20, "left": 8 },
+        "desktop": { "top": 30, "right": 32, "bottom": 45, "left": 32 }
+      }
     },
     {
-      "type": "storeBanner"
+      "component": "banner",
+      "images": {
+        "src": "/images/banner-red.webp",
+        "alt": "Kettle, blender, and air fryer on a red set",
+        "desktop": { "width": 4096, "height": 1755 },
+        "mobile": { "width": 4096, "height": 2650 },
+        "tablet": { "width": 810, "height": 500 }
+      },
+      "button": {
+        "label": "Find your nearest store",
+        "href": "/where-to-buy",
+        "variant": "secondary"
+      }
     }
   ]
 }

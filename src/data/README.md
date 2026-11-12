@@ -2,9 +2,9 @@
 
 JSON in this folder is the only source of page copy. Functions in `src/lib/api/` cast it to the types in `src/types/content.ts`. Import them from `@/lib/api`. Route loaders in `src/lib/loaders/` call those functions and do not read these files. Components never import these files.
 
-`src/data/*.json` -> `src/lib/api/` (typed functions, import from `@/lib/api`) -> pages (a route loader in `src/lib/loaders/` when the route needs one) -> `sections/registry.ts` -> components
+`src/data/*.json` -> `src/lib/api/` (typed functions, import from `@/lib/api`) -> pages (a route loader in `src/lib/loaders/` when the route needs one) -> `PageSections` -> components
 
-Text fields use `Placeholder` until real copy replaces the value. Image `src` values use `/images/placeholders` until exported assets replace the value. Replace values only. Leave every key in place. Stored image sizes are provisional and change to the exported ratio later.
+Text fields use `Placeholder` until real copy replaces the value. Exported images use a `/images/...` path. The home hero uses the 1080 by 1920 portrait poster below 1200 and the 1920 by 1080 landscape poster from 1200. `/images/placeholders` remains only where no file exists. Replace values only. Leave every key in place. `width` and `height` match the exported file.
 
 ## Files
 
@@ -22,7 +22,7 @@ Text fields use `Placeholder` until real copy replaces the value. Image `src` va
 
 ## Shared shapes
 
-`ImageAsset`: `src`, `alt`, `width`, and `height` are all required. `alt` must be non-empty. `width` and `height` reserve space so the layout does not shift. The numbers in the JSON are provisional.
+`ImageAsset`: `src`, `alt`, `width`, and `height` are all required. `alt` must be non-empty. `width` and `height` reserve space so the layout does not shift. They match the file when one is exported.
 
 `VideoAsset`: `sources` is a list of `{ src, type }`. `type` is `video/mp4` or `video/webm`. `poster` is an `ImageAsset`.
 
@@ -45,6 +45,10 @@ Text fields use `Placeholder` until real copy replaces the value. Image `src` va
 | `storeBanner` | Copy for the `storeBanner` section. | yes |
 | `storeBanner.title` | Banner heading. | yes |
 | `storeBanner.text` | Banner body. | yes |
+| `learnMore` | Shared product link used by the hero and the best-seller cards. | yes |
+| `learnMore.label` | Visible label of that link. | yes |
+| `exploreAll` | Shared category link used by the feature-top heading. | yes |
+| `exploreAll.label` | Visible label of that link. | yes |
 | `footer` | Footer chrome, link groups, and legal line. | yes |
 | `footer.label` | Accessible name of the footer. | yes |
 | `footer.home` | Logo link (`label`, `href`). | yes |
@@ -57,7 +61,7 @@ Text fields use `Placeholder` until real copy replaces the value. Image `src` va
 
 ## categories.json
 
-Each entry is a category. `tileImage` is an 800 by 800 square.
+Each entry is a category. `tileImage` is the exported category image.
 
 | Key | Meaning | Required |
 | --- | --- | --- |
@@ -69,7 +73,7 @@ Each entry is a category. `tileImage` is an 800 by 800 square.
 
 ## products.json
 
-Each entry is a product. File order is the order of Best sellers and of each category list.
+Each entry is a product. File order is the order of `getBestSellers` and of each category list. A page block lists the slugs it shows.
 
 | Key | Meaning | Required |
 | --- | --- | --- |
@@ -78,9 +82,10 @@ Each entry is a product. File order is the order of Best sellers and of each cat
 | `name` | Display name. | yes |
 | `category` | Value from `CATEGORIES`. | yes |
 | `shortDescription` | Line used on cards. | yes |
-| `image` | Cutout for small cards and the carousel (`ImageAsset`, provisional 800 by 800). | yes |
-| `featureImage` | Lifestyle image for feature cards and banners (`ImageAsset`, provisional 1600 by 1200). Required when `featured` is true, and required on the product a `banner` showcase features. | no |
-| `bestSeller` | When true, the product is included in Best sellers. | yes |
+| `image` | Cutout for `productSlugs` (`ImageAsset`). | yes |
+| `featuredImage` | Lifestyle image for a `featureProductSlug` (`ImageAsset`). Required on that product, and required when `featured` is true. | no |
+| `heroImage` | Two-crop still for a hero block that links this product. `mobile` is 1080 by 1920. `desktop` is 1920 by 1080. | no |
+| `bestSeller` | When true, `getBestSellers` includes the product. A page still lists its own slugs. | yes |
 | `featured` | When true, this product is preferred as its category's feature card. Omit when it is not featured. | no |
 | `detail` | Detail-page content. Present only when the product has a Product Detail Page. | no |
 | `detail.description` | Long description. | yes, inside `detail` |
@@ -111,15 +116,18 @@ A section page file is `{ metadata?, sections[] }`. `metadata` has `title` and `
 
 `pages/policies.json` is `{ metadata }` only. The page body is blank. The nav label stays in `site.json`.
 
-| `type` | Properties | Required on that section |
+`component` selects the block. `spacing` is optional on every block. Each side is a spacing step (`20` matches `pt-20`). A missing breakpoint copies the smaller one. A missing side is `0`. Omit `spacing` for a full-bleed block.
+
+| `component` | Properties | Required on that block |
 | --- | --- | --- |
-| `hero` | `title` (accessible name of the video), `video` (`VideoAsset`), `productSlug` | `title` and `video` required. `productSlug` optional; when set, the slug must exist. |
-| `bestSellers` | `title` | `title` required. Membership comes from `bestSeller`, not from this section. |
-| `categoryShowcase` | `category`, `layout`, `limit` | `category` and `layout` required. `limit` optional. `limit` counts the feature card: the feature card plus at most `limit - 1` others. |
-| `exploreCategories` | `title` | `title` required. |
-| `storeBanner` | none | Copy comes from `site.storeBanner`. |
-| `productShowcase` | none | The page passes the loaded product. |
-| `specAccordion` | none | The page passes the loaded product. |
+| `hero` | `title`, `subtitle`, `href`, `productSlug`, `spacing` | `title` and `productSlug` required. The still is that product's `heroImage`. `subtitle` and `href` are optional. The link label stays `site.learnMore`. |
+| `carousel` | `title`, `cardType`, `cardVariant`, `mode`, `visible`, `peek`, `inset`, `endOffset`, `showDots`, `productSlugs`, `featureProductSlug`, `spacing` | `title` and `productSlugs` required. `productSlugs` use the cutout, in list order. `featureProductSlug` is optional, uses `featuredImage`, and is shown first. Pass-through props match `Carousel`. Omit one and the carousel keeps its default. |
+| `categoryShowcase` | `title`, `subtitle`, `href`, `layout`, `featureProductSlug`, `productSlugs`, `spacing` | `title`, `href`, `layout`, and `productSlugs` required. `feature-top` and `feature-left` require `featureProductSlug`. `row` omits it and renders `productSlugs` as small cards. The heading link label stays `site.exploreAll`. Card links use `site.learnMore`. |
+| `banner` | `title`, `subtitle`, `href`, `images`, `button`, `variant`, `priority`, `spacing` | One of two shapes. Both use `images`. `images.src` has no breakpoint suffix. The files add `-desktop`, `-mobile`, and `-tablet` before the extension. `images.desktop`, `images.mobile`, and `images.tablet` are that crop's `width` and `height`. The frame has a fixed height and the picture covers it. Copy: `title`, `subtitle`, `href`, and `images` required. The link label stays `site.learnMore`. Button: `images` and `button` (`label`, `href`, `variant`) required. `title` and `subtitle` are optional and omitted to show only the button. `variant` on a copy banner, and `button.variant` on a button banner, pass through to `Banner`. |
+| `exploreCategories` | `title`, `spacing` | `title` required. Cards are every category, in file order. The label is `title`, the link is `href`, and the picture is `tileImage`. |
+| `storeBanner` | `spacing` | Copy comes from `site.storeBanner`. |
+| `productShowcase` | `spacing` | The page passes the loaded product. |
+| `specAccordion` | `spacing` | The page passes the loaded product. |
 
 ## Allowed values
 
@@ -128,39 +136,43 @@ Defined once as `as const` arrays in `src/types/content.ts`. Derived types follo
 | Array | Values |
 | --- | --- |
 | `CATEGORIES` | `kitchen`, `home-security`, `hair-care`, `accessories` |
-| `SHOWCASE_LAYOUTS` | `feature-top`, `feature-left`, `row`, `banner` |
+| `SHOWCASE_LAYOUTS` | `feature-top`, `feature-left`, `row` |
 | `GALLERY_SPANS` | `full`, `half` |
 | `TEXT_TONES` | `light`, `dark` |
 | `VIDEO_TYPES` | `video/mp4`, `video/webm` |
-| `SECTION_TYPES` | `hero`, `bestSellers`, `categoryShowcase`, `exploreCategories`, `storeBanner`, `productShowcase`, `specAccordion` |
+| `SECTION_TYPES` | `hero`, `carousel`, `categoryShowcase`, `banner`, `exploreCategories`, `storeBanner`, `productShowcase`, `specAccordion` |
+| `CAROUSEL_MODES` | `contained`, `overflow` |
+| `CARD_TYPES` | `large`, `medium`, `small` |
+| `CARD_VARIANTS` | `horizontal`, `vertical` |
+| `BUTTON_VARIANTS` | `primary`, `secondary`, `ghost` |
 | `FOOTER_COLUMNS` | `1`, `2` |
 
 Layouts:
 
-- `feature-top`: category showcase. Uses the feature-card selection below.
-- `feature-left`: category showcase. Uses the feature-card selection below.
-- `row`: category showcase. Uses the feature-card selection below.
-- `banner`: category showcase with no section header. Uses the feature-card selection below. The feature card's product must have `featureImage`.
+- `feature-top`: heading from the block, one horizontal large card for `featureProductSlug`, then `productSlugs` as vertical medium cards. The feature card uses `featuredImage`. The other cards use `image`.
+- `feature-left`: same cards as `feature-top`. Below 1200 the stack matches `feature-top`. From 1200 the feature card is a vertical large card on the left, and the other products stack on the right as horizontal medium cards. The feature card matches the height of that stack.
+- `row`: heading from the block, then `productSlugs` as small cards. No feature card. Stacked below 810 and in one row from 810. Every card uses `image`.
+- `banner`: a full-width `Banner`. Both shapes take their picture from `images`: `images.src` with `-desktop`, `-mobile`, and `-tablet` before the extension. The frame has a fixed height and the picture covers it. A copy banner takes its heading, subtitle, and link from the block. A button banner takes its button from `button`. Omit the heading and subtitle to show only that button.
 
 ## Selection rules
 
-Best sellers are the products with `bestSeller: true`, in file order.
+`getProductsBySlugs` returns products in the slug order it is given. A missing slug throws.
 
-The category feature card is the first product with `featured: true`. Otherwise it is the first product in that category. The rest are the other products, in file order.
+`getBestSellers` returns products with `bestSeller: true`, in file order. A carousel block does not read that flag. It lists `productSlugs`.
 
-`splitCategoryProducts(products, limit?)` keeps that feature card plus at most `limit - 1` others. Without `limit`, the other products all wrap. `getProductsByCategory` stays uncapped.
+`splitCategoryProducts(products, limit?)` is the category-query helper. The feature card is the first product with `featured: true`, otherwise the first product. It keeps that card plus at most `limit - 1` others. Without `limit`, the other products all wrap. Page blocks do not call it. A showcase lists `featureProductSlug` and `productSlugs` itself. `getProductsByCategory` stays uncapped.
 
-Every product with `featured: true` has a `featureImage`. The product chosen as the feature card of a `banner` layout has a `featureImage`.
+Every product with `featured: true` has a `featuredImage`. Every `featureProductSlug` has a `featuredImage`. Every hero `productSlug` has a `heroImage`.
 
 Only a product with `detail` has a Product Detail Page.
 
 ## Recipes
 
-**Add a product.** Append an object to `products.json` with a unique `id` and `slug`, a `category`, an `image`, and `bestSeller`. It shows in that category. It shows in Best sellers only when `bestSeller` is true. The Kitchen showcase uses `limit: 3`, so a new Kitchen product stays out of that section until the limit is raised.
+**Add a product.** Append an object to `products.json` with a unique `id` and `slug`, a `category`, an `image`, and `bestSeller`. Add its slug to a page block to show it there. Add `featuredImage` when a block uses it as `featureProductSlug`. Add `heroImage` when a hero block links it.
 
-**Add a category.** Add the id to `CATEGORIES`, then add the category object and point products at that id. A `categoryShowcase` section can then use it.
+**Add a category.** Add the id to `CATEGORIES`, then add the category object and point products at that id.
 
-**Add a section type.** Add the variant to the `Section` union and to `SECTION_TYPES`. Register a component before a page JSON uses the type.
+**Add a block.** Add the variant to the `Section` union and to `SECTION_TYPES`. Handle it in `PageSections` before a page JSON uses the component.
 
 **Add an allowed value.** Add it to the `as const` array first. The derived type follows. Update this README in the same change.
 

@@ -28,6 +28,11 @@ export type CardMediumProps = {
   title: string;
   description: string;
   image: CardImage;
+  /**
+   * Paint `image` across the card, behind the copy.
+   * Use this for a product `featuredImage`. The copy keeps its place.
+   */
+  background?: boolean;
   cta: CardCta;
 };
 
@@ -35,18 +40,30 @@ export type CardMediumProps = {
  * Medium highlight card. Copy comes first in the DOM, so a row puts the image
  * on the right. Horizontal is desktop only, so below 1200 it uses the vertical layout.
  * The card is not a link. The width comes from the parent.
+ * `background` paints `image` across the card and leaves the copy where it
+ * is. Otherwise the picture sits in a slot: the leftover height in a column,
+ * and at most half the card (capped at the card-image width) in a row.
  */
 export function CardMedium({
   variant,
   title,
   description,
   image,
+  background = false,
   cta,
 }: CardMediumProps) {
+  // 31rem matches `--container-card-image`. The sizes attribute cannot read it.
+  const sizes = background
+    ? "(min-width: 1200px) 50vw, (min-width: 810px) 45vw, 80vw"
+    : variant === "horizontal"
+      ? "(min-width: 1200px) 31rem, (min-width: 810px) 45vw, 80vw"
+      : "(min-width: 1200px) 40vw, (min-width: 810px) 45vw, 80vw";
+
   return (
     <article
       className={clsx(
         "flex w-full min-w-0 justify-between overflow-hidden rounded-card bg-surface-hover",
+        background && "relative",
         "h-card-medium flex-col px-6 pt-16 pb-0",
         "tablet:h-card-medium-tablet tablet:px-20",
         variant === "vertical" && "desktop:h-card-medium-desktop",
@@ -54,11 +71,21 @@ export function CardMedium({
           "desktop:h-card-medium-horizontal desktop:flex-row desktop:items-stretch desktop:pt-0 desktop:pr-0 desktop:pl-10",
       )}
     >
+      {background ? (
+        <Image
+          src={image.src}
+          alt={image.alt}
+          fill
+          sizes={sizes}
+          className="pointer-events-none object-cover"
+        />
+      ) : null}
       <div
         className={clsx(
-          "flex min-w-0 flex-col w-full shrink-0 items-center text-center",
+          "flex min-w-0 w-full shrink-0 flex-col items-center text-center",
+          background && "relative",
           variant === "horizontal" &&
-            "desktop:w-auto desktop:shrink desktop:items-start desktop:justify-center desktop:self-stretch desktop:text-left",
+            "desktop:w-auto desktop:max-w-1/2 desktop:shrink desktop:items-start desktop:justify-center desktop:self-stretch desktop:text-left",
         )}
       >
         <h3 className="max-w-full text-h3-s text-text desktop:text-h2-s">
@@ -71,18 +98,23 @@ export function CardMedium({
           {cta.label}
         </Button>
       </div>
-      <Image
-        src={image.src}
-        alt={image.alt}
-        width={image.width}
-        height={image.height}
-        sizes="100vw"
-        className={clsx(
-          "h-auto w-full min-w-0",
-          variant === "horizontal" &&
-            "desktop:h-full desktop:w-auto desktop:max-w-card-image desktop:shrink-0 desktop:object-contain",
-        )}
-      />
+      {background ? null : (
+        <div
+          className={clsx(
+            "relative min-h-0 w-full flex-1",
+            variant === "horizontal" &&
+              "desktop:h-full desktop:w-1/2 desktop:max-w-card-image desktop:flex-none",
+          )}
+        >
+          <Image
+            src={image.src}
+            alt={image.alt}
+            fill
+            sizes={sizes}
+            className="object-contain"
+          />
+        </div>
+      )}
     </article>
   );
 }

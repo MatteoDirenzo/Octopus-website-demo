@@ -1,3 +1,13 @@
+import type { CardLargeVariant } from "@/components/CardLarge";
+import type {
+  CarouselEndOffset,
+  CarouselInset,
+  CarouselMode,
+  CarouselPeek,
+  CarouselVisible,
+} from "@/components/Carousel";
+import type { Variant } from "@/helpers/components/button";
+
 /** Allowed category ids. */
 export const CATEGORIES = [
   "kitchen",
@@ -9,13 +19,8 @@ export const CATEGORIES = [
 /** Id of a category in `categories.json`. */
 export type CategoryId = (typeof CATEGORIES)[number];
 
-/** Showcase layouts. `banner` renders no section header; the others use the same product selection. */
-export const SHOWCASE_LAYOUTS = [
-  "feature-top",
-  "feature-left",
-  "row",
-  "banner",
-] as const;
+/** Showcase layouts. `row` is small cards only. The feature layouts use `featureProductSlug`. */
+export const SHOWCASE_LAYOUTS = ["feature-top", "feature-left", "row"] as const;
 
 /** One of `SHOWCASE_LAYOUTS`. */
 export type ShowcaseLayout = (typeof SHOWCASE_LAYOUTS)[number];
@@ -38,14 +43,33 @@ export const VIDEO_TYPES = ["video/mp4", "video/webm"] as const;
 /** One of `VIDEO_TYPES`. */
 export type VideoType = (typeof VIDEO_TYPES)[number];
 
+/** Carousel track modes. Stays equal to `CarouselMode`. */
+export const CAROUSEL_MODES = ["contained", "overflow"] as const;
+
+/** Card size chosen by a carousel block. */
+export const CARD_TYPES = ["large", "medium", "small"] as const;
+
+/** One of `CARD_TYPES`. */
+export type CardType = (typeof CARD_TYPES)[number];
+
+/** Card orientation for large and medium carousel cards. Stays equal to `CardLargeVariant`. */
+export const CARD_VARIANTS = ["horizontal", "vertical"] as const;
+
+/** One of `CARD_VARIANTS`. */
+export type CardVariant = (typeof CARD_VARIANTS)[number];
+
+/** Button styles a banner can pass through. Stays equal to `Variant`. */
+export const BUTTON_VARIANTS = ["primary", "secondary", "ghost"] as const;
+
 /**
- * Section discriminants.
- * Kept equal to `Section["type"]` so a new section fails the build until both lists include it.
+ * Block discriminants.
+ * Kept equal to `Section["component"]` so a new block fails the build until both lists include it.
  */
 export const SECTION_TYPES = [
   "hero",
-  "bestSellers",
+  "carousel",
   "categoryShowcase",
+  "banner",
   "exploreCategories",
   "storeBanner",
   "productShowcase",
@@ -85,7 +109,7 @@ export type VideoAsset = {
 
 /**
  * A shop category.
- * `tileImage` is a square 800 by 800 placeholder until the exported tile replaces it.
+ * `tileImage` is the square cutout shown on a category card.
  */
 export type Category = {
   /** Value from `CATEGORIES`. */
@@ -94,7 +118,7 @@ export type Category = {
   title: string;
   /** Short line under the title. */
   tagline: string;
-  /** Square tile, 800 by 800 in the placeholder data. */
+  /** Square category tile. */
   tileImage: ImageAsset;
   /** Destination of the category link. */
   href: string;
@@ -170,14 +194,18 @@ export type Product = {
   category: CategoryId;
   /** Line used on cards. */
   shortDescription: string;
-  /** Cutout used by small cards and the carousel. Provisional size 800 by 800. */
+  /** Cutout used by `productSlugs`. Provisional size 800 by 800. */
   image: ImageAsset;
   /**
-   * Lifestyle image for feature cards and banners.
-   * Required when `featured` is true, and required on the product a `banner` showcase features.
-   * Provisional size 1600 by 1200.
+   * Lifestyle image for a `featureProductSlug`.
+   * Required on that product. Provisional size 1600 by 1200.
    */
-  featureImage?: ImageAsset;
+  featuredImage?: ImageAsset;
+  /**
+   * Two-crop still for a hero block that links this product.
+   * `mobile` is 1080 by 1920. `desktop` is 1920 by 1080.
+   */
+  heroImage?: HeroImage;
   /** When true, the product is included in Best sellers, in file order. */
   bestSeller: boolean;
   /** When true, this product is preferred as its category's feature card. Omit when it is not featured. */
@@ -194,88 +222,284 @@ export type PageMetadata = {
   description: string;
 };
 
-/** Home hero. `title` is the accessible name stored for the video. */
-export type HeroSection = {
-  /** Section discriminant. */
-  type: "hero";
-  /** Accessible name of the hero video. */
-  title: string;
-  /** Hero video and poster. */
-  video: VideoAsset;
-  /** Optional product linked from the hero. Must exist in `products.json` when set. */
-  productSlug?: string;
+/**
+ * Screen-height hero still.
+ * `mobile` is the 9:16 crop and is also used at the tablet breakpoint.
+ * `desktop` is the 16:9 crop and is used from the desktop breakpoint.
+ */
+export type HeroImage = {
+  /** Portrait crop, 1080 by 1920. Shown below the desktop breakpoint. */
+  mobile: ImageAsset;
+  /** Landscape crop, 1920 by 1080. Shown from the desktop breakpoint. */
+  desktop: ImageAsset;
 };
 
-/** Best sellers block. Membership comes from `product.bestSeller`, not from this section. */
-export type BestSellersSection = {
-  /** Section discriminant. */
-  type: "bestSellers";
+/**
+ * Page padding for one block, in spacing-scale steps.
+ * `20` is the same step as `pt-20`. A missing breakpoint copies the smaller one.
+ * A missing side is `0`.
+ */
+export type BlockSpacing = {
+  /** Steps below 810. */
+  mobile?: BlockSpacingSide;
+  /** Steps from 810. Omitted sides copy `mobile`. */
+  tablet?: BlockSpacingSide;
+  /** Steps from 1200. Omitted sides copy `tablet`. */
+  desktop?: BlockSpacingSide;
+};
+
+/** One breakpoint of `BlockSpacing`. Omitted sides are `0`. */
+export type BlockSpacingSide = {
+  /** Top step. */
+  top?: number;
+  /** Right step. */
+  right?: number;
+  /** Bottom step. */
+  bottom?: number;
+  /** Left step. */
+  left?: number;
+};
+
+/** Home hero. The still is `product.heroImage`. Copy and the link are on the block. */
+export type HeroBlock = {
+  /** Block discriminant. */
+  component: "hero";
+  /** Heading. */
+  title: string;
+  /** Line under the title. Omit when the hero has none. */
+  subtitle?: string;
+  /** Destination of the learn-more link. Omit when the hero has no link. */
+  href?: string;
+  /** Product whose `heroImage` fills the frame. */
+  productSlug: string;
+  /** Page padding. Omit for a full-bleed frame. */
+  spacing?: BlockSpacing;
+};
+
+/**
+ * A carousel of product cards.
+ * `productSlugs` use the cutout. `featureProductSlug` uses `featuredImage` and is shown first.
+ */
+export type CarouselBlock = {
+  /** Block discriminant. */
+  component: "carousel";
   /** Section heading. */
   title: string;
+  /** Card size. Omit for large cards. */
+  cardType?: CardType;
+  /** Orientation of a large or medium card. Omit for horizontal. Ignored for small cards. */
+  cardVariant?: CardVariantName;
+  /** `contained` or `overflow`. Omit for the carousel default. */
+  mode?: CarouselModeName;
+  /** Full cards in view at each breakpoint. */
+  visible?: CarouselVisible;
+  /** Overflow end inset, in spacing steps. */
+  endOffset?: CarouselEndOffset;
+  /** How much of the next card stays in view, as a percentage. */
+  peek?: CarouselPeek;
+  /** Overflow start inset, in spacing steps. */
+  inset?: CarouselInset;
+  /** Position dots. Omit to show only the arrows. */
+  showDots?: boolean;
+  /** Products rendered with the cutout, in this order. */
+  productSlugs: string[];
+  /** Product rendered first with `featuredImage`. Omit when every card is a cutout. */
+  featureProductSlug?: string;
+  /** Page padding. */
+  spacing?: BlockSpacing;
 };
 
-/** A category block. Products are loaded from that category, not copied into the section. */
-export type CategoryShowcaseSection = {
-  /** Section discriminant. */
-  type: "categoryShowcase";
-  /** Category whose products fill the block. */
-  category: CategoryId;
-  /** Presentation of the same feature-card selection. */
+/**
+ * Category block.
+ * `feature-top` and `feature-left` use `featureProductSlug` as the feature card.
+ * `row` renders `productSlugs` as small cards and omits the feature slug.
+ */
+export type CategoryShowcaseBlock = {
+  /** Block discriminant. */
+  component: "categoryShowcase";
+  /** Heading. */
+  title: string;
+  /** Line under the title. Omit when the block has none. */
+  subtitle?: string;
+  /** Destination of the explore link. The label stays `site.exploreAll`. */
+  href: string;
+  /** Presentation. */
   layout: ShowcaseLayout;
-  /**
-   * Maximum products in the block, including the feature card.
-   * The feature card stays, and at most `limit - 1` other products follow. Omit for no cap.
-   */
-  limit?: number;
+  /** Feature card. Uses `featuredImage`. Omit on `row`. */
+  featureProductSlug?: string;
+  /** Other cards, or every card on `row`. Each uses the cutout. */
+  productSlugs: string[];
+  /** Page padding. */
+  spacing?: BlockSpacing;
 };
+
+/** Shared banner options. */
+type BannerBlockBase = {
+  /** Block discriminant. */
+  component: "banner";
+  /** Set only when this banner is the page hero. */
+  priority?: boolean;
+  /** Page padding. Omit when the banner is full bleed. */
+  spacing?: BlockSpacing;
+};
+
+/**
+ * Copy promo.
+ * The picture, heading, and link are on the block.
+ * The link label stays `site.learnMore`.
+ */
+export type CopyBannerBlock = BannerBlockBase & {
+  /** Heading. */
+  title: string;
+  /** Line under the title. */
+  subtitle: string;
+  /** Destination of the learn-more link. The label stays `site.learnMore`. */
+  href: string;
+  /**
+   * Picture for the frame.
+   * `src` has no breakpoint suffix.
+   */
+  images: BannerImages;
+  /** Button style. Omit for primary. */
+  variant?: ButtonVariantName;
+};
+
+/**
+ * One banner picture exported three times.
+ * `src` has no breakpoint suffix. The files add `-desktop`, `-mobile`, and `-tablet` before the extension.
+ */
+export type BannerImages = {
+  /** Path without a breakpoint suffix. */
+  src: string;
+  /** Accessible description shared by every crop. */
+  alt: string;
+  /** Pixel size of the desktop file. */
+  desktop: BannerImageSize;
+  /** Pixel size of the mobile file. */
+  mobile: BannerImageSize;
+  /** Pixel size of the tablet file. */
+  tablet: BannerImageSize;
+};
+
+/** Pixel size of one banner crop. The path comes from `BannerImages.src`. */
+export type BannerImageSize = {
+  /** Pixel width of this crop. */
+  width: number;
+  /** Pixel height of this crop. */
+  height: number;
+};
+
+/** Action on an image banner. The label is on the block, not `site.learnMore`. */
+export type BannerButton = {
+  /** Visible label. */
+  label: string;
+  /** Destination. */
+  href: string;
+  /** Button style. Omit for primary. */
+  variant?: ButtonVariantName;
+};
+
+/**
+ * Promo with its own crops.
+ * No product. Omit `title` and `subtitle` to show only the button.
+ */
+export type ImageBannerBlock = BannerBlockBase & {
+  /** Mobile, tablet, and desktop crops. */
+  images: BannerImages;
+  /** Action. Its label and destination are on the block. */
+  button: BannerButton;
+  /** Heading. Omit when the frame has only a button. */
+  title?: string;
+  /** Line under the title. Omit when the frame has only a button. */
+  subtitle?: string;
+};
+
+/** Full-width promo. A product banner or an image banner. */
+export type BannerBlock = CopyBannerBlock | ImageBannerBlock;
 
 /** Block that links to every category. */
-export type ExploreCategoriesSection = {
-  /** Section discriminant. */
-  type: "exploreCategories";
+export type ExploreCategoriesBlock = {
+  /** Block discriminant. */
+  component: "exploreCategories";
   /** Section heading. */
   title: string;
+  /** Page padding. */
+  spacing?: BlockSpacing;
 };
 
 /** Find-us block. Its copy comes from `site.storeBanner`. */
-export type StoreBannerSection = {
-  /** Section discriminant. */
-  type: "storeBanner";
+export type StoreBannerBlock = {
+  /** Block discriminant. */
+  component: "storeBanner";
+  /** Page padding. */
+  spacing?: BlockSpacing;
 };
 
 /** Product detail media and buy panel. The page passes the loaded product. */
-export type ProductShowcaseSection = {
-  /** Section discriminant. */
-  type: "productShowcase";
+export type ProductShowcaseBlock = {
+  /** Block discriminant. */
+  component: "productShowcase";
+  /** Page padding. */
+  spacing?: BlockSpacing;
 };
 
 /** Product specification accordion. The page passes the loaded product. */
-export type SpecAccordionSection = {
-  /** Section discriminant. */
-  type: "specAccordion";
+export type SpecAccordionBlock = {
+  /** Block discriminant. */
+  component: "specAccordion";
+  /** Page padding. */
+  spacing?: BlockSpacing;
 };
 
-/** One ordered block on a page. `type` selects the component. */
+/** One ordered block on a page. `component` selects what is rendered. */
 export type Section =
-  | HeroSection
-  | BestSellersSection
-  | CategoryShowcaseSection
-  | ExploreCategoriesSection
-  | StoreBannerSection
-  | ProductShowcaseSection
-  | SpecAccordionSection;
+  | HeroBlock
+  | CarouselBlock
+  | CategoryShowcaseBlock
+  | BannerBlock
+  | ExploreCategoriesBlock
+  | StoreBannerBlock
+  | ProductShowcaseBlock
+  | SpecAccordionBlock;
 
 type Equals<A, B> = [A] extends [B] ? ([B] extends [A] ? true : false) : false;
 
 type AssertTrue<T extends true> = T;
 
 type SectionTypesMatch = AssertTrue<
-  Equals<Section["type"], (typeof SECTION_TYPES)[number]>
+  Equals<Section["component"], (typeof SECTION_TYPES)[number]>
+>;
+
+type CarouselModesMatch = AssertTrue<
+  Equals<CarouselMode, (typeof CAROUSEL_MODES)[number]>
+>;
+
+type CardVariantsMatch = AssertTrue<
+  Equals<CardLargeVariant, (typeof CARD_VARIANTS)[number]>
+>;
+
+type ButtonVariantsMatch = AssertTrue<
+  Equals<Variant, (typeof BUTTON_VARIANTS)[number]>
 >;
 
 /** Discriminant of `Section`. Stays equal to `(typeof SECTION_TYPES)[number]`. */
 export type SectionType = SectionTypesMatch extends true
-  ? Section["type"]
+  ? Section["component"]
+  : never;
+
+/** One of `CAROUSEL_MODES`. Stays equal to `CarouselMode`. */
+export type CarouselModeName = CarouselModesMatch extends true
+  ? (typeof CAROUSEL_MODES)[number]
+  : never;
+
+/** One of `CARD_VARIANTS`. Stays equal to `CardLargeVariant`. */
+export type CardVariantName = CardVariantsMatch extends true
+  ? (typeof CARD_VARIANTS)[number]
+  : never;
+
+/** One of `BUTTON_VARIANTS`. Stays equal to `Variant`. */
+export type ButtonVariantName = ButtonVariantsMatch extends true
+  ? (typeof BUTTON_VARIANTS)[number]
   : never;
 
 /** A page file. */
@@ -363,6 +587,16 @@ export type Site = {
     title: string;
     /** Banner body. */
     text: string;
+  };
+  /** Shared product link used by the hero and the best-seller cards. */
+  learnMore: {
+    /** Visible label of the link. */
+    label: string;
+  };
+  /** Shared category link used by the feature-top heading. */
+  exploreAll: {
+    /** Visible label of the link. */
+    label: string;
   };
   /** Footer chrome, link groups, and legal line. */
   footer: {

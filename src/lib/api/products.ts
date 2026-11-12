@@ -16,6 +16,24 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
   return products.find((product) => product.slug === slug) ?? null;
 }
 
+/**
+ * Products for these slugs, in the given order.
+ * A missing slug throws. The list is not filtered and is not reordered.
+ */
+export async function getProductsBySlugs(slugs: readonly string[]): Promise<Product[]> {
+  const products = await getProducts();
+
+  return slugs.map((slug) => {
+    const product = products.find((item) => item.slug === slug);
+
+    if (!product) {
+      throw new Error(`Unknown product slug: ${slug}`);
+    }
+
+    return product;
+  });
+}
+
 /** Products with `bestSeller: true`, in file order. */
 export async function getBestSellers(): Promise<Product[]> {
   const products = await getProducts();

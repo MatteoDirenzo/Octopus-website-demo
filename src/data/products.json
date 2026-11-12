@@ -4,18 +4,18 @@
     "slug": "kettle-1-7-l",
     "name": "Octopus Kettle 1.7 L",
     "category": "kitchen",
-    "shortDescription": "Placeholder",
+    "shortDescription": "A 1.7 L kettle that boils fast on 1800W, with a body that stays cool to the touch",
     "image": {
-      "src": "/images/placeholders/products/kettle-1-7-l.png",
-      "alt": "Placeholder",
-      "width": 800,
-      "height": 800
+      "src": "/images/products/boling-pot.webp",
+      "alt": "Octopus Kettle 1.7 L",
+      "width": 719,
+      "height": 719
     },
-    "featureImage": {
-      "src": "/images/placeholders/products/kettle-1-7-l-feature.png",
+    "featuredImage": {
+      "src": "/images/products/kettle-wide.webp",
       "alt": "Placeholder",
-      "width": 1600,
-      "height": 1200
+      "width": 3200,
+      "height": 1106
     },
     "bestSeller": false,
     "featured": true
@@ -25,12 +25,12 @@
     "slug": "blender",
     "name": "Octopus Blender",
     "category": "kitchen",
-    "shortDescription": "Placeholder",
+    "shortDescription": "A portable blender that blends straight into a cup you can take with you",
     "image": {
-      "src": "/images/placeholders/products/blender.png",
-      "alt": "Placeholder",
-      "width": 800,
-      "height": 800
+      "src": "/images/products/mixer.webp",
+      "alt": "Octopus Blender",
+      "width": 719,
+      "height": 719
     },
     "bestSeller": false
   },
@@ -39,12 +39,12 @@
     "slug": "countertop-blender",
     "name": "Octopus Countertop Blender",
     "category": "kitchen",
-    "shortDescription": "Placeholder",
+    "shortDescription": "A powerful blender that crushes ice and blends smooth with seven presets",
     "image": {
-      "src": "/images/placeholders/products/countertop-blender.png",
-      "alt": "Placeholder",
-      "width": 800,
-      "height": 800
+      "src": "/images/products/mixer-big.webp",
+      "alt": "Octopus Countertop Blender",
+      "width": 719,
+      "height": 719
     },
     "bestSeller": false,
     "detail": {
@@ -162,10 +162,10 @@
     "category": "kitchen",
     "shortDescription": "Placeholder",
     "image": {
-      "src": "/images/placeholders/products/air-fryer-5-7-l.png",
+      "src": "/images/products/air-fryer.webp",
       "alt": "Placeholder",
-      "width": 800,
-      "height": 800
+      "width": 719,
+      "height": 719
     },
     "bestSeller": true
   },
@@ -176,16 +176,16 @@
     "category": "home-security",
     "shortDescription": "Placeholder",
     "image": {
-      "src": "/images/placeholders/products/indoor-camera.png",
+      "src": "/images/products/security-cam.webp",
       "alt": "Placeholder",
-      "width": 800,
-      "height": 800
+      "width": 724,
+      "height": 724
     },
-    "featureImage": {
-      "src": "/images/placeholders/products/indoor-camera-feature.png",
+    "featuredImage": {
+      "src": "/images/products/security-camera-wide.webp",
       "alt": "Placeholder",
-      "width": 1600,
-      "height": 1200
+      "width": 992,
+      "height": 1178
     },
     "bestSeller": true,
     "featured": true
@@ -195,20 +195,35 @@
     "slug": "ionic-hair-dryer",
     "name": "Octopus Ionic Hair Dryer",
     "category": "hair-care",
-    "shortDescription": "Placeholder",
+    "shortDescription": "Dry your hair faster and with less frizz with this powerful ionic hair dryer",
     "image": {
-      "src": "/images/placeholders/products/ionic-hair-dryer.png",
+      "src": "/images/products/hair-dryer.webp",
       "alt": "Placeholder",
-      "width": 800,
-      "height": 800
+      "width": 724,
+      "height": 724
     },
-    "featureImage": {
-      "src": "/images/placeholders/products/ionic-hair-dryer-feature.png",
-      "alt": "Placeholder",
-      "width": 1600,
-      "height": 1200
+    "featuredImage": {
+      "src": "/images/banner-girl-desktop.webp",
+      "alt": "Woman drying her hair",
+      "width": 4092,
+      "height": 2075
     },
-    "bestSeller": false
+    "heroImage": {
+      "mobile": {
+        "src": "/images/hero-home-poster-mobile.webp",
+        "alt": "Placeholder",
+        "width": 1080,
+        "height": 1920
+      },
+      "desktop": {
+        "src": "/images/hero-home-poster.webp",
+        "alt": "Placeholder",
+        "width": 1920,
+        "height": 1080
+      }
+    },
+    "bestSeller": true,
+    "featured": true
   },
   {
     "id": "outdoor-camera",
@@ -217,10 +232,10 @@
     "category": "home-security",
     "shortDescription": "Placeholder",
     "image": {
-      "src": "/images/placeholders/products/outdoor-camera.png",
+      "src": "/images/products/security-cam-2.webp",
       "alt": "Placeholder",
-      "width": 800,
-      "height": 800
+      "width": 724,
+      "height": 724
     },
     "bestSeller": false
   },
@@ -231,10 +246,10 @@
     "category": "home-security",
     "shortDescription": "Placeholder",
     "image": {
-      "src": "/images/placeholders/products/video-doorbell.png",
+      "src": "/images/products/security-home.webp",
       "alt": "Placeholder",
-      "width": 800,
-      "height": 800
+      "width": 724,
+      "height": 724
     },
     "bestSeller": false
   },
@@ -245,10 +260,10 @@
     "category": "accessories",
     "shortDescription": "Placeholder",
     "image": {
-      "src": "/images/placeholders/products/power-bank-10000-mah.png",
+      "src": "/images/products/powerbank.webp",
       "alt": "Placeholder",
-      "width": 800,
-      "height": 800
+      "width": 724,
+      "height": 724
     },
     "bestSeller": false
   },
@@ -259,10 +274,10 @@
     "category": "accessories",
     "shortDescription": "Placeholder",
     "image": {
-      "src": "/images/placeholders/products/power-board-with-usb-charging.png",
+      "src": "/images/products/outlet.webp",
       "alt": "Placeholder",
-      "width": 800,
-      "height": 800
+      "width": 724,
+      "height": 724
     },
     "bestSeller": false
   },
@@ -273,10 +288,10 @@
     "category": "accessories",
     "shortDescription": "Placeholder",
     "image": {
-      "src": "/images/placeholders/products/3-in-1-magnetic-charging-station.png",
+      "src": "/images/products/magsafe-stand.webp",
       "alt": "Placeholder",
-      "width": 800,
-      "height": 800
+      "width": 724,
+      "height": 724
     },
     "bestSeller": false
   }

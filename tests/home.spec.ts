@@ -11,5 +11,10 @@ test("home page renders its placeholder content", async ({ page }) => {
   await page.goto("/");
 
   await expect(page).toHaveTitle(home.metadata.title);
-  await expect(page.getByRole("region", { name: "hero" })).toBeVisible();
+  await expect(
+    page.getByRole("heading", { level: 1, name: "Octopus Ionic Hair Dryer" }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("heading", { level: 2, name: "Best sellers" }),
+  ).toBeVisible();
 });
