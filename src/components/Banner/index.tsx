@@ -53,7 +53,7 @@ export function Banner(props: BannerProps) {
   const { image, priority = false } = props;
 
   return (
-    <article className="relative h-banner w-full min-w-0 overflow-hidden rounded-card tablet:h-banner-tablet desktop:h-banner-desktop">
+    <article className="relative h-banner w-full min-w-0 overflow-hidden tablet:h-banner-tablet desktop:h-banner-desktop">
       <Image
         src={image.src}
         alt={image.alt}

@@ -25,6 +25,11 @@ export type CardLargeVariant = "horizontal" | "vertical";
 export type CardLargeProps = {
   /** Horizontal at every breakpoint, or vertical from 1200. */
   variant: CardLargeVariant;
+  /**
+   * From 1200, a vertical card fills its parent instead of the fixed height.
+   * The image uses the space under the copy. Ignored on the horizontal variant.
+   */
+  fill?: boolean;
   /** Short label above the title. Omit when the card has none. */
   eyebrow?: string;
   title: string;
@@ -37,10 +42,12 @@ export type CardLargeProps = {
  * Large highlight card. Copy comes first in the DOM, so the horizontal row
  * keeps the text on the left and the image on the right. The image side has
  * no padding. Vertical is desktop only, so below 1200 it uses that row.
- * The card is not a link. The width comes from the parent.
+ * The card is not a link. The width comes from the parent. `fill` lets a
+ * vertical card match a sibling stack instead of the fixed desktop height.
  */
 export function CardLarge({
   variant,
+  fill = false,
   eyebrow,
   title,
   description,
@@ -55,7 +62,11 @@ export function CardLarge({
         "tablet:h-card-large-tablet tablet:flex-row tablet:items-stretch tablet:pt-0 tablet:pr-0 tablet:pb-0 tablet:pl-10",
         variant === "horizontal" && "desktop:h-card-large-desktop desktop:pl-20",
         variant === "vertical" &&
-          "desktop:h-card-large-vertical desktop:flex-col desktop:px-16 desktop:pt-card-large-vertical-y desktop:pb-0",
+          "desktop:flex-col desktop:px-16 desktop:pt-card-large-vertical-y desktop:pb-0",
+        variant === "vertical" &&
+          (fill
+            ? "desktop:h-full desktop:min-h-0"
+            : "desktop:h-card-large-vertical"),
       )}
     >
       <div
@@ -90,7 +101,11 @@ export function CardLarge({
           "order-2 h-auto w-full min-w-0",
           "tablet:h-full tablet:w-auto tablet:max-w-card-image tablet:shrink-0 tablet:object-contain",
           variant === "vertical" &&
-            "desktop:order-2 desktop:h-auto desktop:w-full desktop:max-w-none",
+            "desktop:order-2 desktop:w-full desktop:max-w-none",
+          variant === "vertical" &&
+            (fill
+              ? "desktop:h-auto desktop:min-h-0 desktop:flex-1 desktop:object-contain desktop:object-bottom"
+              : "desktop:h-auto"),
         )}
       />
     </article>

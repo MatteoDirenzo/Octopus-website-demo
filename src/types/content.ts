@@ -9,7 +9,7 @@ export const CATEGORIES = [
 /** Id of a category in `categories.json`. */
 export type CategoryId = (typeof CATEGORIES)[number];
 
-/** Showcase layouts. `banner` renders no section header; the others use the same product selection. */
+/** Showcase layouts. `banner` renders no section header. `row` is small cards only. The feature layouts share one product selection. */
 export const SHOWCASE_LAYOUTS = [
   "feature-top",
   "feature-left",
@@ -220,11 +220,12 @@ export type CategoryShowcaseSection = {
   type: "categoryShowcase";
   /** Category whose products fill the block. */
   category: CategoryId;
-  /** Presentation of the same feature-card selection. */
+  /** Presentation. `row` is small cards only. The feature layouts share one selection. */
   layout: ShowcaseLayout;
   /**
-   * Maximum products in the block, including the feature card.
-   * The feature card stays, and at most `limit - 1` other products follow. Omit for no cap.
+   * Maximum products in the block.
+   * On a feature layout this includes the feature card: that card stays, and at most `limit - 1` others follow.
+   * On `row` it is the number of small cards. Omit for no cap.
    */
   limit?: number;
 };

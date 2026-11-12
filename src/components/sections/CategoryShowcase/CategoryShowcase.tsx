@@ -1,33 +1,26 @@
-import { Banner } from "@/components/Banner";
-import { CardLarge } from "@/components/CardLarge";
-import { CardMedium } from "@/components/CardMedium";
-import { Heading } from "@/components/Heading";
+import {
+  CategoryShowcase as CategoryShowcaseLayout,
+  type CategoryShowcaseCard,
+} from "@/components/CategoryShowcase";
 import {
   getCategory,
   getProductsByCategory,
   getSite,
   splitCategoryProducts,
 } from "@/lib/api";
-import type { CategoryShowcaseSection } from "@/types/content";
+import type { Product } from "@/types/content";
 import type { SectionViewProps } from "../types";
 
 /**
- * `feature-top` category block. The heading sits 40px above the cards, and
- * 80px from 1200. Cards are 16px apart, and 24px from 1200. The section pads
- * 40px, 16px, and 80px below 810; 80px, 32px, and 40px from 810; and 60px,
- * 128px, and 180px from 1200. The feature card is a horizontal large card.
- * The other cards are vertical medium cards, stacked below 810 and in one
- * row from 810. `banner` is a full-width Banner with no section padding and
- * no section header. `feature-left` and `row` stay as a placeholder.
+ * Loads a category showcase and passes the heading and cards into the shared
+ * layout. `feature-top` and `feature-left` use the same product selection.
+ * `row` passes the category products as small cards and omits the feature card.
+ * `banner` stays as a placeholder.
  */
 export async function CategoryShowcase({
   section,
 }: SectionViewProps<"categoryShowcase">) {
   if (section.layout === "banner") {
-    return renderBanner(section);
-  }
-
-  if (section.layout !== "feature-top") {
     return <section aria-label={section.type}>{section.type}</section>;
   }
 
@@ -41,89 +34,51 @@ export async function CategoryShowcase({
     return null;
   }
 
-  const { feature, cards } = splitCategoryProducts(products, section.limit);
   const titleId = `${section.type}-${section.category}`;
+  const label = site.learnMore.label;
+  const button = { label: site.exploreAll.label, href: category.href };
+
+  if (section.layout === "row") {
+    const visible =
+      section.limit === undefined
+        ? products
+        : products.slice(0, section.limit);
+
+    return (
+      <CategoryShowcaseLayout
+        titleId={titleId}
+        title={category.title}
+        subtitle={category.tagline}
+        button={button}
+        cards={visible.map((product) => toCard(product, label))}
+      />
+    );
+  }
+
+  const { feature, cards } = splitCategoryProducts(products, section.limit);
 
   return (
-    <section
-      aria-labelledby={titleId}
-      className="px-4 pt-10 pb-20 tablet:px-8 tablet:pt-20 tablet:pb-10 desktop:px-32 desktop:pt-15 desktop:pb-45"
-    >
-      <div className="flex w-full min-w-0 flex-col gap-10 desktop:gap-20">
-        <Heading
-          variant="secondary"
-          titleId={titleId}
-          title={category.title}
-          subtitle={category.tagline}
-          button={{ label: site.exploreAll.label, href: category.href }}
-        />
-        {feature ? (
-          <div className="flex w-full min-w-0 flex-col gap-4 desktop:gap-6">
-            <CardLarge
-              variant="horizontal"
-              title={feature.name}
-              description={feature.shortDescription}
-              image={feature.image}
-              cta={{
-                label: site.learnMore.label,
-                href: `/product/${feature.slug}`,
-              }}
-            />
-            {cards.length > 0 ? (
-              <div className="flex min-w-0 flex-col gap-4 tablet:flex-row desktop:gap-6">
-                {cards.map((product) => (
-                  <div key={product.id} className="min-w-0 flex-1">
-                    <CardMedium
-                      variant="vertical"
-                      title={product.name}
-                      description={product.shortDescription}
-                      image={product.image}
-                      cta={{
-                        label: site.learnMore.label,
-                        href: `/product/${product.slug}`,
-                      }}
-                    />
-                  </div>
-                ))}
-              </div>
-            ) : null}
-          </div>
-        ) : null}
-      </div>
-    </section>
+    <CategoryShowcaseLayout
+      layout={section.layout}
+      titleId={titleId}
+      title={category.title}
+      subtitle={category.tagline}
+      button={button}
+      feature={feature ? toCard(feature, label) : undefined}
+      cards={cards.map((product) => toCard(product, label))}
+    />
   );
 }
 
-/**
- * Full-width promo for the category feature product. The section adds no
- * padding; the Banner keeps its own copy inset. Copy and the image come
- * from that product, and the link uses `site.learnMore`.
- */
-async function renderBanner(section: CategoryShowcaseSection) {
-  const [products, site] = await Promise.all([
-    getProductsByCategory(section.category),
-    getSite(),
-  ]);
-  const { feature } = splitCategoryProducts(products, section.limit);
-
-  if (!feature?.featureImage) {
-    return null;
-  }
-
-  const titleId = `${section.type}-${section.category}`;
-
-  return (
-    <section aria-labelledby={titleId}>
-      <Banner
-        titleId={titleId}
-        title={feature.name}
-        subtitle={feature.shortDescription}
-        image={feature.featureImage}
-        cta={{
-          label: site.learnMore.label,
-          href: `/product/${feature.slug}`,
-        }}
-      />
-    </section>
-  );
+/** Card copy for one product. The link uses the shared learn-more label. */
+function toCard(product: Product, label: string): CategoryShowcaseCard {
+  return {
+    title: product.name,
+    description: product.shortDescription,
+    image: product.image,
+    cta: {
+      label,
+      href: `/product/${product.slug}`,
+    },
+  };
 }

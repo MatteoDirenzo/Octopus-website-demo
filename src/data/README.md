@@ -119,7 +119,7 @@ A section page file is `{ metadata?, sections[] }`. `metadata` has `title` and `
 | --- | --- | --- |
 | `hero` | `title` (accessible name of the video), `video` (`VideoAsset`), `productSlug` | `title` and `video` required. `productSlug` optional; when set, the slug must exist. |
 | `bestSellers` | `title` | `title` required. Membership comes from `bestSeller`, not from this section. |
-| `categoryShowcase` | `category`, `layout`, `limit` | `category` and `layout` required. `limit` optional. `limit` counts the feature card: the feature card plus at most `limit - 1` others. |
+| `categoryShowcase` | `category`, `layout`, `limit` | `category` and `layout` required. `limit` optional. On a feature layout, `limit` counts the feature card: the feature card plus at most `limit - 1` others. On `row`, `limit` is the number of small cards. |
 | `exploreCategories` | `title` | `title` required. |
 | `storeBanner` | none | Copy comes from `site.storeBanner`. |
 | `productShowcase` | none | The page passes the loaded product. |
@@ -142,15 +142,15 @@ Defined once as `as const` arrays in `src/types/content.ts`. Derived types follo
 Layouts:
 
 - `feature-top`: heading, one horizontal large card for the feature product, then the other products as vertical medium cards. The heading uses the category title and tagline, and `site.exploreAll`. Cards use `product.image` and `site.learnMore`.
-- `feature-left`: category showcase. Uses the feature-card selection below.
-- `row`: category showcase. Uses the feature-card selection below.
-- `banner`: full-width Banner with no section padding and no section header. Uses the feature product's name, `shortDescription`, and `featureImage`, and `site.learnMore`. The feature card's product must have `featureImage`.
+- `feature-left`: same heading and cards as `feature-top`. Below 1200 the stack matches `feature-top`. From 1200 the feature card is a vertical large card on the left, and the other products stack on the right as horizontal medium cards. The feature card matches the height of that stack.
+- `row`: heading, then the category products as small cards. No feature card. Stacked below 810 and in one row from 810. The heading uses the category title and tagline, and `site.exploreAll`. Cards use `product.image` and `site.learnMore`. `limit` caps the row. Without `limit`, every product in the category is shown.
+- `banner`: not rendered by the section yet. The layout stays in the page config. It is a full-width Banner with no section padding and no section header, using the feature product's name, `shortDescription`, and `featureImage`, and `site.learnMore`. The feature card's product must have `featureImage`.
 
 ## Selection rules
 
 Best sellers are the products with `bestSeller: true`, in file order.
 
-The category feature card is the first product with `featured: true`. Otherwise it is the first product in that category. The rest are the other products, in file order.
+The category feature card is the first product with `featured: true`. Otherwise it is the first product in that category. The rest are the other products, in file order. `row` does not pick a feature card. It shows the category products in file order, capped by `limit` when set.
 
 `splitCategoryProducts(products, limit?)` keeps that feature card plus at most `limit - 1` others. Without `limit`, the other products all wrap. `getProductsByCategory` stays uncapped.
 

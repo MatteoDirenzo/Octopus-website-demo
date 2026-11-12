@@ -55,38 +55,83 @@ test("renders the kitchen feature card and two medium cards", async () => {
   ]);
 });
 
-test("renders the hair-care banner with no category heading", async () => {
+test("renders the home-security feature card and two medium cards", async () => {
   const page = await getPage("home");
   const section = page.sections.find(
-    (item) => item.type === "categoryShowcase" && item.layout === "banner",
+    (item) =>
+      item.type === "categoryShowcase" && item.layout === "feature-left",
   );
 
   if (!section || section.type !== "categoryShowcase") {
-    throw new Error("Hair-care banner is missing");
+    throw new Error("Home-security showcase is missing");
   }
 
   render(await CategoryShowcase({ section }));
 
   expect(
-    screen.getByRole("heading", {
-      level: 2,
-      name: "Octopus Ionic Hair Dryer",
-    }),
+    screen.getByRole("heading", { level: 2, name: "Home Security" }),
   ).toBeTruthy();
   expect(
-    screen.getByText(
-      "Dry your hair faster and with less frizz with this powerful ionic hair dryer",
-    ),
+    screen.getByRole("link", { name: "Explore all products" }).getAttribute("href"),
+  ).toBe("/category/home-security");
+
+  const feature = screen.getByRole("heading", {
+    level: 3,
+    name: "Octopus Indoor Camera",
+  });
+
+  expect(feature.closest("article")?.className).toContain("desktop:h-full");
+  expect(feature.closest("article")?.className).not.toContain(
+    "desktop:h-card-large-vertical",
+  );
+
+  for (const name of ["Octopus Outdoor Camera", "Octopus Video Doorbell"]) {
+    const heading = screen.getByRole("heading", { level: 3, name });
+
+    expect(heading.closest("article")?.className).toContain(
+      "desktop:h-card-medium-horizontal",
+    );
+  }
+
+  const links = screen.getAllByRole("link", { name: "Learn more" });
+
+  expect(links.map((link) => link.getAttribute("href"))).toEqual([
+    "/product/indoor-camera",
+    "/product/outdoor-camera",
+    "/product/video-doorbell",
+  ]);
+});
+
+test("renders the accessories row as three small cards", async () => {
+  const page = await getPage("home");
+  const section = page.sections.find(
+    (item) => item.type === "categoryShowcase" && item.layout === "row",
+  );
+
+  if (!section || section.type !== "categoryShowcase") {
+    throw new Error("Accessories showcase is missing");
+  }
+
+  render(await CategoryShowcase({ section }));
+
+  expect(
+    screen.getByRole("heading", { level: 2, name: "Accessories" }),
   ).toBeTruthy();
   expect(
-    screen.getByRole("img", { name: "Woman drying her hair" }),
-  ).toBeTruthy();
-  expect(
-    screen.getByRole("link", { name: "Learn more" }).getAttribute("href"),
-  ).toBe("/product/ionic-hair-dryer");
-  expect(screen.getAllByRole("link")).toHaveLength(1);
-  expect(screen.queryByRole("heading", { name: "Hair Care" })).toBeNull();
-  expect(
-    screen.queryByRole("link", { name: "Explore all products" }),
-  ).toBeNull();
+    screen.getByRole("link", { name: "Explore all products" }).getAttribute("href"),
+  ).toBe("/category/accessories");
+
+  for (const name of [
+    "Octopus Power Bank 10,000 mAh",
+    "Octopus Power Board with USB Charging",
+    "Octopus 3-in-1 Magnetic Charging Station",
+  ]) {
+    const article = screen
+      .getByRole("heading", { level: 3, name })
+      .closest("article");
+
+    expect(article?.className).toContain("h-card-small");
+  }
+
+  expect(screen.getAllByRole("heading", { level: 3 })).toHaveLength(3);
 });
