@@ -30,6 +30,18 @@ test("renders the title, description, selection line, child, and action", () => 
   );
 });
 
+test("the product page can title the product with an h1", () => {
+  render(
+    <ProductInfo {...copy} heading="h1" action={{ label: "Where to buy" }}>
+      <p>Swatches</p>
+    </ProductInfo>,
+  );
+
+  expect(
+    screen.getByRole("heading", { level: 1, name: "Octopus Blender Pro" }),
+  ).toBeTruthy();
+});
+
 test("an action href renders a link", () => {
   render(
     <ProductInfo

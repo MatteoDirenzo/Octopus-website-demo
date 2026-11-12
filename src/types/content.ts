@@ -46,8 +46,8 @@ export type VideoType = (typeof VIDEO_TYPES)[number];
 /** Carousel track modes. Stays equal to `CarouselMode`. */
 export const CAROUSEL_MODES = ["contained", "overflow"] as const;
 
-/** Card size chosen by a carousel block. */
-export const CARD_TYPES = ["large", "medium", "small"] as const;
+/** Card size chosen by a carousel block. `product` is a product card. */
+export const CARD_TYPES = ["large", "medium", "small", "product"] as const;
 
 /** One of `CARD_TYPES`. */
 export type CardType = (typeof CARD_TYPES)[number];
@@ -178,7 +178,9 @@ export type ProductDetail = {
   gallery: GalleryItem[];
   /** Specification groups. */
   specs: SpecGroup[];
-  /** Download links. */
+  /** Heading of the download row. */
+  downloadsTitle: string;
+  /** Download links. The detail page shows the first file. */
   downloads: Download[];
 };
 
@@ -285,9 +287,9 @@ export type CarouselBlock = {
   component: "carousel";
   /** Section heading. */
   title: string;
-  /** Card size. Omit for large cards. */
+  /** Card size. Omit for large cards. `product` renders a product card. */
   cardType?: CardType;
-  /** Orientation of a large or medium card. Omit for horizontal. Ignored for small cards. */
+  /** Orientation of a large or medium card. Omit for horizontal. Ignored for small and product cards. */
   cardVariant?: CardVariantName;
   /** `contained` or `overflow`. Omit for the carousel default. */
   mode?: CarouselModeName;

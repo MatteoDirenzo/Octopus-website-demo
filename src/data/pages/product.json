@@ -4,19 +4,27 @@
       "component": "productShowcase"
     },
     {
-      "component": "specAccordion"
-    },
-    {
       "component": "carousel",
       "title": "Best sellers",
-      "cardType": "large",
-      "cardVariant": "horizontal",
+      "cardType": "product",
       "mode": "overflow",
-      "visible": { "mobile": 1, "tablet": 1, "desktop": 1 },
+      "visible": { "mobile": 1, "tablet": 2, "desktop": 5 },
       "peek": { "mobile": 10, "tablet": 20, "desktop": 40 },
       "inset": { "mobile": 4, "tablet": 20, "desktop": 32 },
       "endOffset": { "mobile": 4, "tablet": 20, "desktop": 32 },
-      "productSlugs": ["air-fryer-5-7-l", "indoor-camera", "ionic-hair-dryer"],
+      "productSlugs": [
+        "air-fryer-5-7-l",
+        "indoor-camera",
+        "ionic-hair-dryer",
+        "kettle-1-7-l",
+        "blender",
+        "countertop-blender",
+        "outdoor-camera",
+        "video-doorbell",
+        "power-bank-10000-mah",
+        "power-board-with-usb-charging",
+        "3-in-1-magnetic-charging-station"
+      ],
       "spacing": {
         "mobile": { "top": 20, "bottom": 10 },
         "tablet": { "top": 8, "bottom": 8 },

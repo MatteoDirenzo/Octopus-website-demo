@@ -23,6 +23,7 @@ export type ProductCardProps = {
  * Product card. The image is a link only when `href` is set. Title and
  * description are optional. A label replaces both. The first line of copy
  * sits 16px under the image. A description under a title sits 8px below it.
+ * From 810 the copy is inset 24px on each side. Mobile has no side inset.
  * The width comes from the parent.
  */
 export function ProductCard({
@@ -55,27 +56,31 @@ export function ProductCard({
       ) : (
         <div className="overflow-hidden rounded-card">{imageElement}</div>
       )}
-      {label ? (
-        <p className="mt-4 text-center text-body text-text tablet:text-subtitle-m">
-          {label}
-        </p>
-      ) : (
-        <>
-          {title ? (
-            <h3 className="mt-4 text-title-bold text-text">{title}</h3>
-          ) : null}
-          {description ? (
-            <p
-              className={clsx(
-                "text-body text-text-muted",
-                title ? "mt-2" : "mt-4",
-              )}
-            >
-              {description}
+      {label || title || description ? (
+        <div className="tablet:px-6">
+          {label ? (
+            <p className="mt-4 text-center text-body text-text tablet:text-subtitle-m">
+              {label}
             </p>
-          ) : null}
-        </>
-      )}
+          ) : (
+            <>
+              {title ? (
+                <h3 className="mt-4 text-title-bold text-text">{title}</h3>
+              ) : null}
+              {description ? (
+                <p
+                  className={clsx(
+                    "text-body text-text-muted",
+                    title ? "mt-2" : "mt-4",
+                  )}
+                >
+                  {description}
+                </p>
+              ) : null}
+            </>
+          )}
+        </div>
+      ) : null}
     </article>
   );
 }

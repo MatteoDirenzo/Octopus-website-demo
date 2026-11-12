@@ -1,6 +1,6 @@
 import { cleanup, render, screen } from "@testing-library/react";
 import { afterEach, expect, test } from "vitest";
-import { getCategories, getPage, getProductsBySlugs } from "@/lib/api";
+import { getCategories, getPage, getProductBySlug, getProductsBySlugs } from "@/lib/api";
 import type { Section } from "@/types/content";
 import { PageSections } from "./index";
 
@@ -56,6 +56,31 @@ test("renders one learn more link for each carousel product", async () => {
   expect(links.map((link) => link.getAttribute("href"))).toEqual(
     products.map((product) => `/product/${product.slug}`),
   );
+});
+
+test("the product page carousel renders a product card for each slug", async () => {
+  const page = await getPage("product");
+  const block = page.sections.find((section) => section.component === "carousel");
+
+  if (!block || block.component !== "carousel") {
+    throw new Error("Product carousel is missing");
+  }
+
+  const products = await getProductsBySlugs(block.productSlugs);
+
+  render(await PageSections({ blocks: [block] }));
+
+  expect(screen.queryByRole("link", { name: "Learn more" })).toBeNull();
+
+  for (const product of products) {
+    expect(
+      screen.getByRole("heading", { level: 3, name: product.name }),
+    ).toBeTruthy();
+  }
+
+  expect(
+    screen.getAllByRole("link").map((link) => link.getAttribute("href")),
+  ).toEqual(products.map((product) => `/product/${product.slug}`));
 });
 
 test("renders the kitchen feature card and two medium cards", async () => {
@@ -212,6 +237,39 @@ test("renders the hair-care banner from the block copy and the suffixed picture"
   const picture = screen.getByRole("img", { name: "Woman drying her hair" });
 
   expect(picture.getAttribute("src")).toContain("banner-girl-mobile.webp");
+});
+
+test("renders the product name, a bento card, the specs, and where to buy", async () => {
+  const page = await getPage("product");
+  const block = page.sections.find(
+    (section) => section.component === "productShowcase",
+  );
+  const product = await getProductBySlug("countertop-blender");
+
+  if (!block || !product?.detail) {
+    throw new Error("Product showcase is missing");
+  }
+
+  render(await PageSections({ blocks: [block], product }));
+
+  expect(
+    screen.getByRole("heading", { level: 1, name: product.name }),
+  ).toBeTruthy();
+  expect(
+    screen.getByRole("img", { name: product.detail.mainImage.alt }),
+  ).toBeTruthy();
+  expect(
+    screen.getByRole("heading", { level: 3, name: "Built for the hard jobs" }),
+  ).toBeTruthy();
+  expect(
+    screen.getByRole("heading", { level: 3, name: "Technical specifications" }),
+  ).toBeTruthy();
+  expect(
+    screen.getByRole("link", { name: "Where to buy" }).getAttribute("href"),
+  ).toBe("/where-to-buy");
+  expect(
+    screen.getByRole("link", { name: "User manual" }).getAttribute("href"),
+  ).toBe("/downloads/countertop-blender.pdf");
 });
 
 test("renders the red banner from its crops and button, with no heading", async () => {

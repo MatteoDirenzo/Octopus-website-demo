@@ -15,7 +15,7 @@ Text fields use `Placeholder` until real copy replaces the value. Exported image
 | `categories.json` | The four categories. |
 | `products.json` | Every product, including detail-page content where `detail` is set. |
 | `pages/home.json` | Home metadata and the ordered home sections. |
-| `pages/product.json` | Ordered product-page sections. The product comes from the route slug. |
+| `pages/product.json` | Ordered product-page sections. The product comes from the route slug. Specs render inside `productShowcase`, so this file does not list `specAccordion`. |
 | `pages/where-to-buy.json` | Where to buy metadata and heading. The nav label stays in `site.json`. |
 | `pages/contact-us.json` | Contact metadata and heading. The nav label stays in `site.json`. |
 | `pages/policies.json` | Policies metadata. The page body is blank. The nav label stays in `site.json`. |
@@ -104,8 +104,9 @@ Each entry is a product. File order is the order of `getBestSellers` and of each
 | `detail.specs[].id` | Unique id within the product. | yes |
 | `detail.specs[].title` | Heading of the group. | yes |
 | `detail.specs[].items` | Lines shown in the group. | yes |
-| `detail.downloads` | Download links. | yes, inside `detail` |
-| `detail.downloads[].label` | Link text. | yes |
+| `detail.downloadsTitle` | Heading of the download row. | yes, inside `detail` |
+| `detail.downloads` | Download links. The detail page shows the first file. | yes, inside `detail` |
+| `detail.downloads[].label` | Link text. This is the file name. | yes |
 | `detail.downloads[].href` | Destination of the download. | yes |
 
 ## Page configs
@@ -121,13 +122,13 @@ A section page file is `{ metadata?, sections[] }`. `metadata` has `title` and `
 | `component` | Properties | Required on that block |
 | --- | --- | --- |
 | `hero` | `title`, `subtitle`, `href`, `productSlug`, `spacing` | `title` and `productSlug` required. The still is that product's `heroImage`. `subtitle` and `href` are optional. The link label stays `site.learnMore`. |
-| `carousel` | `title`, `cardType`, `cardVariant`, `mode`, `visible`, `peek`, `inset`, `endOffset`, `showDots`, `productSlugs`, `featureProductSlug`, `spacing` | `title` and `productSlugs` required. `productSlugs` use the cutout, in list order. `featureProductSlug` is optional, uses `featuredImage`, and is shown first. Pass-through props match `Carousel`. Omit one and the carousel keeps its default. |
+| `carousel` | `title`, `cardType`, `cardVariant`, `mode`, `visible`, `peek`, `inset`, `endOffset`, `showDots`, `productSlugs`, `featureProductSlug`, `spacing` | `title` and `productSlugs` required. `productSlugs` use the cutout, in list order. `featureProductSlug` is optional, uses `featuredImage`, and is shown first. `cardType` `product` renders `ProductCard` with the cutout, the name, and the short description. The image is the link. `cardVariant` is ignored for `small` and `product`. Pass-through props match `Carousel`. Omit one and the carousel keeps its default. |
 | `categoryShowcase` | `title`, `subtitle`, `href`, `layout`, `featureProductSlug`, `productSlugs`, `spacing` | `title`, `href`, `layout`, and `productSlugs` required. `feature-top` and `feature-left` require `featureProductSlug`. `row` omits it and renders `productSlugs` as small cards. The heading link label stays `site.exploreAll`. Card links use `site.learnMore`. |
 | `banner` | `title`, `subtitle`, `href`, `images`, `button`, `variant`, `priority`, `spacing` | One of two shapes. Both use `images`. `images.src` has no breakpoint suffix. The files add `-desktop`, `-mobile`, and `-tablet` before the extension. `images.desktop`, `images.mobile`, and `images.tablet` are that crop's `width` and `height`. The frame has a fixed height and the picture covers it. Copy: `title`, `subtitle`, `href`, and `images` required. The link label stays `site.learnMore`. Button: `images` and `button` (`label`, `href`, `variant`) required. `title` and `subtitle` are optional and omitted to show only the button. `variant` on a copy banner, and `button.variant` on a button banner, pass through to `Banner`. |
 | `exploreCategories` | `title`, `spacing` | `title` required. Cards are every category, in file order. The label is `title`, the link is `href`, and the picture is `tileImage`. |
 | `storeBanner` | `spacing` | Copy comes from `site.storeBanner`. |
-| `productShowcase` | `spacing` | The page passes the loaded product. |
-| `specAccordion` | `spacing` | The page passes the loaded product. |
+| `productShowcase` | `spacing` | The page passes the loaded product. The left column is the hero, then the gallery, then the specs. From 810 the info panel sticks beside that column. A gallery cell with a title is a bento card. A cell without a title is an image. Consecutive titled cells form one bento. `full` is a row of one. Two `half` cells share a row from 1200. |
+| `specAccordion` | `spacing` | The page passes the loaded product. The product page does not list this block. The specs already sit in `productShowcase`. |
 
 ## Allowed values
 
@@ -142,7 +143,7 @@ Defined once as `as const` arrays in `src/types/content.ts`. Derived types follo
 | `VIDEO_TYPES` | `video/mp4`, `video/webm` |
 | `SECTION_TYPES` | `hero`, `carousel`, `categoryShowcase`, `banner`, `exploreCategories`, `storeBanner`, `productShowcase`, `specAccordion` |
 | `CAROUSEL_MODES` | `contained`, `overflow` |
-| `CARD_TYPES` | `large`, `medium`, `small` |
+| `CARD_TYPES` | `large`, `medium`, `small`, `product` |
 | `CARD_VARIANTS` | `horizontal`, `vertical` |
 | `BUTTON_VARIANTS` | `primary`, `secondary`, `ghost` |
 | `FOOTER_COLUMNS` | `1`, `2` |

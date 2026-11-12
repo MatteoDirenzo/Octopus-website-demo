@@ -1,6 +1,8 @@
 import clsx from "clsx";
+import Image from "next/image";
 import { Fragment, type CSSProperties, type ReactNode } from "react";
 import { Banner } from "@/components/Banner";
+import { BentoBox } from "@/components/BentoBox";
 import { CardLarge } from "@/components/CardLarge";
 import { CardMedium } from "@/components/CardMedium";
 import { CardSmall } from "@/components/CardSmall";
@@ -9,9 +11,18 @@ import {
   type CategoryShowcaseCard,
 } from "@/components/CategoryShowcase";
 import { Carousel } from "@/components/Carousel";
+import { ColourSelector } from "@/components/ColourSelector";
 import { ExploreCategory } from "@/components/ExploreCategory";
 import { Heading } from "@/components/Heading";
+import { HeroProduct } from "@/components/HeroProduct";
 import { ImageHero } from "@/components/ImageHero";
+import { ProductCard } from "@/components/ProductCard";
+import { ProductInfo } from "@/components/ProductInfo";
+import {
+  TechnicalSpecs,
+  type SpecsDownload,
+  type SpecsGroup,
+} from "@/components/TechnicalSpecs";
 import { getCategories, getProductBySlug, getProductsBySlugs, getSite } from "@/lib/api";
 import type {
   BannerBlock,
@@ -25,8 +36,10 @@ import type {
   HeroBlock,
   ImageAsset,
   Product,
+  ProductDetail,
   Section,
 } from "@/types/content";
+import { groupGallery } from "./gallery";
 
 /**
  * Padding utilities stay written out so Tailwind can see them.
@@ -105,12 +118,9 @@ async function renderBlockContent(
     case "storeBanner":
       return <section aria-label={block.component}>{block.component}</section>;
     case "productShowcase":
+      return renderProductShowcase(product);
     case "specAccordion":
-      if (!product) {
-        throw new Error(`Section ${block.component} requires a product`);
-      }
-
-      return <section aria-label={block.component}>{block.component}</section>;
+      return renderSpecAccordion(product);
     default: {
       const unreachable: never = block;
       throw new Error(`Unregistered section: ${JSON.stringify(unreachable)}`);
@@ -125,6 +135,149 @@ async function renderBlockContent(
  * clears the header by 84px, with 32px on each side. From 1200 it is half the
  * frame and centered.
  */
+/**
+ * Detail page. The hero has no padding and fills the viewport. The grid
+ * pulls up under the fixed header, the same way the home hero does.
+ * The info column uses 16px, 32px from 810, and 128px from 1200 on each side.
+ * The gallery under the hero uses that same left inset, and no right inset,
+ * so the pictures meet the right edge of the column. The first item has the
+ * same space above it as the items have between them: 40px below 810, and
+ * 80px from 810.
+ * The info cell spans the hero and the media so it can stick for the whole
+ * left column. The sticky element is the inner box: the cell itself is as
+ * tall as that column, and a sticky box only stays put when it is shorter
+ * than its cell. The box is one viewport tall, stuck to the top, with header
+ * padding so the copy stays in the clear area. Specs sit in the column for
+ * the same reason. A later section would end the stick.
+ * The grid has no overflow. An overflow ancestor would break the stick.
+ * Below 810 the same order stacks, because the column and row placements
+ * start at 810.
+ */
+async function renderProductShowcase(product: Product | undefined) {
+  const detail = requireDetail(product, "productShowcase");
+  const colour = detail.colours[0];
+
+  if (!product || !colour) {
+    throw new Error(`Product ${product?.slug ?? "unknown"} is missing a colour`);
+  }
+
+  const site = await getSite();
+  const blocks = groupGallery(detail.gallery);
+  const colourLabel = "Colour";
+
+  return (
+    <div className="grid min-w-0 -mt-header grid-cols-1 tablet:-mt-header-tablet tablet:grid-cols-2">
+      <HeroProduct
+        image={detail.mainImage}
+        className="tablet:col-start-1 tablet:row-start-1"
+      />
+      <div className="min-w-0 px-4 tablet:col-start-2 tablet:row-span-2 tablet:row-start-1 tablet:px-8 desktop:px-32">
+        <div className="tablet:sticky tablet:top-0 tablet:flex tablet:h-dvh tablet:items-center tablet:pt-header-tablet">
+          <ProductInfo
+            heading="h1"
+            title={product.name}
+            description={detail.description}
+            selectionLabel={`${colourLabel} - ${colour.label}`}
+            action={{
+              label: site.header.whereToBuy.label,
+              href: site.header.whereToBuy.href,
+            }}
+          >
+            <ColourSelector
+              label={colourLabel}
+              options={detail.colours}
+              value={colour.id}
+            />
+          </ProductInfo>
+        </div>
+      </div>
+      <div className="flex min-w-0 flex-col gap-10 pt-10 pl-4 pr-4 tablet:col-start-1 tablet:row-start-2 tablet:gap-20 tablet:pt-20 tablet:pr-0 tablet:pl-8 desktop:pl-32">
+        {blocks.map((block, index) =>
+          block.kind === "image" ? (
+            <GalleryImage key={`${block.image.src}-${index}`} image={block.image} />
+          ) : (
+            <BentoBox key={`bento-${index}`} rows={block.rows} />
+          ),
+        )}
+        <TechnicalSpecs
+          groups={toSpecGroups(detail)}
+          download={toDownload(detail)}
+        />
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Full-width specs. The product page does not list this block.
+ * The specs already sit in the showcase column.
+ */
+function renderSpecAccordion(product: Product | undefined) {
+  const detail = requireDetail(product, "specAccordion");
+
+  return (
+    <TechnicalSpecs groups={toSpecGroups(detail)} download={toDownload(detail)} />
+  );
+}
+
+function requireDetail(product: Product | undefined, component: string) {
+  if (!product) {
+    throw new Error(`Section ${component} requires a product`);
+  }
+
+  const detail = product.detail;
+
+  if (!detail) {
+    throw new Error(`Product ${product.slug} is missing detail`);
+  }
+
+  return detail;
+}
+
+function toSpecGroups(detail: ProductDetail): SpecsGroup[] {
+  return detail.specs.map((group) => ({
+    id: group.id,
+    title: group.title,
+    body: { kind: "list", items: group.items },
+  }));
+}
+
+/**
+ * The specs component shows one file. Later downloads stay in the data.
+ */
+function toDownload(detail: ProductDetail): SpecsDownload | undefined {
+  const file = detail.downloads[0];
+
+  if (!file) {
+    return undefined;
+  }
+
+  return {
+    label: detail.downloadsTitle,
+    fileLabel: file.label,
+    href: file.href,
+  };
+}
+
+/**
+ * A gallery cell with no title. The radius matches the bento cards.
+ * `sizes` uses 810px, the same value as `--breakpoint-tablet`.
+ */
+function GalleryImage({ image }: { image: ImageAsset }) {
+  return (
+    <figure className="overflow-hidden rounded-card">
+      <Image
+        src={image.src}
+        alt={image.alt}
+        width={image.width}
+        height={image.height}
+        sizes="(min-width: 810px) 50vw, 100vw"
+        className="h-auto w-full"
+      />
+    </figure>
+  );
+}
+
 async function renderHero(block: HeroBlock) {
   const product = await requireProduct(block.productSlug);
 
@@ -396,6 +549,17 @@ function ProductSlide({
   cardVariant: CardVariantName;
 }) {
   const cta = { label, href: `/product/${product.slug}` };
+
+  if (cardType === "product") {
+    return (
+      <ProductCard
+        title={product.name}
+        description={product.shortDescription}
+        image={product.image}
+        href={cta.href}
+      />
+    );
+  }
 
   if (cardType === "small") {
     return (

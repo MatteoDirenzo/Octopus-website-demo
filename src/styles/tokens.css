@@ -116,6 +116,8 @@
   --container-navbar: 84rem;
   /* 496px. Horizontal card images do not grow past this. */
   --container-card-image: 31rem;
+  /* 355px. Product info does not grow past this. Not a spacing step. */
+  --container-product-info: 22.1875rem;
 
   --shadow-navbar: 0 0 16px 8px rgb(0 0 0 / 0.08);
 
