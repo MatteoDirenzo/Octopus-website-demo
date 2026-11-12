@@ -139,8 +139,11 @@ export function Carousel({
           /*
            * `overflow-x-auto` alone computes `overflow-y` to `auto`, which adds
            * a couple of pixels of vertical scroll. Hide that axis.
+           * `relative` makes the track the containing block of absolute
+           * descendants such as `sr-only` text. Without it they escape the
+           * clip and widen the page.
            */
-          "mt-10 flex items-start gap-4 overflow-x-auto overflow-y-hidden overscroll-x-contain scroll-smooth snap-x snap-mandatory",
+          "relative mt-10 flex items-start gap-4 overflow-x-auto overflow-y-hidden overscroll-x-contain scroll-smooth snap-x snap-mandatory",
           "tablet:mt-8 motion-reduce:scroll-auto",
           /*
            * `scrollbar-none` covers Firefox. WebKit still needs the pseudo-element.
