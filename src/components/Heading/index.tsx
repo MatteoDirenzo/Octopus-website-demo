@@ -1,4 +1,5 @@
 import { Button } from "@/components/Button";
+import { CtaLabel } from "@/components/CtaLabel";
 import { headingClassName } from "@/helpers/components/heading";
 import type { ButtonAction, HeadingVariant } from "@/types";
 
@@ -36,7 +37,7 @@ export function Heading({
       {subtitle ? <p className={classes.subtitle}>{subtitle}</p> : null}
       {button?.href !== undefined ? (
         <Button variant={variant} href={button.href} className={classes.action}>
-          {button.label}
+          <CtaLabel label={button.label} context={button.context} />
         </Button>
       ) : button ? (
         <Button variant={variant} className={classes.action}>

@@ -19,6 +19,7 @@ import { TechnicalSpecs } from "@/components/TechnicalSpecs";
 import { SIZES_HALF_FROM_TABLET } from "@/config/sizes";
 import { groupGallery } from "@/helpers/components/gallery";
 import {
+  learnMoreCta,
   toDownload,
   toShowcaseCard,
   toSpecGroups,
@@ -45,6 +46,7 @@ import type {
   ImageAsset,
   Product,
   Section,
+  Site,
 } from "@/types";
 type PageSectionsProps = {
   /** Blocks in display order. */
@@ -250,7 +252,7 @@ async function renderHero(block: HeroBlock) {
         subtitle={block.subtitle}
         button={
           block.href && site
-            ? { label: site.learnMore.label, href: block.href }
+            ? learnMoreCta(site.learnMore, product.name, block.href)
             : undefined
         }
       />
@@ -301,7 +303,7 @@ async function renderCarousel(block: CarouselBlock) {
             image={image}
             background={background}
             eyebrow={category?.title}
-            label={site.learnMore.label}
+            learnMore={site.learnMore}
             cardType={cardType}
             cardVariant={cardVariant}
           />
@@ -313,7 +315,7 @@ async function renderCarousel(block: CarouselBlock) {
 
 async function renderCategoryShowcase(block: CategoryShowcaseBlock, index: number) {
   const site = await getSite();
-  const label = site.learnMore.label;
+  const { learnMore } = site;
   const feature =
     block.layout === "row" || !block.featureProductSlug
       ? null
@@ -329,10 +331,10 @@ async function renderCategoryShowcase(block: CategoryShowcaseBlock, index: numbe
       button={{ label: site.exploreAll.label, href: block.href }}
       feature={
         feature
-          ? toShowcaseCard(feature, feature.featuredImage, label, true)
+          ? toShowcaseCard(feature, feature.featuredImage, learnMore, true)
           : undefined
       }
-      cards={products.map((product) => toShowcaseCard(product, product.image, label))}
+      cards={products.map((product) => toShowcaseCard(product, product.image, learnMore))}
     />
   );
 }
@@ -352,7 +354,7 @@ async function renderBanner(block: BannerBlock, index: number) {
         title={block.title}
         subtitle={block.subtitle}
         image={block.images}
-        cta={{ label: site.learnMore.label, href: block.href }}
+        cta={learnMoreCta(site.learnMore, block.title, block.href)}
         variant={block.variant}
         priority={block.priority}
       />
@@ -414,7 +416,7 @@ function ProductSlide({
   image,
   background = false,
   eyebrow,
-  label,
+  learnMore,
   cardType,
   cardVariant,
 }: {
@@ -423,11 +425,11 @@ function ProductSlide({
   /** True when `image` is the product `featuredImage`. */
   background?: boolean;
   eyebrow?: string;
-  label: string;
+  learnMore: Site["learnMore"];
   cardType: CardType;
   cardVariant: CardVariant;
 }) {
-  const cta = { label, href: productHref(product.slug) };
+  const cta = learnMoreCta(learnMore, product.name, productHref(product.slug));
 
   if (cardType === "product") {
     return (

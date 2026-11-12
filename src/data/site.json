@@ -36,7 +36,8 @@
     }
   },
   "learnMore": {
-    "label": "Learn more"
+    "label": "Learn more",
+    "context": "about {name}"
   },
   "exploreAll": {
     "label": "Explore all products"
