@@ -1,14 +1,5 @@
 import clsx from "clsx";
-
-export type Variant = "primary" | "secondary" | "ghost";
-export type Tone = "light" | "dark";
-
-type ButtonClassNameOptions = {
-  variant?: Variant;
-  tone?: Tone;
-  iconOnly?: boolean;
-  className?: string;
-};
+import type { ButtonClassNameOptions, ButtonVariant } from "@/types";
 
 /*
  * Keyboard focus matches hover and adds the focus ring.
@@ -22,7 +13,7 @@ const BASE = clsx(
   "disabled:cursor-not-allowed",
 );
 
-const VARIANT: Record<Exclude<Variant, "ghost">, string> = {
+const VARIANT: Record<Exclude<ButtonVariant, "ghost">, string> = {
   primary: clsx(
     "border-brand-border bg-brand text-text-inverse",
     "hover:bg-brand-hover focus-visible:bg-brand-hover",

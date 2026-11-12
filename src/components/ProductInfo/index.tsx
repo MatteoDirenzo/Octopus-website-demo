@@ -1,12 +1,6 @@
 import type { ReactNode } from "react";
 import { Button } from "@/components/Button";
-
-export type ProductInfoAction = {
-  /** Accessible name of the action. */
-  label: string;
-  /** Renders a link. Omit it for a button. */
-  href?: string;
-};
+import type { ButtonAction } from "@/types";
 
 export type ProductInfoProps = {
   title: string;
@@ -21,7 +15,7 @@ export type ProductInfoProps = {
    */
   heading?: "h1" | "h2";
   /** Primary action. Fixed to the bottom of the screen below 810px. */
-  action: ProductInfoAction;
+  action: ButtonAction;
 };
 
 /**

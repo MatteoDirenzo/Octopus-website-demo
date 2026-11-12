@@ -1,6 +1,7 @@
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, expect, test } from "vitest";
-import { TechnicalSpecs, type SpecsGroup } from "./index";
+import type { SpecsGroup } from "@/types";
+import { TechnicalSpecs } from "./index";
 
 const groups: SpecsGroup[] = [
   {

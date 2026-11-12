@@ -1,5 +1,5 @@
 import productsData from "../../data/products.json";
-import type { CategoryId, Product } from "../../types/content";
+import type { CategoryId, Product } from "@/types";
 import { readContent } from "./shared";
 
 /** Every product, in file order. */

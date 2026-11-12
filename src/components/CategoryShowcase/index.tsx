@@ -1,46 +1,26 @@
 import clsx from "clsx";
-import {
-  CardLarge,
-  type CardCta,
-  type CardImage,
-} from "@/components/CardLarge";
+import { CardLarge } from "@/components/CardLarge";
 import { CardMedium } from "@/components/CardMedium";
 import { CardSmall } from "@/components/CardSmall";
 import { Heading } from "@/components/Heading";
-
-/** One of the two category showcase arrangements. */
-export type CategoryShowcaseLayout = "feature-top" | "feature-left";
-
-/** Copy and image for one showcase card. */
-export type CategoryShowcaseCard = {
-  title: string;
-  description: string;
-  image: CardImage;
-  /**
-   * Paint `image` across the card. Set on the feature card, whose picture
-   * is `featuredImage`.
-   */
-  background?: boolean;
-  cta: CardCta;
-};
+import type {
+  CategoryShowcaseCard,
+  Cta,
+  FeatureShowcaseLayout,
+} from "@/types";
 
 export type CategoryShowcaseProps = {
   /**
    * `feature-top` puts a horizontal feature card above a row of medium cards.
    * `feature-left` puts a vertical feature card on the left from 1200.
    */
-  layout?: CategoryShowcaseLayout;
+  layout?: FeatureShowcaseLayout;
   /** Id of the title, so the section can name itself from this heading. */
   titleId: string;
   title: string;
   subtitle?: string;
   /** Category link beside the heading. Omit it when the block has none. */
-  button?: {
-    /** Accessible name of the action. */
-    label: string;
-    /** Destination of the action. */
-    href: string;
-  };
+  button?: Cta;
   /** Large feature card. Omit it to render the small-card row. */
   feature?: CategoryShowcaseCard;
   /**

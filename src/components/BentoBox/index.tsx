@@ -1,26 +1,8 @@
 import clsx from "clsx";
 import Image from "next/image";
+import type { BentoRow } from "@/types";
 
 const PLACEHOLDER_SRC = "/images/placeholder.webp";
-
-export type BentoImage = {
-  /** Path or URL of the image file. */
-  src: string;
-  /**
-   * Accessible description. Pass an empty string when the photo is decorative.
-   */
-  alt: string;
-};
-
-export type BentoCard = {
-  title: string;
-  description: string;
-  /** Background photo. Omit it to use the shared placeholder. */
-  image?: BentoImage;
-};
-
-/** One full-width card, or two equal cards, from 1200. */
-export type BentoRow = readonly [BentoCard] | readonly [BentoCard, BentoCard];
 
 export type BentoBoxProps = {
   /**

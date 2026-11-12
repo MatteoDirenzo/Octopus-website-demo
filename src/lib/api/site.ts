@@ -1,6 +1,6 @@
 import categoriesData from "../../data/categories.json";
 import siteData from "../../data/site.json";
-import type { Category, Site } from "../../types/content";
+import type { Category, Site } from "@/types";
 import { readContent } from "./shared";
 
 /** Default metadata, header, store banner, and footer. */

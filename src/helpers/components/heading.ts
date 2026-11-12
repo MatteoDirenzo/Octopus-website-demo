@@ -1,11 +1,5 @@
 import clsx from "clsx";
-
-export type HeadingVariant = "primary" | "secondary";
-
-type HeadingClassNameOptions = {
-  variant?: HeadingVariant;
-  className?: string;
-};
+import type { HeadingClassNameOptions, HeadingVariant } from "@/types";
 
 /* Full width so a long line wraps and stays centered instead of scrolling sideways. */
 const TITLE: Record<HeadingVariant, string> = {

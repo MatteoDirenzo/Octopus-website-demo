@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { getImageProps } from "next/image";
 import { preload } from "react-dom";
-import type { ImageAsset } from "@/types/content";
+import type { ImageAsset } from "@/types";
 
 export type ImageHeroProps = {
   /** Portrait crop. Shown below the desktop breakpoint, including tablet. */

@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import Image from "next/image";
-import type { ImageAsset } from "@/types/content";
+import type { ImageAsset } from "@/types";
 
 export type HeroProductProps = {
   /** Cutout for the first screen. The frame has no padding. */

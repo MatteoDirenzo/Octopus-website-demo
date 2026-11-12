@@ -3,7 +3,7 @@
 import clsx from "clsx";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import type { VideoAsset } from "@/types/content";
+import type { VideoAsset } from "@/types";
 
 export type VideoHeroProps = {
   /** Playable files and the still shown before playback. */

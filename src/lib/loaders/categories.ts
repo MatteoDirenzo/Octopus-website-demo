@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { getCategory } from "@/lib/api";
-import type { Category } from "@/types/content";
+import type { Category } from "@/types";
 
 /** Category for this slug. An unknown slug renders the not-found page. */
 export async function loadCategory(slug: string): Promise<Category> {

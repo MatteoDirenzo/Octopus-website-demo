@@ -6,10 +6,7 @@ import { BentoBox } from "@/components/BentoBox";
 import { CardLarge } from "@/components/CardLarge";
 import { CardMedium } from "@/components/CardMedium";
 import { CardSmall } from "@/components/CardSmall";
-import {
-  CategoryShowcase,
-  type CategoryShowcaseCard,
-} from "@/components/CategoryShowcase";
+import { CategoryShowcase } from "@/components/CategoryShowcase";
 import { Carousel } from "@/components/Carousel";
 import { ColourSelector } from "@/components/ColourSelector";
 import { ExploreCategory } from "@/components/ExploreCategory";
@@ -18,27 +15,26 @@ import { HeroProduct } from "@/components/HeroProduct";
 import { ImageHero } from "@/components/ImageHero";
 import { ProductCard } from "@/components/ProductCard";
 import { ProductInfo } from "@/components/ProductInfo";
-import {
-  TechnicalSpecs,
-  type SpecsDownload,
-  type SpecsGroup,
-} from "@/components/TechnicalSpecs";
+import { TechnicalSpecs } from "@/components/TechnicalSpecs";
 import { getCategories, getProductBySlug, getProductsBySlugs, getSite } from "@/lib/api";
 import type {
   BannerBlock,
   BlockSpacing,
   BlockSpacingSide,
   CardType,
-  CardVariantName,
+  CardVariant,
   CarouselBlock,
   CategoryShowcaseBlock,
+  CategoryShowcaseCard,
   ExploreCategoriesBlock,
   HeroBlock,
   ImageAsset,
   Product,
   ProductDetail,
   Section,
-} from "@/types/content";
+  SpecsDownload,
+  SpecsGroup,
+} from "@/types";
 import { groupGallery } from "./gallery";
 
 /**
@@ -546,7 +542,7 @@ function ProductSlide({
   eyebrow?: string;
   label: string;
   cardType: CardType;
-  cardVariant: CardVariantName;
+  cardVariant: CardVariant;
 }) {
   const cta = { label, href: `/product/${product.slug}` };
 

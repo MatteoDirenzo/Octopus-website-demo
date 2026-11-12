@@ -2,7 +2,7 @@
 
 import clsx from "clsx";
 import { useId } from "react";
-import type { Colour } from "@/types/content";
+import type { Colour } from "@/types";
 
 export type ColourSelectorProps = {
   /** Accessible name of the group, for example "Colour". */

@@ -1,6 +1,6 @@
 import { cleanup, render, screen } from "@testing-library/react";
 import { afterEach, expect, test, vi } from "vitest";
-import type { VideoAsset } from "@/types/content";
+import type { VideoAsset } from "@/types";
 import { VideoHero } from "./index";
 
 const video: VideoAsset = {

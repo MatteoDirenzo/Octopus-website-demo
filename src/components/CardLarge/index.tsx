@@ -1,30 +1,11 @@
 import clsx from "clsx";
 import Image from "next/image";
 import { Button } from "@/components/Button";
-
-export type CardImage = {
-  /** Path or URL of the image file. */
-  src: string;
-  /** Accessible description. */
-  alt: string;
-  /** Pixel width used to keep the ratio. */
-  width: number;
-  /** Pixel height used to keep the ratio. */
-  height: number;
-};
-
-export type CardCta = {
-  /** Accessible name of the action. */
-  label: string;
-  /** Destination of the action. */
-  href: string;
-};
-
-export type CardLargeVariant = "horizontal" | "vertical";
+import type { CardVariant, Cta, ImageAsset } from "@/types";
 
 export type CardLargeProps = {
   /** Horizontal at every breakpoint, or vertical from 1200. */
-  variant: CardLargeVariant;
+  variant: CardVariant;
   /**
    * From 1200, a vertical card fills its parent instead of the fixed height.
    * The image uses the space under the copy. Ignored on the horizontal variant.
@@ -34,13 +15,13 @@ export type CardLargeProps = {
   eyebrow?: string;
   title: string;
   description: string;
-  image: CardImage;
+  image: ImageAsset;
   /**
    * Paint `image` across the card, behind the copy.
    * Use this for a product `featuredImage`. The copy keeps its place.
    */
   background?: boolean;
-  cta: CardCta;
+  cta: Cta;
 };
 
 /**

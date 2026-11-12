@@ -1,6 +1,7 @@
 import { cleanup, render, screen } from "@testing-library/react";
 import { afterEach, expect, test } from "vitest";
-import { CategoryShowcase, type CategoryShowcaseCard } from "./index";
+import type { CategoryShowcaseCard } from "@/types";
+import { CategoryShowcase } from "./index";
 
 const image = {
   src: "/images/placeholders/category-kitchen.png",

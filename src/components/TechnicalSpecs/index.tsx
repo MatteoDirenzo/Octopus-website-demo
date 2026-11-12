@@ -1,8 +1,6 @@
-import { DownloadArea, type SpecsDownload } from "./DownloadArea";
-import { SpecsAccordions, type SpecsGroup } from "./SpecsAccordions";
-
-export type { SpecsBody, SpecsGroup } from "./SpecsAccordions";
-export type { SpecsDownload } from "./DownloadArea";
+import type { SpecsDownload, SpecsGroup } from "@/types";
+import { DownloadArea } from "./DownloadArea";
+import { SpecsAccordions } from "./SpecsAccordions";
 
 export type TechnicalSpecsProps = {
   groups: SpecsGroup[];

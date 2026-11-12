@@ -2,7 +2,7 @@ import clsx from "clsx";
 import Link from "next/link";
 import { Button } from "@/components/Button";
 import { LogoWordmarkStackedWhite } from "@/components/icons/LogoWordmarkStackedWhite";
-import type { FooterGroup, Site } from "@/types/content";
+import type { FooterGroup, Site } from "@/types";
 
 export type FooterProps = {
   footer: Site["footer"];
