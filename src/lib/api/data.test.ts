@@ -335,6 +335,7 @@ test("product detail has a gallery, valid spans, and unique colour ids", async (
 
     assertImage(product.detail.mainImage);
     expect(product.detail.gallery.length).toBeGreaterThan(0);
+    expect(product.detail.downloadsTitle.length).toBeGreaterThan(0);
 
     const colourIds = product.detail.colours.map((colour) => colour.id);
     expect(new Set(colourIds).size).toBe(colourIds.length);

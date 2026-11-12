@@ -4,9 +4,6 @@
       "component": "productShowcase"
     },
     {
-      "component": "specAccordion"
-    },
-    {
       "component": "carousel",
       "title": "Best sellers",
       "cardType": "large",

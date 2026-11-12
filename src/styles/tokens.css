@@ -128,6 +128,13 @@
   --spacing-header-tablet: 5.375rem;
 
   /*
+   * Product hero frame. The body already clears the fixed header, so the
+   * frame is the remaining viewport. Desktop shares the tablet header offset.
+   */
+  --spacing-hero-product: calc(100dvh - var(--spacing-header));
+  --spacing-hero-product-tablet: calc(100dvh - var(--spacing-header-tablet));
+
+  /*
    * Space between the header and the hero heading.
    * 29px is not on the spacing scale. From 810 the space is 84px,
    * which is spacing step 21. The `top` values add the header height.

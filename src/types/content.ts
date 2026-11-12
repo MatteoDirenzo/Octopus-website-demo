@@ -178,7 +178,9 @@ export type ProductDetail = {
   gallery: GalleryItem[];
   /** Specification groups. */
   specs: SpecGroup[];
-  /** Download links. */
+  /** Heading of the download row. */
+  downloadsTitle: string;
+  /** Download links. The detail page shows the first file. */
   downloads: Download[];
 };
 

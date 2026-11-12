@@ -1,2 +1,16 @@
 @import "tailwindcss";
 @import "../styles/tokens.css";
+
+/*
+ * The product page's buy bar is fixed below 810 and the footer sits outside
+ * the page, so padding on the page cannot clear it. 809px is one pixel under
+ * `--breakpoint-tablet`. A media query cannot read that variable.
+ * Spacing step 20 matches the bar: 16px of inset plus the button.
+ */
+@layer base {
+  @media (max-width: 809px) {
+    body:has(.buy-bar-space) {
+      padding-bottom: calc(var(--spacing) * 20);
+    }
+  }
+}

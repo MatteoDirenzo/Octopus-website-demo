@@ -48,7 +48,7 @@
     },
     "bestSeller": false,
     "detail": {
-      "description": "Placeholder",
+      "description": "A countertop blender with enough power for smoothies and tougher jobs, and presets for the ones you make often.",
       "colours": [
         {
           "id": "black",
@@ -57,16 +57,16 @@
         }
       ],
       "mainImage": {
-        "src": "/images/placeholders/countertop-blender-main.png",
-        "alt": "Placeholder",
+        "src": "/images/products/mixer-big.webp",
+        "alt": "Octopus Countertop Blender",
         "width": 1600,
         "height": 1200
       },
       "gallery": [
         {
           "image": {
-            "src": "/images/placeholders/countertop-blender-gallery-1.png",
-            "alt": "Placeholder",
+            "src": "/images/products/countertop-blender-gallery-1.png",
+            "alt": "Countertop blender blending on a kitchen counter",
             "width": 1600,
             "height": 1200
           },
@@ -74,56 +74,56 @@
         },
         {
           "image": {
-            "src": "/images/placeholders/countertop-blender-gallery-2.png",
-            "alt": "Placeholder",
+            "src": "/images/products/countertop-blender-gallery-2.png",
+            "alt": "Fruit in the blender jug",
             "width": 1600,
             "height": 1200
           },
           "span": "full",
-          "title": "Placeholder",
-          "description": "Placeholder",
+          "title": "Built for the hard jobs",
+          "description": "The motor keeps going through ice and frozen fruit.",
           "textTone": "dark"
         },
         {
           "image": {
-            "src": "/images/placeholders/countertop-blender-gallery-3.png",
-            "alt": "Placeholder",
+            "src": "/images/products/countertop-blender-gallery-3.png",
+            "alt": "Blender running a clean cycle",
             "width": 1600,
             "height": 1200
           },
           "span": "half",
-          "title": "Placeholder",
-          "description": "Placeholder",
+          "title": "Clean without a scrub",
+          "description": "Add water, start the clean cycle, and the jug rinses itself.",
           "textTone": "dark"
         },
         {
           "image": {
-            "src": "/images/placeholders/countertop-blender-gallery-4.png",
-            "alt": "Placeholder",
+            "src": "/images/products/countertop-blender-gallery-4.png",
+            "alt": "Blender blades in a short burst",
             "width": 1600,
             "height": 1200
           },
           "span": "half",
-          "title": "Placeholder",
-          "description": "Placeholder",
+          "title": "Pulse for control",
+          "description": "Short bursts let you stop at the texture you want.",
           "textTone": "dark"
         },
         {
           "image": {
-            "src": "/images/placeholders/countertop-blender-gallery-5.png",
-            "alt": "Placeholder",
+            "src": "/images/products/countertop-blender-gallery-5.png",
+            "alt": "Hand choosing a blender preset",
             "width": 1600,
             "height": 1200
           },
           "span": "full",
-          "title": "Placeholder",
-          "description": "Placeholder",
+          "title": "A preset for most days",
+          "description": "Smoothies, soup, and sauce each have their own setting.",
           "textTone": "dark"
         },
         {
           "image": {
-            "src": "/images/placeholders/countertop-blender-gallery-6.png",
-            "alt": "Placeholder",
+            "src": "/images/products/countertop-blender-gallery-6.png",
+            "alt": "Countertop blender with chopped fruit beside it",
             "width": 1600,
             "height": 1200
           },
@@ -133,24 +133,25 @@
       "specs": [
         {
           "id": "spec-1",
-          "title": "Placeholder",
-          "items": ["Placeholder"]
+          "title": "Technical specifications",
+          "items": ["Power: 1500 W", "Voltage: 220–240 V", "Frequency: 50/60 Hz"]
         },
         {
           "id": "spec-2",
-          "title": "Placeholder",
-          "items": ["Placeholder"]
+          "title": "Controls",
+          "items": ["Seven presets", "Pulse", "One-touch clean"]
         },
         {
           "id": "spec-3",
-          "title": "Placeholder",
-          "items": ["Placeholder"]
+          "title": "In the box",
+          "items": ["Blender base", "Jug", "User manual"]
         }
       ],
+      "downloadsTitle": "Downloads",
       "downloads": [
         {
-          "label": "Placeholder",
-          "href": "/placeholder"
+          "label": "User manual",
+          "href": "/downloads/countertop-blender.pdf"
         }
       ]
     }
