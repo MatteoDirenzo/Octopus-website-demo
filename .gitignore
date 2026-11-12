@@ -26,6 +26,7 @@
 .DS_Store
 *.pem
 /NOTES.md
+/compress-images
 
 # debug
 npm-debug.log*
