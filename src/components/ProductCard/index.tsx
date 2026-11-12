@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
+import { SIZES_FULL } from "@/config/sizes";
 import type { ImageAsset } from "@/types";
 
 export type ProductCardProps = {
@@ -39,7 +40,7 @@ export function ProductCard({
       alt={image.alt}
       width={image.width}
       height={image.height}
-      sizes="100vw"
+      sizes={SIZES_FULL}
       className="h-auto w-full"
     />
   );

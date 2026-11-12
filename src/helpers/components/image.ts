@@ -1,4 +1,27 @@
+import { getImageProps } from "next/image";
 import type { ImageAsset, ImageBreakpoint, ResponsiveImage } from "@/types";
+
+type CropOptions = {
+  sizes: string;
+  priority?: boolean;
+  fetchPriority?: "high" | "low" | "auto";
+};
+
+/**
+ * `img` props for one crop of a `picture`. A `source` uses `srcSet ?? src`.
+ * The exported files are already the delivered size, so the optimizer is
+ * skipped and does not recompress them.
+ */
+export function getCropProps(image: ImageAsset, options: CropOptions) {
+  return getImageProps({
+    ...options,
+    src: image.src,
+    alt: image.alt,
+    width: image.width,
+    height: image.height,
+    unoptimized: true,
+  }).props;
+}
 
 /**
  * Inserts the breakpoint before the extension.

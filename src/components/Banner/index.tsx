@@ -1,7 +1,10 @@
 import clsx from "clsx";
-import Image, { getImageProps } from "next/image";
+import Image from "next/image";
 import { Button } from "@/components/Button";
-import { responsiveImages } from "@/helpers/components/image";
+import { MEDIA_DESKTOP, MEDIA_TABLET } from "@/config/breakpoints";
+import { SIZES_FULL } from "@/config/sizes";
+import { isResponsiveImage } from "@/helpers/components/banner";
+import { getCropProps, responsiveImages } from "@/helpers/components/image";
 import type {
   BannerCopy,
   BannerCustom,
@@ -69,10 +72,9 @@ export function Banner(props: BannerProps) {
 /**
  * One file uses `fill`. A crop set uses `responsiveImages`, which adds
  * `-desktop`, `-mobile`, and `-tablet` before the extension, then a `picture`
- * so each breakpoint downloads its own file. The source queries are 810px and
- * 1200px, the same values as `--breakpoint-tablet` and `--breakpoint-desktop`.
- * A media attribute cannot read a CSS variable. Desktop is listed first
- * because the browser uses the first source that matches.
+ * so each breakpoint downloads its own file. The source queries come from
+ * `@/config/breakpoints`. Desktop is listed first because the browser uses
+ * the first source that matches.
  * `object-cover` fills the fixed frame. The anchor keeps the subject in view.
  */
 function BannerPicture({
@@ -84,13 +86,13 @@ function BannerPicture({
 }) {
   const frameClass = "h-full w-full object-cover object-bottom tablet:object-right";
 
-  if (!isBannerImages(image)) {
+  if (!isResponsiveImage(image)) {
     return (
       <Image
         src={image.src}
         alt={image.alt}
         fill
-        sizes="100vw"
+        sizes={SIZES_FULL}
         priority={priority}
         className={frameClass}
       />
@@ -98,49 +100,15 @@ function BannerPicture({
   }
 
   const crops = responsiveImages(image);
-  const common = {
-    alt: crops.mobile.alt,
-    sizes: "100vw",
-    priority,
-    /*
-     * The exported files are already the delivered size.
-     * Skip the optimizer so it does not recompress them.
-     */
-    unoptimized: true,
-  };
-
-  const {
-    props: { srcSet: desktopSrcSet, src: desktopSrc },
-  } = getImageProps({
-    ...common,
-    width: crops.desktop.width,
-    height: crops.desktop.height,
-    src: crops.desktop.src,
-  });
-
-  const {
-    props: { srcSet: tabletSrcSet, src: tabletSrc },
-  } = getImageProps({
-    ...common,
-    width: crops.tablet.width,
-    height: crops.tablet.height,
-    src: crops.tablet.src,
-  });
-
-  const { props: mobileProps } = getImageProps({
-    ...common,
-    width: crops.mobile.width,
-    height: crops.mobile.height,
-    src: crops.mobile.src,
-  });
+  const options = { sizes: SIZES_FULL, priority };
+  const desktop = getCropProps(crops.desktop, options);
+  const tablet = getCropProps(crops.tablet, options);
+  const mobileProps = getCropProps(crops.mobile, options);
 
   return (
     <picture className="absolute inset-0">
-      <source
-        media="(min-width: 1200px)"
-        srcSet={desktopSrcSet ?? desktopSrc}
-      />
-      <source media="(min-width: 810px)" srcSet={tabletSrcSet ?? tabletSrc} />
+      <source media={MEDIA_DESKTOP} srcSet={desktop.srcSet ?? desktop.src} />
+      <source media={MEDIA_TABLET} srcSet={tablet.srcSet ?? tablet.src} />
       <img
         {...mobileProps}
         alt={crops.mobile.alt}
@@ -148,10 +116,4 @@ function BannerPicture({
       />
     </picture>
   );
-}
-
-function isBannerImages(
-  image: ImageSource | ResponsiveImage,
-): image is ResponsiveImage {
-  return "mobile" in image;
 }

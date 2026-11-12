@@ -1,3 +1,4 @@
+import type { CarouselLabels } from "./carousel";
 import type { PageMetadata } from "./pages";
 import type { Cta } from "./ui";
 
@@ -53,6 +54,10 @@ export type Site = {
     /** Visible label of the link. */
     label: string;
   };
+  /** Accessible names of the carousel controls. */
+  carousel: CarouselLabels;
+  /** Name of the product colour picker, also shown before the selected colour. */
+  colourLabel: string;
   /** Footer chrome, link groups, and legal line. */
   footer: {
     /** Accessible name of the footer. */

@@ -2,6 +2,13 @@ import { act, cleanup, render, screen } from "@testing-library/react";
 import { afterEach, expect, test } from "vitest";
 import { Carousel } from "./index";
 
+const labels = {
+  dots: "Slides",
+  previous: "Previous",
+  next: "Next",
+  showItem: "Show item {n}",
+};
+
 afterEach(() => {
   cleanup();
 });
@@ -39,7 +46,7 @@ function setScroll(
 
 test("hides the position dots unless they are requested", () => {
   render(
-    <Carousel title="Best sellers">
+    <Carousel title="Best sellers" labels={labels}>
       <p>One</p>
       <p>Two</p>
     </Carousel>,
@@ -68,7 +75,7 @@ test("hides the position dots unless they are requested", () => {
 
 test("disables the previous control at the start and the next control at the end", () => {
   render(
-    <Carousel title="Best sellers" showDots>
+    <Carousel title="Best sellers" showDots labels={labels}>
       <p>One</p>
       <p>Two</p>
       <p>Three</p>
@@ -141,7 +148,7 @@ test("disables the previous control at the start and the next control at the end
 
 test("sets the overflow peek per breakpoint and keeps two thirds by default", () => {
   const { rerender } = render(
-    <Carousel title="Best sellers" mode="overflow">
+    <Carousel title="Best sellers" mode="overflow" labels={labels}>
       <p>One</p>
     </Carousel>,
   );
@@ -163,6 +170,7 @@ test("sets the overflow peek per breakpoint and keeps two thirds by default", ()
       title="Best sellers"
       mode="overflow"
       peek={{ mobile: 10, tablet: 20, desktop: 40 }}
+      labels={labels}
     >
       <p>One</p>
     </Carousel>,

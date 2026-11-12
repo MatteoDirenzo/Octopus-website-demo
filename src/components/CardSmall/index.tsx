@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import Image from "next/image";
 import { Button } from "@/components/Button";
+import { CARD_SIZES } from "@/config/sizes";
 import type { Cta, ImageAsset } from "@/types";
 
 export type CardSmallProps = {
@@ -29,7 +30,7 @@ export function CardSmall({
   background = false,
   cta,
 }: CardSmallProps) {
-  const sizes = "(min-width: 810px) 30vw, 80vw";
+  const sizes = CARD_SIZES.small;
 
   return (
     <article

@@ -15,17 +15,15 @@ import { ProductCard } from "@/components/ProductCard";
 import { ProductInfo } from "@/components/ProductInfo";
 import { TechnicalSpecs } from "@/components/TechnicalSpecs";
 import { Chevron } from "@/components/icons/Chevron";
+import { toMetadata } from "@/helpers/metadata";
+import { toId } from "@/helpers/slug";
+import { getSite } from "@/lib/api";
 import type { ButtonTone, ButtonVariant, SpecsGroup } from "@/types";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = toMetadata({
   title: "Components",
   description: "Shared component variants for visual checks.",
-  openGraph: {
-    title: "Components",
-    description: "Shared component variants for visual checks.",
-    type: "website",
-  },
-};
+});
 
 type Specimen = {
   title: string;
@@ -211,7 +209,7 @@ function ButtonSpecimen({
   tone = "light",
   onDark = false,
 }: Specimen) {
-  const headingId = title.toLowerCase().replace(/ /g, "-");
+  const headingId = toId(title);
 
   return (
     <section
@@ -263,7 +261,9 @@ function ButtonSpecimen({
 /**
  * Dev gallery. Not a content page, so it does not go through the section registry.
  */
-export default function ComponentsPage() {
+export default async function ComponentsPage() {
+  const site = await getSite();
+
   return (
     <main className="flex flex-col gap-8 p-8">
       <Heading
@@ -521,7 +521,7 @@ export default function ComponentsPage() {
         </h2>
         <div className="px-4 tablet:px-8 desktop:px-32">
           <p className="mb-4 text-label">Contained</p>
-          <Carousel title="Best sellers" showDots>
+          <Carousel title="Best sellers" showDots labels={site.carousel}>
             {CAROUSEL_SLIDES.map((image, index) => (
               <ProductCard
                 key={`${image.alt}-${index}`}
@@ -541,6 +541,7 @@ export default function ComponentsPage() {
             title="Best sellers"
             mode="overflow"
             endOffset={{ mobile: 4, tablet: 8, desktop: 32 }}
+            labels={site.carousel}
           >
             {CAROUSEL_SLIDES.map((image, index) => (
               <ProductCard

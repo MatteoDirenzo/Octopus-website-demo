@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { responsiveImages, imageSrcForBreakpoint } from "./image";
+import { getCropProps, responsiveImages, imageSrcForBreakpoint } from "./image";
 
 test("breakpoint files insert -desktop, -mobile, and -tablet before the extension", () => {
   expect(imageSrcForBreakpoint("/images/banner-red.webp", "desktop")).toBe(
@@ -23,4 +23,16 @@ test("breakpoint files insert -desktop, -mobile, and -tablet before the extensio
   });
   expect(crops.mobile.src).toBe("/images/banner-red-mobile.webp");
   expect(crops.tablet.src).toBe("/images/banner-red-tablet.webp");
+});
+
+test("crop props keep the exported file and its size", () => {
+  const props = getCropProps(
+    { src: "/images/hero.webp", alt: "Blender", width: 1600, height: 900 },
+    { sizes: "100vw" },
+  );
+
+  expect(props.src).toBe("/images/hero.webp");
+  expect(props.alt).toBe("Blender");
+  expect(props.width).toBe(1600);
+  expect(props.height).toBe(900);
 });

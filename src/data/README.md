@@ -50,6 +50,12 @@ Text fields use `Placeholder` until real copy replaces the value. Exported image
 | `learnMore.label` | Visible label of that link. | yes |
 | `exploreAll` | Shared category link used by the feature-top heading. | yes |
 | `exploreAll.label` | Visible label of that link. | yes |
+| `carousel` | Accessible names of the carousel controls. | yes |
+| `carousel.dots` | Name of the position-dot group. | yes |
+| `carousel.previous` | Previous arrow. | yes |
+| `carousel.next` | Next arrow. | yes |
+| `carousel.showItem` | One position dot. `{n}` becomes the slide number, from 1. | yes |
+| `colourLabel` | Name of the product colour picker. Also shown before the selected colour, for example `Colour - Black`. | yes |
 | `footer` | Footer chrome, link groups, and legal line. | yes |
 | `footer.label` | Accessible name of the footer. | yes |
 | `footer.home` | Logo link (`label`, `href`). | yes |

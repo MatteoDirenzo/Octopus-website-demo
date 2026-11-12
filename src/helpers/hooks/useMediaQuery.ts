@@ -1,17 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
-const FALLBACK = {
-  tablet: "810px",
-  desktop: "1200px",
-} as const;
+import { BREAKPOINT } from "@/config/breakpoints";
 
 /**
- * Subscribes to a media query. False until the query has been read on the client.
+ * Subscribes to a media query. `null` until the query has been read on the
+ * client, and it stays `null` when `matchMedia` is missing.
  */
-export function useMediaQuery(query: string) {
-  const [matches, setMatches] = useState(false);
+export function useMediaQueryState(query: string) {
+  const [matches, setMatches] = useState<boolean | null>(null);
 
   useEffect(() => {
     if (typeof window.matchMedia !== "function") {
@@ -32,16 +29,23 @@ export function useMediaQuery(query: string) {
   return matches;
 }
 
-function minWidth(name: keyof typeof FALLBACK) {
+/**
+ * Subscribes to a media query. False until the query has been read on the client.
+ */
+export function useMediaQuery(query: string) {
+  return useMediaQueryState(query) ?? false;
+}
+
+function minWidth(name: keyof typeof BREAKPOINT) {
   if (typeof window === "undefined") {
-    return `(min-width: ${FALLBACK[name]})`;
+    return `(min-width: ${BREAKPOINT[name]})`;
   }
 
   const value = getComputedStyle(document.documentElement)
     .getPropertyValue(`--breakpoint-${name}`)
     .trim();
 
-  return `(min-width: ${value || FALLBACK[name]})`;
+  return `(min-width: ${value || BREAKPOINT[name]})`;
 }
 
 /**

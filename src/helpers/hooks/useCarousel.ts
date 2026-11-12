@@ -7,6 +7,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import { useReducedMotion } from "./useReducedMotion";
 
 function stride(scroller: HTMLElement) {
   const slide = scroller.querySelector("li");
@@ -28,14 +29,6 @@ export function slideKey(slide: ReactNode, index: number) {
   return index;
 }
 
-function motion(): ScrollBehavior {
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    return "auto";
-  }
-
-  return "smooth";
-}
-
 /**
  * Scroll position for a native snap track.
  * One card plus the gap is one step. Previous and next disable at the ends.
@@ -47,6 +40,7 @@ export function useCarousel() {
   const [atStart, setAtStart] = useState(true);
   const [atEnd, setAtEnd] = useState(true);
   const [activeIndex, setActiveIndex] = useState(0);
+  const reduceMotion = useReducedMotion();
 
   useEffect(() => {
     const scroller = scrollerRef.current;
@@ -106,7 +100,10 @@ export function useCarousel() {
       return;
     }
 
-    scroller.scrollTo({ left: index * step, behavior: motion() });
+    scroller.scrollTo({
+      left: index * step,
+      behavior: reduceMotion ? "auto" : "smooth",
+    });
   }
 
   function scrollByCard(direction: 1 | -1) {

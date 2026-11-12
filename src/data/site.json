@@ -28,6 +28,13 @@
   "exploreAll": {
     "label": "Explore all products"
   },
+  "carousel": {
+    "dots": "Slides",
+    "previous": "Previous",
+    "next": "Next",
+    "showItem": "Show item {n}"
+  },
+  "colourLabel": "Colour",
   "footer": {
     "label": "Footer",
     "home": {

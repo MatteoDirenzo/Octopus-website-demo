@@ -1,13 +1,15 @@
 "use client";
 
 import clsx from "clsx";
-import { Children, useId, type CSSProperties, type ReactNode } from "react";
+import { Children, useId, type ReactNode } from "react";
 import { Button } from "@/components/Button";
 import { Chevron } from "@/components/icons/Chevron";
+import { carouselStyle } from "@/helpers/components/carousel";
 import { slideKey, useCarousel } from "@/helpers/hooks/useCarousel";
 import type {
   CarouselEndOffset,
   CarouselInset,
+  CarouselLabels,
   CarouselMode,
   CarouselPeek,
   CarouselVisible,
@@ -40,19 +42,13 @@ export type CarouselProps = {
   inset?: CarouselInset;
   /** Position dots. Off by default, so only the arrows show. */
   showDots?: boolean;
+  /** Accessible names of the controls, from `site.carousel`. */
+  labels: CarouselLabels;
   /** Extra classes on the section. Used for the section's vertical padding. */
   className?: string;
   /** One slide each. */
   children: ReactNode;
 };
-
-function peekValue(value: number | undefined) {
-  if (value == null) {
-    return "calc(2 / 3)";
-  }
-
-  return String(value / 100);
-}
 
 /**
  * Horizontal scroller. Contained stays inside the parent's page inset.
@@ -69,15 +65,13 @@ export function Carousel({
   peek,
   inset,
   showDots = false,
+  labels,
   className,
   children,
 }: CarouselProps) {
   const titleId = useId();
   const slides = Children.toArray(children);
   const overflow = mode === "overflow";
-  const endMobile = endOffset?.mobile ?? 0;
-  const endTablet = endOffset?.tablet ?? endMobile;
-  const endDesktop = endOffset?.desktop ?? endTablet;
   const {
     scrollerRef,
     atStart,
@@ -87,20 +81,7 @@ export function Carousel({
     scrollByCard,
   } = useCarousel();
 
-  const style = {
-    "--carousel-mobile": visible?.mobile ?? 1,
-    "--carousel-tablet": visible?.tablet ?? 2,
-    "--carousel-desktop": visible?.desktop ?? 5,
-    "--carousel-end-mobile": endMobile,
-    "--carousel-end-tablet": endTablet,
-    "--carousel-end-desktop": endDesktop,
-    "--carousel-peek-mobile": peekValue(peek?.mobile),
-    "--carousel-peek-tablet": peekValue(peek?.tablet),
-    "--carousel-peek-desktop": peekValue(peek?.desktop),
-    "--carousel-inset-mobile": inset?.mobile ?? 4,
-    "--carousel-inset-tablet": inset?.tablet ?? 8,
-    "--carousel-inset-desktop": inset?.desktop ?? 32,
-  } as CSSProperties;
+  const style = carouselStyle({ visible, endOffset, peek, inset });
 
   return (
     <section
@@ -182,14 +163,14 @@ export function Carousel({
         {showDots ? (
           <div
             role="group"
-            aria-label="Slides"
+            aria-label={labels.dots}
             className="col-start-2 flex flex-wrap justify-center"
           >
             {slides.map((slide, index) => (
               <button
                 key={slideKey(slide, index)}
                 type="button"
-                aria-label={`Show item ${index + 1}`}
+                aria-label={labels.showItem.replace("{n}", String(index + 1))}
                 aria-current={index === activeIndex ? "true" : undefined}
                 className="inline-flex size-6 items-center justify-center rounded-full outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-focus"
                 onClick={() => scrollToIndex(index)}
@@ -209,7 +190,7 @@ export function Carousel({
           <Button
             variant="secondary"
             iconOnly
-            aria-label="Previous"
+            aria-label={labels.previous}
             disabled={atStart}
             onClick={() => scrollByCard(-1)}
           >
@@ -218,7 +199,7 @@ export function Carousel({
           <Button
             variant="secondary"
             iconOnly
-            aria-label="Next"
+            aria-label={labels.next}
             disabled={atEnd}
             onClick={() => scrollByCard(1)}
           >
