@@ -33,10 +33,15 @@ Text fields hold short mock copy until real copy replaces the value. Exported im
 
 | Key | Meaning | Required |
 | --- | --- | --- |
+| `name` | Brand and organisation name. Used as the JSON-LD `Organization`, `WebSite` and product `brand` name, and in `llms.txt`. | yes |
 | `metadata` | Default title and description. | yes |
 | `metadata.title` | Default document title. | yes |
 | `metadata.description` | Default meta description. | yes |
 | `shareImage` | `ImageAsset` used as `og:image` and Twitter image on every page. `width` and `height` are the file's real pixels. | yes |
+| `llms` | Section headings of `/llms.txt`. | yes |
+| `llms.pagesTitle` | Heading of the home link. | yes |
+| `llms.categoriesTitle` | Heading of the category links. Each line is the category title and tagline. | yes |
+| `llms.productsTitle` | Heading of the product links. Only products with `detail` are listed, with `shortDescription`. | yes |
 | `skipToContent` | Label of the skip link, the first focusable element on every page. | yes |
 | `header` | Header chrome and category links. | yes |
 | `header.label` | Accessible name of the navigation. | yes |
