@@ -106,21 +106,30 @@ export function useCarousel() {
     });
   }
 
+  /**
+   * Returns true when the move lands on the first or last position, so the
+   * caller can move focus off the arrow that is about to be disabled.
+   */
   function scrollByCard(direction: 1 | -1) {
     const scroller = scrollerRef.current;
 
     if (!scroller) {
-      return;
+      return false;
     }
 
     const step = stride(scroller);
 
     if (step <= 0) {
-      return;
+      return false;
     }
 
-    const index = Math.round(scroller.scrollLeft / step);
-    scrollToIndex(index + direction);
+    const index = Math.round(scroller.scrollLeft / step) + direction;
+    const left = index * step;
+    const max = scroller.scrollWidth - scroller.clientWidth;
+
+    scrollToIndex(index);
+
+    return direction === 1 ? left >= max - 1 : left <= 1;
   }
 
   return {

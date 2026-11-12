@@ -1,7 +1,7 @@
 "use client";
 
 import clsx from "clsx";
-import { Children, useId, type ReactNode } from "react";
+import { Children, useEffect, useId, useRef, type ReactNode } from "react";
 import { Button } from "@/components/Button";
 import { Chevron } from "@/components/icons/Chevron";
 import { carouselStyle } from "@/helpers/components/carousel";
@@ -70,6 +70,8 @@ export function Carousel({
   children,
 }: CarouselProps) {
   const titleId = useId();
+  const previousRef = useRef<HTMLButtonElement>(null);
+  const nextRef = useRef<HTMLButtonElement>(null);
   const slides = Children.toArray(children);
   const overflow = mode === "overflow";
   const {
@@ -80,6 +82,23 @@ export function Carousel({
     scrollToIndex,
     scrollByCard,
   } = useCarousel();
+
+  /*
+   * The arrow that reaches an end becomes disabled, which drops focus to the
+   * page. The click records the other arrow, and focus moves there once it is
+   * enabled. With two positions that is only after the scroll has started.
+   */
+  const focusTarget = useRef<"previous" | "next" | null>(null);
+
+  useEffect(() => {
+    if (focusTarget.current === "previous" && !atStart) {
+      previousRef.current?.focus();
+      focusTarget.current = null;
+    } else if (focusTarget.current === "next" && !atEnd) {
+      nextRef.current?.focus();
+      focusTarget.current = null;
+    }
+  }, [atStart, atEnd]);
 
   const style = carouselStyle({ visible, endOffset, peek, inset });
 
@@ -188,20 +207,30 @@ export function Carousel({
         ) : null}
         <div className="col-start-3 flex shrink-0 justify-end gap-2">
           <Button
+            ref={previousRef}
             variant="secondary"
             iconOnly
             aria-label={labels.previous}
             disabled={atStart}
-            onClick={() => scrollByCard(-1)}
+            onClick={() => {
+              if (scrollByCard(-1)) {
+                focusTarget.current = "next";
+              }
+            }}
           >
             <Chevron className="rotate-180" />
           </Button>
           <Button
+            ref={nextRef}
             variant="secondary"
             iconOnly
             aria-label={labels.next}
             disabled={atEnd}
-            onClick={() => scrollByCard(1)}
+            onClick={() => {
+              if (scrollByCard(1)) {
+                focusTarget.current = "previous";
+              }
+            }}
           >
             <Chevron />
           </Button>

@@ -2,6 +2,7 @@ import clsx from "clsx";
 import type { Metadata } from "next";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
+import { SkipLink } from "@/components/SkipLink";
 import { toMetadata } from "@/helpers/metadata";
 import { getSite } from "@/lib/api";
 import { fontProject } from "@/styles/fonts";
@@ -24,6 +25,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
           " pt-header font-sans  tablet:pt-header-tablet",
         )}
       >
+        <SkipLink label={site.skipToContent} />
         <Header header={site.header} />
         {children}
         <Footer footer={site.footer} />

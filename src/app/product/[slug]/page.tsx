@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Heading } from "@/components/Heading";
 import { PageSections } from "@/components/PageSections";
+import { MAIN_CONTENT_ID } from "@/config/routes";
 import { toMetadata } from "@/helpers/metadata";
 import { getNotFoundPage, getPage, getProductBySlug, getProducts } from "@/lib/api";
 import { loadProduct } from "@/lib/loaders";
@@ -43,7 +44,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
   if (!product.detail) {
     return (
-      <main className="flex min-h-dvh flex-col items-center justify-center px-4 tablet:px-8 desktop:px-32">
+      <main
+        id={MAIN_CONTENT_ID}
+        tabIndex={-1}
+        className="flex min-h-dvh flex-col items-center justify-center px-4 outline-none tablet:px-8 desktop:px-32"
+      >
         <Heading className="w-full" title={product.name} />
       </main>
     );
@@ -56,7 +61,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
    * The rule lives in `globals.css` because the footer is outside this page.
    */
   return (
-    <main className="buy-bar-space">
+    <main id={MAIN_CONTENT_ID} tabIndex={-1} className="buy-bar-space outline-none">
       <PageSections blocks={page.sections} product={product} />
     </main>
   );

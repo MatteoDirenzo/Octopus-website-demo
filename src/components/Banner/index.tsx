@@ -30,7 +30,7 @@ export function Banner(props: BannerProps) {
   return (
     <article className="relative h-banner w-full min-w-0 overflow-hidden tablet:h-banner-tablet desktop:h-banner-desktop">
       <BannerPicture image={image} priority={priority} />
-      <div className="relative flex h-full flex-col items-center px-4 py-20 tablet:items-start tablet:justify-center tablet:px-8 tablet:py-0 desktop:px-12">
+      <div className="relative flex h-full flex-col items-center px-4 py-20 tablet:items-start tablet:justify-center tablet:px-8 tablet:py-0 desktop:px-32">
         <div className="flex w-full min-w-0 flex-col items-center text-center tablet:w-1/2 tablet:items-start tablet:text-left">
           {"children" in props ? (
             props.children

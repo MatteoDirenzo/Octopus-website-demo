@@ -86,6 +86,7 @@ test("the header and where to buy come from the site", async () => {
 test("control labels come from the site", async () => {
   const site = await getSite();
 
+  expect(site.skipToContent.length).toBeGreaterThan(0);
   expect(site.colourLabel.length).toBeGreaterThan(0);
   expect(site.carousel.previous.length).toBeGreaterThan(0);
   expect(site.carousel.next.length).toBeGreaterThan(0);

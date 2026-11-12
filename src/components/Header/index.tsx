@@ -25,20 +25,23 @@ export function Header({ header }: HeaderProps) {
   /*
    * The shell is fixed and full-bleed so the pill can sit inside the side insets.
    * Pointer events stay on the pill, so the empty gutters do not block the page.
+   * Below 810 the shell also reaches the bottom inset, so the open menu can
+   * scroll inside the pill on short or zoomed screens while the body is locked.
    */
   return (
     <header
       className={clsx(
-        "pointer-events-none fixed inset-x-0 z-50 flex justify-center",
-        "top-2 px-4",
-        "tablet:top-4 tablet:px-8",
+        "pointer-events-none fixed inset-x-0 z-50 flex items-start justify-center",
+        "top-2 bottom-2 px-4",
+        "tablet:top-4 tablet:bottom-auto tablet:px-8",
         "desktop:px-32",
       )}
     >
       <nav
         aria-label={header.label}
         className={clsx(
-          "pointer-events-auto flex w-full max-w-navbar flex-col gap-4 rounded-4xl",
+          "pointer-events-auto flex max-h-full w-full max-w-navbar flex-col gap-4 overflow-y-auto overscroll-contain rounded-4xl",
+          "tablet:max-h-none tablet:overflow-visible",
           "bg-navbar px-2.5 py-2 shadow-navbar backdrop-blur-3xl",
           "tablet:flex-row tablet:items-center tablet:justify-between tablet:gap-0 tablet:p-3",
         )}
