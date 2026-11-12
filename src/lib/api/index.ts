@@ -1,6 +1,7 @@
 export { getCategories, getCategory, getSite } from "./site";
 export {
   getBestSellers,
+  getCarouselProducts,
   getProductBySlug,
   getProducts,
   getProductsByCategory,

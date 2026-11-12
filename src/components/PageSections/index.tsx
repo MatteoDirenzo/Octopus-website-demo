@@ -26,7 +26,12 @@ import {
 import { SPACING_CLASS, spacingStyle } from "@/helpers/components/spacing";
 import { missingProductFieldError } from "@/helpers/errors";
 import { productHref } from "@/helpers/routes";
-import { getCategories, getProductsBySlugs, getSite } from "@/lib/api";
+import {
+  getCarouselProducts,
+  getCategories,
+  getProductsBySlugs,
+  getSite,
+} from "@/lib/api";
 import { requireDetail, requireFeatured, requireProduct } from "@/lib/loaders";
 import type {
   BannerBlock,
@@ -255,7 +260,7 @@ async function renderHero(block: HeroBlock) {
 
 async function renderCarousel(block: CarouselBlock) {
   const [products, feature, categories, site] = await Promise.all([
-    getProductsBySlugs(block.productSlugs),
+    getCarouselProducts(block.productSlugs),
     block.featureProductSlug
       ? requireFeatured(block.featureProductSlug)
       : Promise.resolve(null),

@@ -67,8 +67,8 @@ export type CarouselBlock = {
   inset?: CarouselInset;
   /** Position dots. Omit to show only the arrows. */
   showDots?: boolean;
-  /** Products rendered with the cutout, in this order. */
-  productSlugs: string[];
+  /** Products rendered with the cutout, in this order. Omit to use the best sellers, in file order. */
+  productSlugs?: string[];
   /** Product rendered first with `featuredImage`. Omit when every card is a cutout. */
   featureProductSlug?: string;
   /** Page padding. */

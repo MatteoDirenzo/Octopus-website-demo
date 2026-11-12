@@ -10,7 +10,7 @@
 ## Content and data
 
 - Source all content from local JSON in `src/data` (`site.json`, `products.json`, `categories.json`, `pages/*.json`). No hardcoded content in markup. Do not add a separate translation or messages system.
-- JSON is accessed only through async functions in `src/lib/api/` (exposed via `src/lib/api/index.ts`; e.g. getProducts, getProductsBySlugs, getBestSellers, getProductsByCategory, getProductBySlug, getPage), which act as a fake API. Import them from `@/lib/api`. Components and pages never import JSON directly.
+- JSON is accessed only through async functions in `src/lib/api/` (exposed via `src/lib/api/index.ts`; e.g. getProducts, getProductsBySlugs, getBestSellers, getCarouselProducts, getProductsByCategory, getProductBySlug, getPage), which act as a fake API. Import them from `@/lib/api`. Components and pages never import JSON directly.
 - Route loaders live in `src/lib/loaders/`, one file per type (`categories.ts`, `products.ts`; later `pages.ts`, and so on). They call `@/lib/api` and decide the page outcome (for example `notFound()`). `products.ts` also holds the throwing `require*` lookups used by page blocks. They do not read JSON and do not replace the functions in `src/lib/api/`. New route loaders go there. Pages and components do not declare these helpers locally. Import them from `@/lib/loaders`.
 - No artificial delays and no internal `/api` routes. Server Components `await` the API functions or a route loader directly. Client components never call either; data is passed in as props.
 - Page blocks list product slugs. Product copy and images stay in `products.json`. Adding a product does not place it on a page until a block lists its slug.

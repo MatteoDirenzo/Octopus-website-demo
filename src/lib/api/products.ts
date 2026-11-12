@@ -41,6 +41,16 @@ export async function getBestSellers(): Promise<Product[]> {
   return products.filter((product) => product.bestSeller);
 }
 
+/**
+ * Products for a carousel. Slugs given: those products, in order.
+ * Slugs omitted: the best sellers. An empty list stays empty.
+ */
+export async function getCarouselProducts(
+  slugs?: readonly string[],
+): Promise<Product[]> {
+  return slugs ? getProductsBySlugs(slugs) : getBestSellers();
+}
+
 /** Products in this category, in file order. This list is not capped. */
 export async function getProductsByCategory(
   category: CategoryId,

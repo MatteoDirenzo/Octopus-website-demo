@@ -1,6 +1,6 @@
 import { cleanup, render, screen } from "@testing-library/react";
 import { afterEach, expect, test } from "vitest";
-import { getCategories, getPage, getProductBySlug, getProductsBySlugs } from "@/lib/api";
+import { getCarouselProducts, getCategories, getPage, getProductBySlug } from "@/lib/api";
 import type { Section } from "@/types";
 import { PageSections } from "./index";
 
@@ -36,7 +36,7 @@ test("renders one learn more link for each carousel product", async () => {
     throw new Error("Carousel block is missing");
   }
 
-  const products = await getProductsBySlugs(block.productSlugs);
+  const products = await getCarouselProducts(block.productSlugs);
 
   render(await PageSections({ blocks: [block] }));
 
@@ -66,7 +66,7 @@ test("the product page carousel renders a product card for each slug", async () 
     throw new Error("Product carousel is missing");
   }
 
-  const products = await getProductsBySlugs(block.productSlugs);
+  const products = await getCarouselProducts(block.productSlugs);
 
   render(await PageSections({ blocks: [block] }));
 
