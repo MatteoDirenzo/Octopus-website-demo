@@ -18,6 +18,7 @@ import {
 } from "@/types";
 import {
   getBestSellers,
+  getCarouselProducts,
   getCategories,
   getContactPage,
   getNotFoundPage,
@@ -229,7 +230,7 @@ async function assertSectionReferences(section: Section) {
         expect(includesValue(CARD_VARIANTS, section.cardVariant)).toBe(true);
       }
 
-      for (const slug of section.productSlugs) {
+      for (const slug of section.productSlugs ?? []) {
         expect(await getProductBySlug(slug)).not.toBeNull();
       }
 
@@ -317,6 +318,46 @@ test("category and best-seller queries follow the flags and the file order", asy
     "indoor-camera",
     "ionic-hair-dryer",
   ]);
+});
+
+test("carousel products use the listed slugs, or the best sellers when slugs are omitted", async () => {
+  const listed = await getCarouselProducts(["indoor-camera", "kettle-1-7-l"]);
+
+  expect(listed.map((product) => product.slug)).toEqual([
+    "indoor-camera",
+    "kettle-1-7-l",
+  ]);
+
+  const fallback = await getCarouselProducts();
+  const bestSellers = await getBestSellers();
+
+  expect(fallback.map((product) => product.id)).toEqual(
+    bestSellers.map((product) => product.id),
+  );
+  expect(await getCarouselProducts([])).toEqual([]);
+  await expect(getCarouselProducts(["missing-product"])).rejects.toThrow(
+    "Unknown product slug: missing-product",
+  );
+});
+
+test("the home and product carousels keep their own curated lists", async () => {
+  const [home, product] = await Promise.all([getPage("home"), getPage("product")]);
+  const homeCarousel = home.sections.find(
+    (section) => section.component === "carousel",
+  );
+  const productCarousel = product.sections.find(
+    (section) => section.component === "carousel",
+  );
+
+  if (
+    homeCarousel?.component !== "carousel" ||
+    productCarousel?.component !== "carousel"
+  ) {
+    throw new Error("Carousel block is missing");
+  }
+
+  expect(homeCarousel.productSlugs).toHaveLength(3);
+  expect(productCarousel.productSlugs).toHaveLength(11);
 });
 
 test("product detail has a gallery, valid spans, and unique colour ids", async () => {

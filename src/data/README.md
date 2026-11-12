@@ -81,7 +81,7 @@ Each entry is a category. `tileImage` is the exported category image.
 
 ## products.json
 
-Each entry is a product. File order is the order of `getBestSellers` and of each category list. A page block lists the slugs it shows.
+Each entry is a product. File order is the order of `getBestSellers` and of each category list. A page block lists the slugs it shows. A carousel that omits `productSlugs` shows the best sellers instead.
 
 | Key | Meaning | Required |
 | --- | --- | --- |
@@ -93,7 +93,7 @@ Each entry is a product. File order is the order of `getBestSellers` and of each
 | `image` | Cutout for `productSlugs` (`ImageAsset`). | yes |
 | `featuredImage` | Lifestyle image for a `featureProductSlug` (`ImageAsset`). Required on that product, and required when `featured` is true. | no |
 | `heroImage` | Two-crop still for a hero block that links this product. `mobile` is 1080 by 1920. `desktop` is 1920 by 1080. | no |
-| `bestSeller` | When true, `getBestSellers` includes the product. A page still lists its own slugs. | yes |
+| `bestSeller` | When true, `getBestSellers` includes the product. A carousel without `productSlugs` shows these products. Any other block still lists its own slugs. | yes |
 | `featured` | When true, this product is preferred as its category's feature card. Omit when it is not featured. | no |
 | `detail` | Detail-page content. Present only when the product has a Product Detail Page. | no |
 | `detail.description` | Long description. | yes, inside `detail` |
@@ -130,7 +130,7 @@ A section page file is `{ metadata?, sections[] }`. `metadata` has `title` and `
 | `component` | Properties | Required on that block |
 | --- | --- | --- |
 | `hero` | `title`, `subtitle`, `href`, `productSlug`, `spacing` | `title` and `productSlug` required. The still is that product's `heroImage`. `subtitle` and `href` are optional. The link label stays `site.learnMore`. |
-| `carousel` | `title`, `cardType`, `cardVariant`, `mode`, `visible`, `peek`, `inset`, `endOffset`, `showDots`, `productSlugs`, `featureProductSlug`, `spacing` | `title` and `productSlugs` required. `productSlugs` use the cutout, in list order. `featureProductSlug` is optional, uses `featuredImage`, and is shown first. `cardType` `product` renders `ProductCard` with the cutout, the name, and the short description. The image is the link. `cardVariant` is ignored for `small` and `product`. Pass-through props match `Carousel`. Omit one and the carousel keeps its default. |
+| `carousel` | `title`, `cardType`, `cardVariant`, `mode`, `visible`, `peek`, `inset`, `endOffset`, `showDots`, `productSlugs`, `featureProductSlug`, `spacing` | `title` required. `productSlugs` is optional. When it is present, the carousel shows those products, in list order, with the cutout. When it is omitted, the carousel shows `getBestSellers()`, in file order. `featureProductSlug` is optional, uses `featuredImage`, and is shown first. `cardType` `product` renders `ProductCard` with the cutout, the name, and the short description. The image is the link. `cardVariant` is ignored for `small` and `product`. Pass-through props match `Carousel`. Omit one and the carousel keeps its default. |
 | `categoryShowcase` | `title`, `subtitle`, `href`, `layout`, `featureProductSlug`, `productSlugs`, `spacing` | `title`, `href`, `layout`, and `productSlugs` required. `feature-top` and `feature-left` require `featureProductSlug`. `row` omits it and renders `productSlugs` as small cards. The heading link label stays `site.exploreAll`. Card links use `site.learnMore`. |
 | `banner` | `title`, `subtitle`, `href`, `images`, `button`, `variant`, `priority`, `spacing` | One of two shapes. Both use `images`. `images.src` has no breakpoint suffix. The files add `-desktop`, `-mobile`, and `-tablet` before the extension. `images.desktop`, `images.mobile`, and `images.tablet` are that crop's `width` and `height`. The frame has a fixed height and the picture covers it. Copy: `title`, `subtitle`, `href`, and `images` required. The link label stays `site.learnMore`. Button: `images` and `button` (`label`, `href`, `variant`) required. `title` and `subtitle` are optional and omitted to show only the button. `variant` on a copy banner, and `button.variant` on a button banner, pass through to `Banner`. |
 | `exploreCategories` | `title`, `spacing` | `title` required. Cards are every category, in file order. The label is `title`, the link is `href`, and the picture is `tileImage`. |
@@ -167,7 +167,7 @@ Layouts:
 
 `getProductsBySlugs` returns products in the slug order it is given. A missing slug throws.
 
-`getBestSellers` returns products with `bestSeller: true`, in file order. A carousel block does not read that flag. It lists `productSlugs`.
+`getBestSellers` returns products with `bestSeller: true`, in file order. A carousel block without `productSlugs` shows this list. A carousel with `productSlugs` ignores the flag. `getCarouselProducts` picks between the two. An empty `productSlugs` stays empty.
 
 `getProductsByCategory` stays uncapped. A showcase lists `featureProductSlug` and `productSlugs` itself.
 
