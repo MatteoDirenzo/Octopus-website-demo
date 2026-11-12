@@ -47,8 +47,14 @@
       "title": "Hair Care",
       "subtitle": "Placeholder",
       "href": "/category/hair-care",
-      "featureProductSlug": "ionic-hair-dryer",
-      "variant": "primary"
+      "variant": "primary",
+      "images": {
+        "src": "/images/banner-girl.webp",
+        "alt": "Woman drying her hair",
+        "desktop": { "width": 1200, "height": 500 },
+        "mobile": { "width": 4092, "height": 2075 },
+        "tablet": { "width": 1200, "height": 500 }
+      }
     },
     {
       "component": "categoryShowcase",
@@ -91,7 +97,19 @@
       }
     },
     {
-      "component": "storeBanner"
+      "component": "banner",
+      "images": {
+        "src": "/images/banner-red.webp",
+        "alt": "Kettle, blender, and air fryer on a red set",
+        "desktop": { "width": 4096, "height": 1755 },
+        "mobile": { "width": 4096, "height": 2650 },
+        "tablet": { "width": 810, "height": 500 }
+      },
+      "button": {
+        "label": "Find your nearest store",
+        "href": "/where-to-buy",
+        "variant": "secondary"
+      }
     }
   ]
 }

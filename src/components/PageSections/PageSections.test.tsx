@@ -196,8 +196,11 @@ test("renders one link for each category under the explore heading", async () =>
   }
 });
 
-test("renders the hair-care banner from the block copy and the featured image", async () => {
-  const block = await findBlock("banner");
+test("renders the hair-care banner from the block copy and the suffixed picture", async () => {
+  const block = await findBlock(
+    "banner",
+    (section) => "href" in section,
+  );
 
   render(await PageSections({ blocks: [block] }));
 
@@ -206,7 +209,24 @@ test("renders the hair-care banner from the block copy and the featured image", 
   expect(
     screen.getByRole("link", { name: "Learn more" }).getAttribute("href"),
   ).toBe("/category/hair-care");
-  expect(screen.getByRole("img", { name: "Woman drying her hair" })).toBeTruthy();
+  const picture = screen.getByRole("img", { name: "Woman drying her hair" });
+
+  expect(picture.getAttribute("src")).toContain("banner-girl-mobile.webp");
+});
+
+test("renders the red banner from its crops and button, with no heading", async () => {
+  const block = await findBlock("banner", (section) => "button" in section);
+
+  render(await PageSections({ blocks: [block] }));
+
+  expect(screen.queryByRole("heading")).toBeNull();
+  expect(
+    screen.getByRole("link", { name: "Find your nearest store" }).getAttribute("href"),
+  ).toBe("/where-to-buy");
+  expect(
+    screen.getByRole("img", { name: "Kettle, blender, and air fryer on a red set" }),
+  ).toBeTruthy();
+  expect(screen.getAllByRole("link")).toHaveLength(1);
 });
 
 function isBlock<T extends Section["component"]>(

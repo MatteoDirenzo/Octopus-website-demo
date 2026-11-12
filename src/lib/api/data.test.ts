@@ -1,4 +1,5 @@
 import { expect, test } from "vitest";
+import { responsiveImages } from "../../helpers/components/image";
 import {
   BUTTON_VARIANTS,
   CARD_TYPES,
@@ -243,13 +244,25 @@ async function assertSectionReferences(section: Section) {
       break;
     }
     case "banner": {
-      if (section.variant) {
+      if ("button" in section) {
+        if (section.button.variant) {
+          expect(includesValue(BUTTON_VARIANTS, section.button.variant)).toBe(
+            true,
+          );
+        }
+      } else if (section.variant) {
         expect(includesValue(BUTTON_VARIANTS, section.variant)).toBe(true);
       }
 
-      const feature = await getProductBySlug(section.featureProductSlug);
+      const crops = responsiveImages(section.images);
 
-      expect(feature?.featuredImage).toBeDefined();
+      expect(Object.keys(crops)).toEqual(["desktop", "mobile", "tablet"]);
+      assertImage(crops.desktop);
+      assertImage(crops.mobile);
+      assertImage(crops.tablet);
+      expect(crops.desktop.src).toContain("-desktop.");
+      expect(crops.mobile.src).toContain("-mobile.");
+      expect(crops.tablet.src).toContain("-tablet.");
       break;
     }
     default:

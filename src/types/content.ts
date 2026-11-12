@@ -333,25 +333,89 @@ export type CategoryShowcaseBlock = {
   spacing?: BlockSpacing;
 };
 
-/** Full-width promo. The picture is `featuredImage`. Copy and the link are on the block. */
-export type BannerBlock = {
+/** Shared banner options. */
+type BannerBlockBase = {
   /** Block discriminant. */
   component: "banner";
+  /** Set only when this banner is the page hero. */
+  priority?: boolean;
+  /** Page padding. Omit when the banner is full bleed. */
+  spacing?: BlockSpacing;
+};
+
+/**
+ * Copy promo.
+ * The picture, heading, and link are on the block.
+ * The link label stays `site.learnMore`.
+ */
+export type CopyBannerBlock = BannerBlockBase & {
   /** Heading. */
   title: string;
   /** Line under the title. */
   subtitle: string;
   /** Destination of the learn-more link. The label stays `site.learnMore`. */
   href: string;
-  /** Product whose `featuredImage` fills the frame. */
-  featureProductSlug: string;
+  /**
+   * Picture for the frame.
+   * `src` has no breakpoint suffix.
+   */
+  images: BannerImages;
   /** Button style. Omit for primary. */
   variant?: ButtonVariantName;
-  /** Set only when this banner is the page hero. */
-  priority?: boolean;
-  /** Page padding. Omit when the banner is full bleed. */
-  spacing?: BlockSpacing;
 };
+
+/**
+ * One banner picture exported three times.
+ * `src` has no breakpoint suffix. The files add `-desktop`, `-mobile`, and `-tablet` before the extension.
+ */
+export type BannerImages = {
+  /** Path without a breakpoint suffix. */
+  src: string;
+  /** Accessible description shared by every crop. */
+  alt: string;
+  /** Pixel size of the desktop file. */
+  desktop: BannerImageSize;
+  /** Pixel size of the mobile file. */
+  mobile: BannerImageSize;
+  /** Pixel size of the tablet file. */
+  tablet: BannerImageSize;
+};
+
+/** Pixel size of one banner crop. The path comes from `BannerImages.src`. */
+export type BannerImageSize = {
+  /** Pixel width of this crop. */
+  width: number;
+  /** Pixel height of this crop. */
+  height: number;
+};
+
+/** Action on an image banner. The label is on the block, not `site.learnMore`. */
+export type BannerButton = {
+  /** Visible label. */
+  label: string;
+  /** Destination. */
+  href: string;
+  /** Button style. Omit for primary. */
+  variant?: ButtonVariantName;
+};
+
+/**
+ * Promo with its own crops.
+ * No product. Omit `title` and `subtitle` to show only the button.
+ */
+export type ImageBannerBlock = BannerBlockBase & {
+  /** Mobile, tablet, and desktop crops. */
+  images: BannerImages;
+  /** Action. Its label and destination are on the block. */
+  button: BannerButton;
+  /** Heading. Omit when the frame has only a button. */
+  title?: string;
+  /** Line under the title. Omit when the frame has only a button. */
+  subtitle?: string;
+};
+
+/** Full-width promo. A product banner or an image banner. */
+export type BannerBlock = CopyBannerBlock | ImageBannerBlock;
 
 /** Block that links to every category. */
 export type ExploreCategoriesBlock = {

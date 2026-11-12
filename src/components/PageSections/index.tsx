@@ -241,20 +241,36 @@ async function renderCategoryShowcase(block: CategoryShowcaseBlock, index: numbe
   );
 }
 
+/**
+ * One `banner` case for both shapes. Copy and picture come from the block.
+ * `images` becomes `-desktop`, `-mobile`, and `-tablet` files. A block with
+ * `button` uses that label and link. Otherwise the label stays `site.learnMore`.
+ */
 async function renderBanner(block: BannerBlock, index: number) {
-  const [product, site] = await Promise.all([
-    requireFeatured(block.featureProductSlug),
-    getSite(),
-  ]);
+  if (!("button" in block)) {
+    const site = await getSite();
+
+    return (
+      <Banner
+        titleId={`banner-${index}`}
+        title={block.title}
+        subtitle={block.subtitle}
+        image={block.images}
+        cta={{ label: site.learnMore.label, href: block.href }}
+        variant={block.variant}
+        priority={block.priority}
+      />
+    );
+  }
 
   return (
     <Banner
-      titleId={`banner-${index}`}
+      titleId={block.title ? `banner-${index}` : undefined}
       title={block.title}
       subtitle={block.subtitle}
-      image={product.featuredImage}
-      cta={{ label: site.learnMore.label, href: block.href }}
-      variant={block.variant}
+      image={block.images}
+      cta={{ label: block.button.label, href: block.button.href }}
+      variant={block.button.variant}
       priority={block.priority}
     />
   );

@@ -43,3 +43,53 @@ test("children mode renders the child and no banner heading or link", () => {
   expect(screen.queryByRole("heading")).toBeNull();
   expect(screen.queryByRole("link")).toBeNull();
 });
+
+test("button-only mode renders the link and no heading", () => {
+  render(
+    <Banner
+      image={image}
+      variant="secondary"
+      cta={{ label: "Find your nearest store", href: "/where-to-buy" }}
+    />,
+  );
+
+  expect(screen.queryByRole("heading")).toBeNull();
+  expect(
+    screen.getByRole("link", { name: "Find your nearest store" }).getAttribute("href"),
+  ).toBe("/where-to-buy");
+  expect(screen.getAllByRole("link")).toHaveLength(1);
+});
+
+const redSet = {
+  src: "/images/banner-red.webp",
+  alt: "Kettle, blender, and air fryer on a red set",
+  desktop: { width: 4096, height: 1755 },
+  mobile: { width: 4096, height: 2650 },
+  tablet: { width: 810, height: 500 },
+};
+
+test("a crop set exposes one image and a source for tablet and desktop", () => {
+  render(
+    <Banner
+      image={redSet}
+      cta={{ label: "Find your nearest store", href: "/where-to-buy" }}
+    />,
+  );
+
+  const picture = screen.getByRole("img", {
+    name: "Kettle, blender, and air fryer on a red set",
+  });
+  const sources = picture.parentElement?.querySelectorAll("source");
+
+  expect(screen.getAllByRole("img")).toHaveLength(1);
+  expect(picture.getAttribute("src")).toContain("banner-red-mobile.webp");
+  expect(sources?.[0]?.getAttribute("media")).toBe("(min-width: 1200px)");
+  expect(sources?.[0]?.getAttribute("srcset")).toContain(
+    "banner-red-desktop.webp",
+  );
+  expect(sources?.[1]?.getAttribute("media")).toBe("(min-width: 810px)");
+  expect(sources?.[1]?.getAttribute("srcset")).toContain(
+    "banner-red-tablet.webp",
+  );
+  expect(picture.className).toContain("object-cover");
+});
