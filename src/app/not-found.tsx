@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import { Heading } from "@/components/Heading";
 import { MAIN_CONTENT_ID } from "@/config/routes";
-import { toMetadata } from "@/helpers/metadata";
 import { getNotFoundPage } from "@/lib/api";
+import { loadMetadata } from "@/lib/loaders";
 
 export async function generateMetadata(): Promise<Metadata> {
   const page = await getNotFoundPage();
 
-  return toMetadata(page.metadata);
+  return loadMetadata(page.metadata);
 }
 
 /** Unknown routes. The title comes from the page JSON. */

@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Heading } from "@/components/Heading";
 import { MAIN_CONTENT_ID } from "@/config/routes";
-import { toMetadata } from "@/helpers/metadata";
+import { categoryHref } from "@/helpers/routes";
 import { getCategories, getCategory, getNotFoundPage } from "@/lib/api";
-import { loadCategory } from "@/lib/loaders";
+import { loadCategory, loadMetadata } from "@/lib/loaders";
 
 type CategoryPageProps = {
   params: Promise<{ slug: string }>;
@@ -28,10 +28,13 @@ export async function generateMetadata({
   if (!category) {
     const page = await getNotFoundPage();
 
-    return toMetadata(page.metadata);
+    return loadMetadata(page.metadata);
   }
 
-  return toMetadata({ title: category.title, description: category.tagline });
+  return loadMetadata(
+    { title: category.title, description: category.tagline },
+    { path: categoryHref(category.id), noIndex: true },
+  );
 }
 
 export default async function CategoryPage({ params }: CategoryPageProps) {

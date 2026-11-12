@@ -3,15 +3,19 @@ import type { Metadata } from "next";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { SkipLink } from "@/components/SkipLink";
-import { toMetadata } from "@/helpers/metadata";
+import { SITE_URL } from "@/config/site";
 import { getSite } from "@/lib/api";
+import { loadMetadata } from "@/lib/loaders";
 import { fontProject } from "@/styles/fonts";
 import "./globals.css";
 
 export async function generateMetadata(): Promise<Metadata> {
   const site = await getSite();
 
-  return toMetadata(site.metadata);
+  return {
+    ...(await loadMetadata(site.metadata)),
+    metadataBase: new URL(SITE_URL),
+  };
 }
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {

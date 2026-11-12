@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import { Heading } from "@/components/Heading";
-import { MAIN_CONTENT_ID } from "@/config/routes";
-import { toMetadata } from "@/helpers/metadata";
+import { MAIN_CONTENT_ID, ROUTES } from "@/config/routes";
 import { getContactPage } from "@/lib/api";
+import { loadMetadata } from "@/lib/loaders";
 
 export async function generateMetadata(): Promise<Metadata> {
   const page = await getContactPage();
 
-  return toMetadata(page.metadata);
+  return loadMetadata(page.metadata, { path: ROUTES.contactUs, noIndex: true });
 }
 
 export default async function ContactPage() {

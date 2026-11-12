@@ -3,6 +3,12 @@
     "title": "Octopus - Smart appliances for the home",
     "description": "Kitchen appliances, home security, hair care and accessories designed to make everyday life a little easier."
   },
+  "shareImage": {
+    "src": "/images/hero-home-tablet.webp",
+    "alt": "A finger pressing the button of a white Octopus video doorbell on an outside wall",
+    "width": 1620,
+    "height": 648
+  },
   "skipToContent": "Skip to main content",
   "header": {
     "label": "Main",

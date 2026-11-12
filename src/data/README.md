@@ -36,6 +36,7 @@ Text fields hold short mock copy until real copy replaces the value. Exported im
 | `metadata` | Default title and description. | yes |
 | `metadata.title` | Default document title. | yes |
 | `metadata.description` | Default meta description. | yes |
+| `shareImage` | `ImageAsset` used as `og:image` and Twitter image on every page. `width` and `height` are the file's real pixels. | yes |
 | `skipToContent` | Label of the skip link, the first focusable element on every page. | yes |
 | `header` | Header chrome and category links. | yes |
 | `header.label` | Accessible name of the navigation. | yes |

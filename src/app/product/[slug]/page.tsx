@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { Heading } from "@/components/Heading";
 import { PageSections } from "@/components/PageSections";
 import { MAIN_CONTENT_ID } from "@/config/routes";
-import { toMetadata } from "@/helpers/metadata";
+import { productHref } from "@/helpers/routes";
 import { getNotFoundPage, getPage, getProductBySlug, getProducts } from "@/lib/api";
-import { loadProduct } from "@/lib/loaders";
+import { loadMetadata, loadProduct } from "@/lib/loaders";
 
 type ProductPageProps = {
   params: Promise<{ slug: string }>;
@@ -29,13 +29,17 @@ export async function generateMetadata({
   if (!product) {
     const page = await getNotFoundPage();
 
-    return toMetadata(page.metadata);
+    return loadMetadata(page.metadata);
   }
 
-  return toMetadata({
-    title: product.name,
-    description: product.detail?.description ?? product.shortDescription,
-  });
+  /* A product without `detail` shows only its name, so it stays out of the index. */
+  return loadMetadata(
+    {
+      title: product.name,
+      description: product.detail?.description ?? product.shortDescription,
+    },
+    { path: productHref(product.slug), noIndex: !product.detail },
+  );
 }
 
 export default async function ProductPage({ params }: ProductPageProps) {

@@ -1,4 +1,5 @@
 import type { CarouselLabels } from "./carousel";
+import type { ImageAsset } from "./media";
 import type { PageMetadata } from "./pages";
 import type { Cta } from "./ui";
 
@@ -22,6 +23,8 @@ export type FooterGroup = {
 export type Site = {
   /** Default title and description. */
   metadata: PageMetadata;
+  /** Open Graph and Twitter image shared by every page. */
+  shareImage: ImageAsset;
   /** Label of the skip link, the first focusable element on every page. */
   skipToContent: string;
   /** Header chrome, category links, and Where to buy. */
