@@ -7,6 +7,11 @@ export type Cta = {
   label: string;
   /** Destination. */
   href: string;
+  /**
+   * Screen-reader text after `label`, such as `about Kettle`. Generic labels
+   * like `Learn more` need it so the link text names its destination.
+   */
+  context?: string;
 };
 
 /** An action that renders a link when `href` is set and a button otherwise. */
@@ -15,6 +20,8 @@ export type ButtonAction = {
   label: string;
   /** Renders a link. Omit it for a button. */
   href?: string;
+  /** Screen-reader text after `label`. See `Cta.context`. */
+  context?: string;
 };
 
 /** Button styles. */

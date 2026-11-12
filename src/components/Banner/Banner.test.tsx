@@ -32,6 +32,25 @@ test("copy mode exposes the heading, subtitle, image, and one link", () => {
   expect(screen.getAllByRole("link")).toHaveLength(1);
 });
 
+test("the cta context names the link and is visually hidden", () => {
+  render(
+    <Banner
+      title="Hair Care"
+      image={image}
+      cta={{
+        label: "Learn more",
+        href: "/category/hair-care",
+        context: "about Hair Care",
+      }}
+    />,
+  );
+
+  const link = screen.getByRole("link", { name: "Learn more about Hair Care" });
+
+  expect(link.getAttribute("href")).toBe("/category/hair-care");
+  expect(screen.getByText("about Hair Care").className).toBe("sr-only");
+});
+
 test("children mode renders the child and no banner heading or link", () => {
   render(
     <Banner image={image}>

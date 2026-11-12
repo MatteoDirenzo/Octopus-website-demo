@@ -64,6 +64,8 @@ export type Site = {
   learnMore: {
     /** Visible label of the link. */
     label: string;
+    /** Screen-reader text after the label. `{name}` is replaced by the product or banner title. */
+    context: string;
   };
   /** Shared category link used by the feature-top heading. */
   exploreAll: {

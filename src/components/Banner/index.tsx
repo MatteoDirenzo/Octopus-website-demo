@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import Image from "next/image";
 import { Button } from "@/components/Button";
+import { CtaLabel } from "@/components/CtaLabel";
 import { MEDIA_DESKTOP, MEDIA_TABLET } from "@/config/breakpoints";
 import { SIZES_FULL } from "@/config/sizes";
 import { isResponsiveImage } from "@/helpers/components/banner";
@@ -59,7 +60,7 @@ export function Banner(props: BannerProps) {
                 href={props.cta.href}
                 className={clsx((props.title || props.subtitle) && "mt-8")}
               >
-                {props.cta.label}
+                <CtaLabel label={props.cta.label} context={props.cta.context} />
               </Button>
             </>
           )}

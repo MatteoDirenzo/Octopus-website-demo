@@ -55,6 +55,7 @@ Text fields hold short mock copy until real copy replaces the value. Exported im
 | `storeBanner.text` | Banner body. | yes |
 | `learnMore` | Shared product link used by the hero and the best-seller cards. | yes |
 | `learnMore.label` | Visible label of that link. | yes |
+| `learnMore.context` | Screen-reader text after the label, so the link text names its destination. `{name}` becomes the product name, or the banner title on a copy banner. | yes |
 | `exploreAll` | Shared category link used by the feature-top heading. | yes |
 | `exploreAll.label` | Visible label of that link. | yes |
 | `carousel` | Accessible names of the carousel controls. | yes |

@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import Image from "next/image";
 import { Button } from "@/components/Button";
+import { CtaLabel } from "@/components/CtaLabel";
 import { CARD_SIZES } from "@/config/sizes";
 import type { Cta, ImageAsset } from "@/types";
 
@@ -64,7 +65,7 @@ export function CardSmall({
           {description}
         </p>
         <Button variant="primary" href={cta.href} className="mt-6 desktop:mt-8">
-          {cta.label}
+          <CtaLabel label={cta.label} context={cta.context} />
         </Button>
       </div>
       {background ? null : (

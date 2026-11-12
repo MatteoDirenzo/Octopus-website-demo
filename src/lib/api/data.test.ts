@@ -105,6 +105,7 @@ test("control labels come from the site", async () => {
   expect(site.carousel.next.length).toBeGreaterThan(0);
   expect(site.carousel.dots.length).toBeGreaterThan(0);
   expect(site.carousel.showItem).toContain("{n}");
+  expect(site.learnMore.context).toContain("{name}");
 });
 
 test("the where to buy page has metadata and a heading", async () => {

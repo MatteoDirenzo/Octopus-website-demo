@@ -25,7 +25,9 @@ test("renders the linked product heading and its learn more link", async () => {
     ),
   ).toBeTruthy();
   expect(
-    screen.getByRole("link", { name: "Learn more" }).getAttribute("href"),
+    screen
+      .getByRole("link", { name: "Learn more about Octopus Ionic Hair Dryer" })
+      .getAttribute("href"),
   ).toBe("/product/ionic-hair-dryer");
 });
 
@@ -50,11 +52,14 @@ test("renders one learn more link for each carousel product", async () => {
     ).toBeTruthy();
   }
 
-  const links = screen.getAllByRole("link", { name: "Learn more" });
+  const links = screen.getAllByRole("link", { name: /^Learn more/ });
 
   expect(links).toHaveLength(products.length);
   expect(links.map((link) => link.getAttribute("href"))).toEqual(
     products.map((product) => `/product/${product.slug}`),
+  );
+  expect(links.map((link) => link.textContent)).toEqual(
+    products.map((product) => `Learn more about ${product.name}`),
   );
 });
 
@@ -70,7 +75,7 @@ test("the product page carousel renders a product card for each slug", async () 
 
   render(await PageSections({ blocks: [block] }));
 
-  expect(screen.queryByRole("link", { name: "Learn more" })).toBeNull();
+  expect(screen.queryByRole("link", { name: /^Learn more/ })).toBeNull();
 
   for (const product of products) {
     expect(
@@ -118,7 +123,7 @@ test("renders the kitchen feature card and two medium cards", async () => {
     }),
   ).toBeNull();
 
-  const links = screen.getAllByRole("link", { name: "Learn more" });
+  const links = screen.getAllByRole("link", { name: /^Learn more/ });
 
   expect(links.map((link) => link.getAttribute("href"))).toEqual([
     "/product/kettle-1-7-l",
@@ -160,7 +165,7 @@ test("renders the home-security feature card and two medium cards", async () => 
     );
   }
 
-  const links = screen.getAllByRole("link", { name: "Learn more" });
+  const links = screen.getAllByRole("link", { name: /^Learn more/ });
 
   expect(links.map((link) => link.getAttribute("href"))).toEqual([
     "/product/indoor-camera",
@@ -236,7 +241,9 @@ test("renders the hair-care banner from the block copy and the suffixed picture"
     ),
   ).toBeTruthy();
   expect(
-    screen.getByRole("link", { name: "Learn more" }).getAttribute("href"),
+    screen
+      .getByRole("link", { name: "Learn more about Hair Care" })
+      .getAttribute("href"),
   ).toBe("/category/hair-care");
   const picture = screen.getByRole("img", { name: "Woman drying her hair" });
 
