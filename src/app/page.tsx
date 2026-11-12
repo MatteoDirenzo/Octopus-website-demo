@@ -1,19 +1,12 @@
 import type { Metadata } from "next";
 import { PageSections } from "@/components/PageSections";
+import { toMetadata } from "@/helpers/metadata";
 import { getPage } from "@/lib/api";
 
 export async function generateMetadata(): Promise<Metadata> {
   const page = await getPage("home");
 
-  return {
-    title: page.metadata?.title,
-    description: page.metadata?.description,
-    openGraph: {
-      title: page.metadata?.title,
-      description: page.metadata?.description,
-      type: "website",
-    },
-  };
+  return toMetadata(page.metadata);
 }
 
 export default async function Home() {

@@ -11,7 +11,7 @@
 
 - Source all content from local JSON in `src/data` (`site.json`, `products.json`, `categories.json`, `pages/*.json`). No hardcoded content in markup. Do not add a separate translation or messages system.
 - JSON is accessed only through async functions in `src/lib/api/` (exposed via `src/lib/api/index.ts`; e.g. getProducts, getProductsBySlugs, getBestSellers, getProductsByCategory, getProductBySlug, getPage), which act as a fake API. Import them from `@/lib/api`. Components and pages never import JSON directly.
-- Route loaders live in `src/lib/loaders/`, one file per type (`categories.ts` now; later `products.ts`, `pages.ts`, and so on). They call `@/lib/api` and decide the page outcome (for example `notFound()`). They do not read JSON and do not replace the functions in `src/lib/api/`. New route loaders go there. Pages do not declare these helpers locally. Import them from `@/lib/loaders`.
+- Route loaders live in `src/lib/loaders/`, one file per type (`categories.ts`, `products.ts`; later `pages.ts`, and so on). They call `@/lib/api` and decide the page outcome (for example `notFound()`). `products.ts` also holds the throwing `require*` lookups used by page blocks. They do not read JSON and do not replace the functions in `src/lib/api/`. New route loaders go there. Pages and components do not declare these helpers locally. Import them from `@/lib/loaders`.
 - No artificial delays and no internal `/api` routes. Server Components `await` the API functions or a route loader directly. Client components never call either; data is passed in as props.
 - Page blocks list product slugs. Product copy and images stay in `products.json`. Adding a product does not place it on a page until a block lists its slug.
 - Product-specific content (colours, feature cards, specs, downloads) lives on the product.
@@ -24,6 +24,13 @@
 - No fixed px widths that break in-between widths. No horizontal scroll at any width.
 - The font is defined once in `src/styles/fonts.ts` and exposed as a CSS variable.
 - Use `clsx` to combine multiple classes. Do not write a local join helper. Put the classes on the element.
+
+## Helpers, hooks and config
+
+- `src/config/` holds shared values that code cannot read from CSS: media queries (`breakpoints.ts`, mirroring `--breakpoint-*` in `tokens.css`), `next/image` `sizes` (`sizes.ts`), carousel defaults, the placeholder image, and route prefixes. No functions and no content copy.
+- `src/helpers/` holds pure functions. General helpers sit at the root (`metadata.ts`, `routes.ts`, `slug.ts`, `errors.ts`). Helpers used by components sit in `src/helpers/components/` (class names, image crops, spacing, gallery grouping, section mappers). Client hooks sit in `src/helpers/hooks/`.
+- A component or page does not declare a reusable helper locally. Reuse one from `src/helpers/` or add it there. Use `toMetadata` for every page's metadata, `productHref` for product links, and `useReducedMotion` for motion checks.
+- Do not repeat breakpoint or `sizes` literals in components. Import them from `@/config/breakpoints` and `@/config/sizes`.
 
 ## Components
 

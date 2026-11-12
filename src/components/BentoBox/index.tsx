@@ -1,8 +1,8 @@
 import clsx from "clsx";
 import Image from "next/image";
+import { PLACEHOLDER_SRC } from "@/config/media";
+import { SIZES_FULL, SIZES_HALF_FROM_DESKTOP } from "@/config/sizes";
 import type { BentoRow } from "@/types";
-
-const PLACEHOLDER_SRC = "/images/placeholder.webp";
 
 export type BentoBoxProps = {
   /**
@@ -49,9 +49,7 @@ export function BentoBox({ rows }: BentoBoxProps) {
                     src={image.src}
                     alt={image.alt}
                     fill
-                    sizes={
-                      paired ? "(min-width: 1200px) 50vw, 100vw" : "100vw"
-                    }
+                    sizes={paired ? SIZES_HALF_FROM_DESKTOP : SIZES_FULL}
                     className="object-cover"
                   />
                   <div

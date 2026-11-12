@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Heading } from "@/components/Heading";
 import { PageSections } from "@/components/PageSections";
+import { toMetadata } from "@/helpers/metadata";
 import { getNotFoundPage, getPage, getProductBySlug, getProducts } from "@/lib/api";
 import { loadProduct } from "@/lib/loaders";
 
@@ -27,28 +28,13 @@ export async function generateMetadata({
   if (!product) {
     const page = await getNotFoundPage();
 
-    return {
-      title: page.metadata.title,
-      description: page.metadata.description,
-      openGraph: {
-        title: page.metadata.title,
-        description: page.metadata.description,
-        type: "website",
-      },
-    };
+    return toMetadata(page.metadata);
   }
 
-  const description = product.detail?.description ?? product.shortDescription;
-
-  return {
+  return toMetadata({
     title: product.name,
-    description,
-    openGraph: {
-      title: product.name,
-      description,
-      type: "website",
-    },
-  };
+    description: product.detail?.description ?? product.shortDescription,
+  });
 }
 
 export default async function ProductPage({ params }: ProductPageProps) {

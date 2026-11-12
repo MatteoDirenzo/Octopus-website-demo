@@ -1,2 +1,7 @@
 export { loadCategory } from "./categories";
-export { loadProduct } from "./products";
+export {
+  loadProduct,
+  requireDetail,
+  requireFeatured,
+  requireProduct,
+} from "./products";

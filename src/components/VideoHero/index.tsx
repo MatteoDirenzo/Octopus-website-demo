@@ -2,7 +2,8 @@
 
 import clsx from "clsx";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { SIZES_FULL } from "@/config/sizes";
+import { useReducedMotion } from "@/helpers/hooks/useReducedMotion";
 import type { VideoAsset } from "@/types";
 
 export type VideoHeroProps = {
@@ -17,24 +18,7 @@ export type VideoHeroProps = {
  * poster and never mounts the video, so playback cannot start.
  */
 export function VideoHero({ video, className }: VideoHeroProps) {
-  const [reduceMotion, setReduceMotion] = useState<boolean | null>(null);
-
-  useEffect(() => {
-    if (typeof window.matchMedia !== "function") {
-      return;
-    }
-
-    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
-
-    function onChange() {
-      setReduceMotion(media.matches);
-    }
-
-    onChange();
-    media.addEventListener("change", onChange);
-    return () => media.removeEventListener("change", onChange);
-  }, []);
-
+  const reduceMotion = useReducedMotion();
   const showVideo = reduceMotion === false;
 
   return (
@@ -44,7 +28,7 @@ export function VideoHero({ video, className }: VideoHeroProps) {
         alt={showVideo ? "" : video.poster.alt}
         fill
         priority
-        sizes="100vw"
+        sizes={SIZES_FULL}
         className="object-cover"
       />
       {showVideo ? (

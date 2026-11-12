@@ -1,19 +1,12 @@
 import type { Metadata } from "next";
 import { Heading } from "@/components/Heading";
+import { toMetadata } from "@/helpers/metadata";
 import { getNotFoundPage } from "@/lib/api";
 
 export async function generateMetadata(): Promise<Metadata> {
   const page = await getNotFoundPage();
 
-  return {
-    title: page.metadata.title,
-    description: page.metadata.description,
-    openGraph: {
-      title: page.metadata.title,
-      description: page.metadata.description,
-      type: "website",
-    },
-  };
+  return toMetadata(page.metadata);
 }
 
 /** Unknown routes. The title comes from the page JSON. */

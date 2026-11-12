@@ -26,3 +26,15 @@ export type CarouselPeek = BreakpointValue<number>;
  * Omitted matches the header: 4, 8, and 32.
  */
 export type CarouselInset = BreakpointValue<number>;
+
+/** Accessible names of the carousel controls. */
+export type CarouselLabels = {
+  /** Name of the position-dot group. */
+  dots: string;
+  /** Previous arrow. */
+  previous: string;
+  /** Next arrow. */
+  next: string;
+  /** One position dot. `{n}` is replaced by the slide number, from 1. */
+  showItem: string;
+};

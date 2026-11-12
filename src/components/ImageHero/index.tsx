@@ -1,6 +1,8 @@
 import clsx from "clsx";
-import { getImageProps } from "next/image";
 import { preload } from "react-dom";
+import { MEDIA_BELOW_DESKTOP, MEDIA_DESKTOP } from "@/config/breakpoints";
+import { SIZES_FULL } from "@/config/sizes";
+import { getCropProps } from "@/helpers/components/image";
 import type { ImageAsset } from "@/types";
 
 export type ImageHeroProps = {
@@ -16,61 +18,39 @@ export type ImageHeroProps = {
  * portrait file is shown; from 1200 the landscape file replaces it.
  * `object-bottom` keeps the product when the viewport is not 9:16 or 16:9.
  *
- * The source media query is 1200px, the same value as `--breakpoint-desktop`
- * in `src/styles/tokens.css`. A media attribute cannot read a CSS variable.
- * Each file is preloaded only for its own query, so the other crop stays out
+ * The source media query comes from `@/config/breakpoints`. Each file is preloaded only for its own query, so the other crop stays out
  * of the download.
  */
 export function ImageHero({ mobile, desktop, className }: ImageHeroProps) {
-  const common = {
-    alt: mobile.alt,
-    sizes: "100vw",
+  const options = {
+    sizes: SIZES_FULL,
     priority: true,
     fetchPriority: "high" as const,
-    /*
-     * The exported files are already the delivered size.
-     * Skip the optimizer so it does not recompress them.
-     */
-    unoptimized: true,
   };
+  const desktopProps = getCropProps(desktop, options);
+  const mobileProps = getCropProps(mobile, options);
 
-  const {
-    props: { srcSet: desktopSrcSet, src: desktopSrc },
-  } = getImageProps({
-    ...common,
-    width: desktop.width,
-    height: desktop.height,
-    src: desktop.src,
-  });
-
-  const { props: mobileProps } = getImageProps({
-    ...common,
-    width: mobile.width,
-    height: mobile.height,
-    src: mobile.src,
-  });
-
-  preload(desktopSrc, {
+  preload(desktopProps.src, {
     as: "image",
-    imageSrcSet: desktopSrcSet,
-    imageSizes: desktopSrcSet ? "100vw" : undefined,
+    imageSrcSet: desktopProps.srcSet,
+    imageSizes: desktopProps.srcSet ? SIZES_FULL : undefined,
     fetchPriority: "high",
-    media: "(min-width: 1200px)",
+    media: MEDIA_DESKTOP,
   });
   preload(mobileProps.src, {
     as: "image",
     imageSrcSet: mobileProps.srcSet,
-    imageSizes: mobileProps.srcSet ? "100vw" : undefined,
+    imageSizes: mobileProps.srcSet ? SIZES_FULL : undefined,
     fetchPriority: "high",
-    media: "(max-width: 1199px)",
+    media: MEDIA_BELOW_DESKTOP,
   });
 
   return (
     <div className={clsx("relative h-full w-full", className)}>
       <picture className="absolute inset-0">
         <source
-          media="(min-width: 1200px)"
-          srcSet={desktopSrcSet ?? desktopSrc}
+          media={MEDIA_DESKTOP}
+          srcSet={desktopProps.srcSet ?? desktopProps.src}
         />
         <img
           {...mobileProps}

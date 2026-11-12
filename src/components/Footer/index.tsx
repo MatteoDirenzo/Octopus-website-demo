@@ -2,6 +2,7 @@ import clsx from "clsx";
 import Link from "next/link";
 import { Button } from "@/components/Button";
 import { LogoWordmarkStackedWhite } from "@/components/icons/LogoWordmarkStackedWhite";
+import { toId } from "@/helpers/slug";
 import type { FooterGroup, Site } from "@/types";
 
 export type FooterProps = {
@@ -49,7 +50,7 @@ export function Footer({ footer }: FooterProps) {
 }
 
 function FooterGroupNav({ group }: { group: FooterGroup }) {
-  const titleId = `footer-${group.title.toLowerCase().replaceAll(" ", "-")}`;
+  const titleId = `footer-${toId(group.title)}`;
 
   return (
     <nav

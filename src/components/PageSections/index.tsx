@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import Image from "next/image";
-import { Fragment, type CSSProperties, type ReactNode } from "react";
+import { Fragment, type ReactNode } from "react";
 import { Banner } from "@/components/Banner";
 import { BentoBox } from "@/components/BentoBox";
 import { CardLarge } from "@/components/CardLarge";
@@ -16,50 +16,31 @@ import { ImageHero } from "@/components/ImageHero";
 import { ProductCard } from "@/components/ProductCard";
 import { ProductInfo } from "@/components/ProductInfo";
 import { TechnicalSpecs } from "@/components/TechnicalSpecs";
-import { getCategories, getProductBySlug, getProductsBySlugs, getSite } from "@/lib/api";
+import { SIZES_HALF_FROM_TABLET } from "@/config/sizes";
+import { groupGallery } from "@/helpers/components/gallery";
+import {
+  toDownload,
+  toShowcaseCard,
+  toSpecGroups,
+} from "@/helpers/components/sections";
+import { SPACING_CLASS, spacingStyle } from "@/helpers/components/spacing";
+import { missingProductFieldError } from "@/helpers/errors";
+import { productHref } from "@/helpers/routes";
+import { getCategories, getProductsBySlugs, getSite } from "@/lib/api";
+import { requireDetail, requireFeatured, requireProduct } from "@/lib/loaders";
 import type {
   BannerBlock,
   BlockSpacing,
-  BlockSpacingSide,
   CardType,
   CardVariant,
   CarouselBlock,
   CategoryShowcaseBlock,
-  CategoryShowcaseCard,
   ExploreCategoriesBlock,
   HeroBlock,
   ImageAsset,
   Product,
-  ProductDetail,
   Section,
-  SpecsDownload,
-  SpecsGroup,
 } from "@/types";
-import { groupGallery } from "./gallery";
-
-/**
- * Padding utilities stay written out so Tailwind can see them.
- * The steps live on the element. `--spacing()` turns a step into a length,
- * the same way the carousel turns its inset into a length.
- */
-const SPACING_CLASS = clsx(
-  "[--section-pt:--spacing(var(--section-step-pt))]",
-  "[--section-pr:--spacing(var(--section-step-pr))]",
-  "[--section-pb:--spacing(var(--section-step-pb))]",
-  "[--section-pl:--spacing(var(--section-step-pl))]",
-  "tablet:[--section-pt-tablet:--spacing(var(--section-step-pt-tablet))]",
-  "tablet:[--section-pr-tablet:--spacing(var(--section-step-pr-tablet))]",
-  "tablet:[--section-pb-tablet:--spacing(var(--section-step-pb-tablet))]",
-  "tablet:[--section-pl-tablet:--spacing(var(--section-step-pl-tablet))]",
-  "desktop:[--section-pt-desktop:--spacing(var(--section-step-pt-desktop))]",
-  "desktop:[--section-pr-desktop:--spacing(var(--section-step-pr-desktop))]",
-  "desktop:[--section-pb-desktop:--spacing(var(--section-step-pb-desktop))]",
-  "desktop:[--section-pl-desktop:--spacing(var(--section-step-pl-desktop))]",
-  "pt-(--section-pt) pr-(--section-pr) pb-(--section-pb) pl-(--section-pl)",
-  "tablet:pt-(--section-pt-tablet) tablet:pr-(--section-pr-tablet) tablet:pb-(--section-pb-tablet) tablet:pl-(--section-pl-tablet)",
-  "desktop:pt-(--section-pt-desktop) desktop:pr-(--section-pr-desktop) desktop:pb-(--section-pb-desktop) desktop:pl-(--section-pl-desktop)",
-);
-
 type PageSectionsProps = {
   /** Blocks in display order. */
   blocks: Section[];
@@ -154,12 +135,12 @@ async function renderProductShowcase(product: Product | undefined) {
   const colour = detail.colours[0];
 
   if (!product || !colour) {
-    throw new Error(`Product ${product?.slug ?? "unknown"} is missing a colour`);
+    throw missingProductFieldError(product?.slug ?? "unknown", "a colour");
   }
 
   const site = await getSite();
   const blocks = groupGallery(detail.gallery);
-  const colourLabel = "Colour";
+  const colourLabel = site.colourLabel;
 
   return (
     <div className="grid min-w-0 -mt-header grid-cols-1 tablet:-mt-header-tablet tablet:grid-cols-2">
@@ -216,48 +197,8 @@ function renderSpecAccordion(product: Product | undefined) {
   );
 }
 
-function requireDetail(product: Product | undefined, component: string) {
-  if (!product) {
-    throw new Error(`Section ${component} requires a product`);
-  }
-
-  const detail = product.detail;
-
-  if (!detail) {
-    throw new Error(`Product ${product.slug} is missing detail`);
-  }
-
-  return detail;
-}
-
-function toSpecGroups(detail: ProductDetail): SpecsGroup[] {
-  return detail.specs.map((group) => ({
-    id: group.id,
-    title: group.title,
-    body: { kind: "list", items: group.items },
-  }));
-}
-
-/**
- * The specs component shows one file. Later downloads stay in the data.
- */
-function toDownload(detail: ProductDetail): SpecsDownload | undefined {
-  const file = detail.downloads[0];
-
-  if (!file) {
-    return undefined;
-  }
-
-  return {
-    label: detail.downloadsTitle,
-    fileLabel: file.label,
-    href: file.href,
-  };
-}
-
 /**
  * A gallery cell with no title. The radius matches the bento cards.
- * `sizes` uses 810px, the same value as `--breakpoint-tablet`.
  */
 function GalleryImage({ image }: { image: ImageAsset }) {
   return (
@@ -267,7 +208,7 @@ function GalleryImage({ image }: { image: ImageAsset }) {
         alt={image.alt}
         width={image.width}
         height={image.height}
-        sizes="(min-width: 810px) 50vw, 100vw"
+        sizes={SIZES_HALF_FROM_TABLET}
         className="h-auto w-full"
       />
     </figure>
@@ -278,7 +219,7 @@ async function renderHero(block: HeroBlock) {
   const product = await requireProduct(block.productSlug);
 
   if (!product.heroImage) {
-    throw new Error(`Product ${product.slug} is missing heroImage`);
+    throw missingProductFieldError(product.slug, "heroImage");
   }
 
   const site = block.href ? await getSite() : null;
@@ -343,6 +284,7 @@ async function renderCarousel(block: CarouselBlock) {
       inset={block.inset}
       endOffset={block.endOffset}
       showDots={block.showDots}
+      labels={site.carousel}
     >
       {slides.map(({ product, image, background }) => {
         const category = categories.find((item) => item.id === product.category);
@@ -462,70 +404,6 @@ function BlockSpacingFrame({
   );
 }
 
-function spacingStyle(spacing: BlockSpacing): CSSProperties {
-  const mobile = spacing.mobile;
-  const tablet = { ...spacing.mobile, ...spacing.tablet };
-  const desktop = { ...tablet, ...spacing.desktop };
-
-  return {
-    "--section-step-pt": step(mobile, "top"),
-    "--section-step-pr": step(mobile, "right"),
-    "--section-step-pb": step(mobile, "bottom"),
-    "--section-step-pl": step(mobile, "left"),
-    "--section-step-pt-tablet": step(tablet, "top"),
-    "--section-step-pr-tablet": step(tablet, "right"),
-    "--section-step-pb-tablet": step(tablet, "bottom"),
-    "--section-step-pl-tablet": step(tablet, "left"),
-    "--section-step-pt-desktop": step(desktop, "top"),
-    "--section-step-pr-desktop": step(desktop, "right"),
-    "--section-step-pb-desktop": step(desktop, "bottom"),
-    "--section-step-pl-desktop": step(desktop, "left"),
-  } as CSSProperties;
-}
-
-function step(side: BlockSpacingSide | undefined, key: keyof BlockSpacingSide) {
-  return side?.[key] ?? 0;
-}
-
-async function requireProduct(slug: string) {
-  const product = await getProductBySlug(slug);
-
-  if (!product) {
-    throw new Error(`Unknown product slug: ${slug}`);
-  }
-
-  return product;
-}
-
-async function requireFeatured(slug: string) {
-  const product = await requireProduct(slug);
-  const featuredImage = product.featuredImage;
-
-  if (!featuredImage) {
-    throw new Error(`Product ${product.slug} is missing featuredImage`);
-  }
-
-  return { ...product, featuredImage };
-}
-
-function toShowcaseCard(
-  product: Product,
-  image: ImageAsset,
-  label: string,
-  background = false,
-): CategoryShowcaseCard {
-  return {
-    title: product.name,
-    description: product.shortDescription,
-    image,
-    background,
-    cta: {
-      label,
-      href: `/product/${product.slug}`,
-    },
-  };
-}
-
 function ProductSlide({
   product,
   image,
@@ -544,7 +422,7 @@ function ProductSlide({
   cardType: CardType;
   cardVariant: CardVariant;
 }) {
-  const cta = { label, href: `/product/${product.slug}` };
+  const cta = { label, href: productHref(product.slug) };
 
   if (cardType === "product") {
     return (

@@ -1,19 +1,12 @@
 import type { Metadata } from "next";
 import { Heading } from "@/components/Heading";
+import { toMetadata } from "@/helpers/metadata";
 import { getWhereToBuyPage } from "@/lib/api";
 
 export async function generateMetadata(): Promise<Metadata> {
   const page = await getWhereToBuyPage();
 
-  return {
-    title: page.metadata.title,
-    description: page.metadata.description,
-    openGraph: {
-      title: page.metadata.title,
-      description: page.metadata.description,
-      type: "website",
-    },
-  };
+  return toMetadata(page.metadata);
 }
 
 export default async function WhereToBuyPage() {

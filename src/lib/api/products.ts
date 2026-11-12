@@ -1,4 +1,5 @@
 import productsData from "../../data/products.json";
+import { unknownProductError } from "@/helpers/errors";
 import type { CategoryId, Product } from "@/types";
 import { readContent } from "./shared";
 
@@ -27,7 +28,7 @@ export async function getProductsBySlugs(slugs: readonly string[]): Promise<Prod
     const product = products.find((item) => item.slug === slug);
 
     if (!product) {
-      throw new Error(`Unknown product slug: ${slug}`);
+      throw unknownProductError(slug);
     }
 
     return product;

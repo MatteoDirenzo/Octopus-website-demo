@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import Image from "next/image";
 import { Button } from "@/components/Button";
+import { cardSizes } from "@/helpers/components/card";
 import type { CardVariant, Cta, ImageAsset } from "@/types";
 
 export type CardLargeProps = {
@@ -45,14 +46,7 @@ export function CardLarge({
   background = false,
   cta,
 }: CardLargeProps) {
-  // 31rem matches `--container-card-image`. The sizes attribute cannot read it.
-  const sizes = background
-    ? variant === "vertical"
-      ? "(min-width: 1200px) 40vw, 90vw"
-      : "(min-width: 810px) 80vw, 90vw"
-    : variant === "vertical"
-      ? "(min-width: 1200px) 50vw, (min-width: 810px) 31rem, 80vw"
-      : "(min-width: 810px) 31rem, 80vw";
+  const sizes = cardSizes("large", variant, background);
 
   return (
     <article

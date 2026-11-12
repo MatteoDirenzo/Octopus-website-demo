@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Heading } from "@/components/Heading";
+import { toMetadata } from "@/helpers/metadata";
 import { getCategories, getCategory, getNotFoundPage } from "@/lib/api";
 import { loadCategory } from "@/lib/loaders";
 
@@ -26,26 +27,10 @@ export async function generateMetadata({
   if (!category) {
     const page = await getNotFoundPage();
 
-    return {
-      title: page.metadata.title,
-      description: page.metadata.description,
-      openGraph: {
-        title: page.metadata.title,
-        description: page.metadata.description,
-        type: "website",
-      },
-    };
+    return toMetadata(page.metadata);
   }
 
-  return {
-    title: category.title,
-    description: category.tagline,
-    openGraph: {
-      title: category.title,
-      description: category.tagline,
-      type: "website",
-    },
-  };
+  return toMetadata({ title: category.title, description: category.tagline });
 }
 
 export default async function CategoryPage({ params }: CategoryPageProps) {

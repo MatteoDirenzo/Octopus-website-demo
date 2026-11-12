@@ -2,6 +2,7 @@ import clsx from "clsx";
 import type { Metadata } from "next";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
+import { toMetadata } from "@/helpers/metadata";
 import { getSite } from "@/lib/api";
 import { fontProject } from "@/styles/fonts";
 import "./globals.css";
@@ -9,15 +10,7 @@ import "./globals.css";
 export async function generateMetadata(): Promise<Metadata> {
   const site = await getSite();
 
-  return {
-    title: site.metadata.title,
-    description: site.metadata.description,
-    openGraph: {
-      title: site.metadata.title,
-      description: site.metadata.description,
-      type: "website",
-    },
-  };
+  return toMetadata(site.metadata);
 }
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {

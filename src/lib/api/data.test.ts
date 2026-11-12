@@ -1,5 +1,6 @@
 import { expect, test } from "vitest";
 import { responsiveImages } from "../../helpers/components/image";
+import { categoryHref } from "../../helpers/routes";
 import {
   BUTTON_VARIANTS,
   CARD_TYPES,
@@ -65,7 +66,7 @@ test("categories have unique ids and hrefs", async () => {
   expect(new Set(ids).size).toBe(ids.length);
 
   for (const category of categories) {
-    expect(category.href).toBe(`/category/${category.id}`);
+    expect(category.href).toBe(categoryHref(category.id));
   }
 });
 
@@ -80,6 +81,16 @@ test("the header and where to buy come from the site", async () => {
     "/category/accessories",
   ]);
   expect(site.header.whereToBuy.href).toBe("/where-to-buy");
+});
+
+test("control labels come from the site", async () => {
+  const site = await getSite();
+
+  expect(site.colourLabel.length).toBeGreaterThan(0);
+  expect(site.carousel.previous.length).toBeGreaterThan(0);
+  expect(site.carousel.next.length).toBeGreaterThan(0);
+  expect(site.carousel.dots.length).toBeGreaterThan(0);
+  expect(site.carousel.showItem).toContain("{n}");
 });
 
 test("the where to buy page has metadata and a heading", async () => {
