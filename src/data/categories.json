@@ -14,7 +14,7 @@
   {
     "id": "home-security",
     "title": "Home Security",
-    "tagline": "Placeholder",
+    "tagline": "Smart cameras and doorbells that keep watch",
     "tileImage": {
       "src": "/images/products/security-cam.webp",
       "alt": "White indoor security camera",
@@ -26,7 +26,7 @@
   {
     "id": "hair-care",
     "title": "Hair Care",
-    "tagline": "Placeholder",
+    "tagline": "Styling tools for faster, smoother results",
     "tileImage": {
       "src": "/images/products/hair-dryer.webp",
       "alt": "Grey hair dryer",
@@ -38,7 +38,7 @@
   {
     "id": "accessories",
     "title": "Accessories",
-    "tagline": "Placeholder",
+    "tagline": "Charging and power for every device",
     "tileImage": {
       "src": "/images/products/cable.webp",
       "alt": "Coiled USB-C cable",

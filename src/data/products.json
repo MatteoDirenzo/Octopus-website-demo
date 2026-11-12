@@ -13,7 +13,7 @@
     },
     "featuredImage": {
       "src": "/images/products/kettle-wide.webp",
-      "alt": "Placeholder",
+      "alt": "Octopus Kettle 1.7 L on a kitchen counter",
       "width": 3200,
       "height": 1106
     },
@@ -165,10 +165,10 @@
     "slug": "air-fryer-5-7-l",
     "name": "Octopus Air Fryer 5.7 L",
     "category": "kitchen",
-    "shortDescription": "Placeholder",
+    "shortDescription": "A 5.7 L air fryer that crisps family-sized meals with little to no oil",
     "image": {
       "src": "/images/products/air-fryer.webp",
-      "alt": "Placeholder",
+      "alt": "Octopus Air Fryer 5.7 L",
       "width": 719,
       "height": 719
     },
@@ -179,16 +179,16 @@
     "slug": "indoor-camera",
     "name": "Octopus Indoor Camera",
     "category": "home-security",
-    "shortDescription": "Placeholder",
+    "shortDescription": "A 2K indoor camera with night vision and two-way audio, so you can check in from anywhere",
     "image": {
       "src": "/images/products/security-cam.webp",
-      "alt": "Placeholder",
+      "alt": "Octopus Indoor Camera",
       "width": 724,
       "height": 724
     },
     "featuredImage": {
       "src": "/images/products/security-camera-wide.webp",
-      "alt": "Placeholder",
+      "alt": "Octopus Indoor Camera on a living room shelf",
       "width": 992,
       "height": 1178
     },
@@ -203,7 +203,7 @@
     "shortDescription": "Dry your hair faster and with less frizz with this powerful ionic hair dryer",
     "image": {
       "src": "/images/products/hair-dryer.webp",
-      "alt": "Placeholder",
+      "alt": "Octopus Ionic Hair Dryer",
       "width": 724,
       "height": 724
     },
@@ -216,13 +216,13 @@
     "heroImage": {
       "mobile": {
         "src": "/images/hero-home-poster-mobile.webp",
-        "alt": "Placeholder",
+        "alt": "Woman styling her hair with the Octopus Ionic Hair Dryer",
         "width": 1080,
         "height": 1920
       },
       "desktop": {
         "src": "/images/hero-home-poster.webp",
-        "alt": "Placeholder",
+        "alt": "Woman styling her hair with the Octopus Ionic Hair Dryer",
         "width": 1920,
         "height": 1080
       }
@@ -235,10 +235,10 @@
     "slug": "outdoor-camera",
     "name": "Octopus Outdoor Camera",
     "category": "home-security",
-    "shortDescription": "Placeholder",
+    "shortDescription": "A weatherproof outdoor camera with motion alerts and colour night vision",
     "image": {
       "src": "/images/products/security-cam-2.webp",
-      "alt": "Placeholder",
+      "alt": "Octopus Outdoor Camera",
       "width": 724,
       "height": 724
     },
@@ -249,10 +249,10 @@
     "slug": "video-doorbell",
     "name": "Octopus Video Doorbell",
     "category": "home-security",
-    "shortDescription": "Placeholder",
+    "shortDescription": "See and speak to whoever is at the door, straight from your phone",
     "image": {
       "src": "/images/products/security-home.webp",
-      "alt": "Placeholder",
+      "alt": "Octopus Video Doorbell",
       "width": 724,
       "height": 724
     },
@@ -263,10 +263,10 @@
     "slug": "power-bank-10000-mah",
     "name": "Octopus Power Bank 10,000 mAh",
     "category": "accessories",
-    "shortDescription": "Placeholder",
+    "shortDescription": "A slim 10,000 mAh power bank that charges two devices at once",
     "image": {
       "src": "/images/products/powerbank.webp",
-      "alt": "Placeholder",
+      "alt": "Octopus Power Bank 10,000 mAh",
       "width": 724,
       "height": 724
     },
@@ -277,10 +277,10 @@
     "slug": "power-board-with-usb-charging",
     "name": "Octopus Power Board with USB Charging",
     "category": "accessories",
-    "shortDescription": "Placeholder",
+    "shortDescription": "A surge-protected power board with built-in USB-A and USB-C ports",
     "image": {
       "src": "/images/products/outlet.webp",
-      "alt": "Placeholder",
+      "alt": "Octopus Power Board with USB Charging",
       "width": 724,
       "height": 724
     },
@@ -291,10 +291,10 @@
     "slug": "3-in-1-magnetic-charging-station",
     "name": "Octopus 3-in-1 Magnetic Charging Station",
     "category": "accessories",
-    "shortDescription": "Placeholder",
+    "shortDescription": "Charge your phone, watch and earbuds together on one magnetic stand",
     "image": {
       "src": "/images/products/magsafe-stand.webp",
-      "alt": "Placeholder",
+      "alt": "Octopus 3-in-1 Magnetic Charging Station",
       "width": 724,
       "height": 724
     },
