@@ -4,10 +4,10 @@
     "title": "Kitchen",
     "tagline": "Powerful appliances for everyday cooking",
     "tileImage": {
-      "src": "/images/hero-kitchen-dekstop.webp",
-      "alt": "Placeholder",
-      "width": 3200,
-      "height": 1106
+      "src": "/images/products/mixer.webp",
+      "alt": "Personal blender",
+      "width": 719,
+      "height": 719
     },
     "href": "/category/kitchen"
   },
@@ -16,10 +16,10 @@
     "title": "Home Security",
     "tagline": "Placeholder",
     "tileImage": {
-      "src": "/images/hero-home-desktop.webp",
-      "alt": "Placeholder",
-      "width": 3200,
-      "height": 1106
+      "src": "/images/products/security-cam.webp",
+      "alt": "White indoor security camera",
+      "width": 724,
+      "height": 724
     },
     "href": "/category/home-security"
   },
@@ -28,10 +28,10 @@
     "title": "Hair Care",
     "tagline": "Placeholder",
     "tileImage": {
-      "src": "/images/hero-haircare-desktop.webp",
-      "alt": "Placeholder",
-      "width": 3200,
-      "height": 1106
+      "src": "/images/products/hair-dryer.webp",
+      "alt": "Grey hair dryer",
+      "width": 724,
+      "height": 724
     },
     "href": "/category/hair-care"
   },
@@ -40,10 +40,10 @@
     "title": "Accessories",
     "tagline": "Placeholder",
     "tileImage": {
-      "src": "/images/hero-accessories-desktop.webp",
-      "alt": "Placeholder",
-      "width": 3200,
-      "height": 1106
+      "src": "/images/products/cable.webp",
+      "alt": "Coiled USB-C cable",
+      "width": 724,
+      "height": 724
     },
     "href": "/category/accessories"
   }

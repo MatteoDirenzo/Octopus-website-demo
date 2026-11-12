@@ -9,6 +9,7 @@ import {
   type CategoryShowcaseCard,
 } from "@/components/CategoryShowcase";
 import { Carousel } from "@/components/Carousel";
+import { ExploreCategory } from "@/components/ExploreCategory";
 import { Heading } from "@/components/Heading";
 import { ImageHero } from "@/components/ImageHero";
 import { getCategories, getProductBySlug, getProductsBySlugs, getSite } from "@/lib/api";
@@ -20,6 +21,7 @@ import type {
   CardVariantName,
   CarouselBlock,
   CategoryShowcaseBlock,
+  ExploreCategoriesBlock,
   HeroBlock,
   ImageAsset,
   Product,
@@ -99,7 +101,7 @@ async function renderBlockContent(
     case "banner":
       return renderBanner(block, index);
     case "exploreCategories":
-      return <section aria-label={block.component}>{block.component}</section>;
+      return renderExploreCategories(block);
     case "storeBanner":
       return <section aria-label={block.component}>{block.component}</section>;
     case "productShowcase":
@@ -254,6 +256,25 @@ async function renderBanner(block: BannerBlock, index: number) {
       cta={{ label: site.learnMore.label, href: block.href }}
       variant={block.variant}
       priority={block.priority}
+    />
+  );
+}
+
+/**
+ * Category row. Each card is one category: the tile is the image, the title
+ * is the label, and `href` is the category page.
+ */
+async function renderExploreCategories(block: ExploreCategoriesBlock) {
+  const categories = await getCategories();
+
+  return (
+    <ExploreCategory
+      title={block.title}
+      cards={categories.map((category) => ({
+        image: category.tileImage,
+        href: category.href,
+        label: category.title,
+      }))}
     />
   );
 }

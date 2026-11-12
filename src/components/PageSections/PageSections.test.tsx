@@ -1,6 +1,6 @@
 import { cleanup, render, screen } from "@testing-library/react";
 import { afterEach, expect, test } from "vitest";
-import { getPage, getProductsBySlugs } from "@/lib/api";
+import { getCategories, getPage, getProductsBySlugs } from "@/lib/api";
 import type { Section } from "@/types/content";
 import { PageSections } from "./index";
 
@@ -172,6 +172,28 @@ test("renders the accessories row as three small cards", async () => {
   }
 
   expect(screen.getAllByRole("heading", { level: 3 })).toHaveLength(3);
+});
+
+test("renders one link for each category under the explore heading", async () => {
+  const block = await findBlock("exploreCategories");
+  const categories = await getCategories();
+
+  render(await PageSections({ blocks: [block] }));
+
+  expect(block.title).toBe("Explore all categories");
+  expect(
+    screen.getByRole("heading", { level: 2, name: block.title }),
+  ).toBeTruthy();
+
+  const links = screen.getAllByRole("link");
+
+  expect(links.map((link) => link.getAttribute("href"))).toEqual(
+    categories.map((category) => category.href),
+  );
+
+  for (const category of categories) {
+    expect(screen.getByText(category.title)).toBeTruthy();
+  }
 });
 
 test("renders the hair-care banner from the block copy and the featured image", async () => {

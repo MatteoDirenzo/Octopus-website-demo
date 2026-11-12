@@ -124,7 +124,7 @@ A section page file is `{ metadata?, sections[] }`. `metadata` has `title` and `
 | `carousel` | `title`, `cardType`, `cardVariant`, `mode`, `visible`, `peek`, `inset`, `endOffset`, `showDots`, `productSlugs`, `featureProductSlug`, `spacing` | `title` and `productSlugs` required. `productSlugs` use the cutout, in list order. `featureProductSlug` is optional, uses `featuredImage`, and is shown first. Pass-through props match `Carousel`. Omit one and the carousel keeps its default. |
 | `categoryShowcase` | `title`, `subtitle`, `href`, `layout`, `featureProductSlug`, `productSlugs`, `spacing` | `title`, `href`, `layout`, and `productSlugs` required. `feature-top` and `feature-left` require `featureProductSlug`. `row` omits it and renders `productSlugs` as small cards. The heading link label stays `site.exploreAll`. Card links use `site.learnMore`. |
 | `banner` | `title`, `subtitle`, `href`, `featureProductSlug`, `variant`, `priority`, `spacing` | `title`, `subtitle`, `href`, and `featureProductSlug` required. The picture is `featuredImage`. The link label stays `site.learnMore`. `variant` and `priority` pass through to `Banner`. |
-| `exploreCategories` | `title`, `spacing` | `title` required. |
+| `exploreCategories` | `title`, `spacing` | `title` required. Cards are every category, in file order. The label is `title`, the link is `href`, and the picture is `tileImage`. |
 | `storeBanner` | `spacing` | Copy comes from `site.storeBanner`. |
 | `productShowcase` | `spacing` | The page passes the loaded product. |
 | `specAccordion` | `spacing` | The page passes the loaded product. |

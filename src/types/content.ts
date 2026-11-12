@@ -109,7 +109,7 @@ export type VideoAsset = {
 
 /**
  * A shop category.
- * `tileImage` is a square 800 by 800 placeholder until the exported tile replaces it.
+ * `tileImage` is the square cutout shown on a category card.
  */
 export type Category = {
   /** Value from `CATEGORIES`. */
@@ -118,7 +118,7 @@ export type Category = {
   title: string;
   /** Short line under the title. */
   tagline: string;
-  /** Square tile, 800 by 800 in the placeholder data. */
+  /** Square category tile. */
   tileImage: ImageAsset;
   /** Destination of the category link. */
   href: string;
