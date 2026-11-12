@@ -1,8 +1,8 @@
-import { expect, test } from "@playwright/test";
+import { expect, test, type Page } from "@playwright/test";
 import { ROUTES } from "../src/config/routes";
 import { SITE_URL } from "../src/config/site";
 import { categoryHref, productHref } from "../src/helpers/routes";
-import { getCategories, getProducts } from "../src/lib/api";
+import { getCategories, getProducts, getSite } from "../src/lib/api";
 
 type SeoRoute = { path: string; noIndex: boolean };
 
@@ -59,6 +59,78 @@ test("every page has one h1, its own canonical, share tags and the right robots"
 
   expect(new Set(titles).size).toBe(titles.length);
   expect(new Set(descriptions).size).toBe(descriptions.length);
+});
+
+/** Every JSON-LD block on the page. `JSON.parse` throws if one is not valid JSON. */
+async function readJsonLd(page: Page): Promise<Record<string, unknown>[]> {
+  const blocks = await page
+    .locator('script[type="application/ld+json"]')
+    .allTextContents();
+
+  return blocks.map((block) => JSON.parse(block));
+}
+
+test("the home describes the organisation and the website", async ({ page }) => {
+  const site = await getSite();
+  const homeUrl = new URL(ROUTES.home, SITE_URL).href;
+
+  await page.goto(ROUTES.home);
+  const [data, ...rest] = await readJsonLd(page);
+
+  expect(rest).toHaveLength(0);
+  expect(data).toMatchObject({
+    "@context": "https://schema.org",
+    "@graph": [
+      { "@type": "Organization", name: site.name, url: homeUrl },
+      { "@type": "WebSite", name: site.name, url: homeUrl },
+    ],
+  });
+});
+
+test("product JSON-LD matches the visible name and description", async ({ page }) => {
+  const site = await getSite();
+  const products = await getProducts();
+  const withDetail = products.find((product) => product.detail);
+  const withoutDetail = products.find((product) => !product.detail);
+
+  if (!withDetail || !withoutDetail) {
+    throw new Error("Expected products with and without detail");
+  }
+
+  await page.goto(productHref(withDetail.slug));
+  const [data, ...rest] = await readJsonLd(page);
+  const name = await page.locator("h1").textContent();
+  const description = await page
+    .locator('meta[name="description"]')
+    .getAttribute("content");
+
+  expect(rest).toHaveLength(0);
+  expect(data).toMatchObject({
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name,
+    description,
+    url: `${SITE_URL}${productHref(withDetail.slug)}`,
+    brand: { "@type": "Brand", name: site.name },
+  });
+  expect(String(data?.image).startsWith(`${SITE_URL}/`)).toBe(true);
+  await expect(page.getByText(String(data?.description), { exact: true })).toBeVisible();
+  expect(data).not.toHaveProperty("offers");
+  expect(data).not.toHaveProperty("aggregateRating");
+
+  await page.goto(productHref(withoutDetail.slug));
+  expect(await readJsonLd(page)).toHaveLength(0);
+});
+
+test("llms.txt summarises the site from the data", async ({ request }) => {
+  const site = await getSite();
+  const response = await request.get("/llms.txt");
+  const text = await response.text();
+
+  expect(response.ok()).toBe(true);
+  expect(response.headers()["content-type"]).toContain("text/plain");
+  expect(text.startsWith(`# ${site.name}\n`)).toBe(true);
+  expect(text).toContain(new URL(ROUTES.home, SITE_URL).href);
 });
 
 test("the not-found page has one h1 and no canonical", async ({ page }) => {

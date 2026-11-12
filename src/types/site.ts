@@ -21,10 +21,21 @@ export type FooterGroup = {
 
 /** Site-wide copy. The header and footer are rendered from this. */
 export type Site = {
+  /** Brand and organisation name. Used in structured data and llms.txt. */
+  name: string;
   /** Default title and description. */
   metadata: PageMetadata;
   /** Open Graph and Twitter image shared by every page. */
   shareImage: ImageAsset;
+  /** Section headings of `/llms.txt`. */
+  llms: {
+    /** Heading of the home link. */
+    pagesTitle: string;
+    /** Heading of the category links. */
+    categoriesTitle: string;
+    /** Heading of the product detail links. */
+    productsTitle: string;
+  };
   /** Label of the skip link, the first focusable element on every page. */
   skipToContent: string;
   /** Header chrome, category links, and Where to buy. */

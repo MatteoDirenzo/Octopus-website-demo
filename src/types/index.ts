@@ -3,6 +3,7 @@ export * from "./cards";
 export * from "./carousel";
 export * from "./category";
 export * from "./gallery";
+export * from "./jsonLd";
 export * from "./layout";
 export * from "./media";
 export * from "./pages";
