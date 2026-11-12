@@ -146,6 +146,47 @@ test("disables the previous control at the start and the next control at the end
   );
 });
 
+test("moves focus to the other arrow when the clicked one reaches an end", () => {
+  render(
+    <Carousel title="Best sellers" labels={labels}>
+      <p>One</p>
+      <p>Two</p>
+    </Carousel>,
+  );
+
+  const scroller = screen.getByRole("list");
+  const slide = screen.getAllByRole("listitem")[0];
+
+  if (!slide) {
+    throw new Error("Missing slide");
+  }
+
+  scroller.scrollTo = () => {};
+  setScroll(scroller, slide, {
+    scrollWidth: 600,
+    clientWidth: 300,
+    scrollLeft: 0,
+    slideWidth: 300,
+  });
+
+  const next = screen.getByRole("button", { name: "Next" });
+  next.focus();
+  act(() => {
+    next.click();
+  });
+  setScroll(scroller, slide, {
+    scrollWidth: 600,
+    clientWidth: 300,
+    scrollLeft: 300,
+    slideWidth: 300,
+  });
+
+  expect(next).toHaveProperty("disabled", true);
+  expect(document.activeElement).toBe(
+    screen.getByRole("button", { name: "Previous" }),
+  );
+});
+
 test("sets the overflow peek per breakpoint and keeps two thirds by default", () => {
   const { rerender } = render(
     <Carousel title="Best sellers" mode="overflow" labels={labels}>

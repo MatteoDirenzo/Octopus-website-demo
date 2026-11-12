@@ -22,6 +22,8 @@ export type FooterGroup = {
 export type Site = {
   /** Default title and description. */
   metadata: PageMetadata;
+  /** Label of the skip link, the first focusable element on every page. */
+  skipToContent: string;
   /** Header chrome, category links, and Where to buy. */
   header: {
     /** Accessible name of the navigation. */

@@ -15,6 +15,7 @@ import { ProductCard } from "@/components/ProductCard";
 import { ProductInfo } from "@/components/ProductInfo";
 import { TechnicalSpecs } from "@/components/TechnicalSpecs";
 import { Chevron } from "@/components/icons/Chevron";
+import { MAIN_CONTENT_ID } from "@/config/routes";
 import { toMetadata } from "@/helpers/metadata";
 import { toId } from "@/helpers/slug";
 import { getSite } from "@/lib/api";
@@ -265,7 +266,11 @@ export default async function ComponentsPage() {
   const site = await getSite();
 
   return (
-    <main className="flex flex-col gap-8 p-8">
+    <main
+      id={MAIN_CONTENT_ID}
+      tabIndex={-1}
+      className="flex flex-col gap-8 p-8 outline-none"
+    >
       <Heading
         title="Primary"
         subtitle="Subtitle"

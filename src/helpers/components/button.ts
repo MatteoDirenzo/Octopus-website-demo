@@ -34,13 +34,13 @@ const VARIANT: Record<Exclude<ButtonVariant, "ghost">, string> = {
  * Dark ghost, text and icon, does not change its fill or its text.
  */
 const GHOST_TEXT = clsx(
-  "border-transparent bg-surface text-text-subtle",
+  "border-transparent text-text-subtle",
   "hover:text-text focus-visible:text-text active:text-text",
   "disabled:border-transparent disabled:bg-transparent disabled:text-text-disabled",
 );
 
 const GHOST_ICON = clsx(
-  "border-transparent bg-surface text-text-subtle",
+  "border-transparent text-text-subtle",
   "hover:bg-tint-hover",
   "active:bg-tint-pressed",
   "disabled:border-transparent disabled:bg-transparent disabled:text-text-disabled",
