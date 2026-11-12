@@ -45,7 +45,7 @@ test("renders each card in row order", () => {
   );
 
   expect(
-    screen.getAllByRole("heading", { level: 3 }).map((heading) => heading.textContent),
+    screen.getAllByRole("heading", { level: 2 }).map((heading) => heading.textContent),
   ).toEqual([
     "Title feature 1",
     "Title feature F2",

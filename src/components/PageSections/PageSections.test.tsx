@@ -270,7 +270,7 @@ test("renders the product name, a bento card, the specs, and where to buy", asyn
     screen.getByRole("img", { name: product.detail.mainImage.alt }),
   ).toBeTruthy();
   expect(
-    screen.getByRole("heading", { level: 3, name: "Built for the hard jobs" }),
+    screen.getByRole("heading", { level: 2, name: "Built for the hard jobs" }),
   ).toBeTruthy();
   expect(
     screen.getByRole("heading", { level: 3, name: "Technical specifications" }),
