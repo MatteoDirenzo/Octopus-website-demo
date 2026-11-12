@@ -1,17 +1,17 @@
 import clsx from "clsx";
 import { Heading } from "@/components/Heading";
-import { VideoHero } from "@/components/VideoHero";
+import { ImageHero } from "@/components/ImageHero";
 import { getProductBySlug, getSite } from "@/lib/api";
 import type { SectionViewProps } from "../types";
 
 const TITLE_ID = "hero-title";
 
 /**
- * Home hero. The heading comes from the linked product and sits on the video.
- * The video plays once, with no controls. The frame pulls up under the fixed
- * header. Below 810 the heading clears that header by 29px, with 24px
- * on each side. From 810 it clears the header by 84px, with 32px on
- * each side. From 1200 it is half the frame and centered.
+ * Home hero. The heading comes from the linked product and sits on the image.
+ * The frame is one screen tall and pulls up under the fixed header. Below 810
+ * the heading clears that header by 29px, with 24px on each side. From 810 it
+ * clears the header by 84px, with 32px on each side. From 1200 it is half the
+ * frame and centered.
  */
 export async function Hero({ section }: SectionViewProps<"hero">) {
   const product = section.productSlug
@@ -24,18 +24,14 @@ export async function Hero({ section }: SectionViewProps<"hero">) {
       aria-labelledby={product ? TITLE_ID : undefined}
       aria-label={product ? undefined : section.title}
       className={clsx(
-        "relative -mt-header grid w-full min-w-0 grid-cols-[minmax(0,1fr)] bg-neutral-muted",
+        "relative -mt-header grid h-dvh w-full min-w-0 grid-cols-[minmax(0,1fr)] overflow-hidden bg-neutral-muted",
         "tablet:-mt-header-tablet",
       )}
     >
-      {/*
-       * The empty frame keeps the video at 16:9. The heading can make the
-       * row taller, and the video stretches to stay behind it.
-       */}
-      <div aria-hidden="true" className="col-start-1 row-start-1 aspect-video" />
-      <VideoHero
-        video={section.video}
-        className="col-start-1 row-start-1 h-full min-w-0"
+      <ImageHero
+        mobile={section.image.mobile}
+        desktop={section.image.desktop}
+        className="col-start-1 row-start-1 h-full min-h-0 min-w-0"
       />
       {product && site ? (
         <Heading

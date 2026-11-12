@@ -6,7 +6,6 @@ import {
   SECTION_TYPES,
   SHOWCASE_LAYOUTS,
   TEXT_TONES,
-  VIDEO_TYPES,
   type ImageAsset,
   type Section,
 } from "../../types/content";
@@ -143,11 +142,8 @@ test("page sections use allowed values and resolve their references", async () =
 
 async function assertSectionReferences(section: Section) {
   if (section.type === "hero") {
-    for (const source of section.video.sources) {
-      expect(includesValue(VIDEO_TYPES, source.type)).toBe(true);
-    }
-
-    assertImage(section.video.poster);
+    assertImage(section.image.mobile);
+    assertImage(section.image.desktop);
 
     if (section.productSlug) {
       expect(await getProductBySlug(section.productSlug)).not.toBeNull();
@@ -311,7 +307,8 @@ test("every image has alt text and positive dimensions", async () => {
   for (const page of pages) {
     for (const section of page.sections) {
       if (section.type === "hero") {
-        assertImage(section.video.poster);
+        assertImage(section.image.mobile);
+        assertImage(section.image.desktop);
       }
     }
   }

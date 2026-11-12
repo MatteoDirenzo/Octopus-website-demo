@@ -194,14 +194,26 @@ export type PageMetadata = {
   description: string;
 };
 
-/** Home hero. `title` is the accessible name stored for the video. */
+/**
+ * Screen-height hero still.
+ * `mobile` is the 9:16 crop and is also used at the tablet breakpoint.
+ * `desktop` is the 16:9 crop and is used from the desktop breakpoint.
+ */
+export type HeroImage = {
+  /** Portrait crop, 1080 by 1920. Shown below the desktop breakpoint. */
+  mobile: ImageAsset;
+  /** Landscape crop, 1920 by 1080. Shown from the desktop breakpoint. */
+  desktop: ImageAsset;
+};
+
+/** Home hero. `title` is the accessible name when no product is linked. */
 export type HeroSection = {
   /** Section discriminant. */
   type: "hero";
-  /** Accessible name of the hero video. */
+  /** Accessible name of the hero when no product is linked. */
   title: string;
-  /** Hero video and poster. */
-  video: VideoAsset;
+  /** Screen-height still. `mobile` is also used at the tablet breakpoint. */
+  image: HeroImage;
   /** Optional product linked from the hero. Must exist in `products.json` when set. */
   productSlug?: string;
 };

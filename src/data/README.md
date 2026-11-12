@@ -4,7 +4,7 @@ JSON in this folder is the only source of page copy. Functions in `src/lib/api/`
 
 `src/data/*.json` -> `src/lib/api/` (typed functions, import from `@/lib/api`) -> pages (a route loader in `src/lib/loaders/` when the route needs one) -> `sections/registry.ts` -> components
 
-Text fields use `Placeholder` until real copy replaces the value. Exported images use a `/images/...` path, and the hero video uses `/videos/...`. `/images/placeholders` remains only where no file exists. Replace values only. Leave every key in place. `width` and `height` match the exported file.
+Text fields use `Placeholder` until real copy replaces the value. Exported images use a `/images/...` path. The home hero uses the 1080 by 1920 portrait poster below 1200 and the 1920 by 1080 landscape poster from 1200. `/images/placeholders` remains only where no file exists. Replace values only. Leave every key in place. `width` and `height` match the exported file.
 
 ## Files
 
@@ -117,7 +117,7 @@ A section page file is `{ metadata?, sections[] }`. `metadata` has `title` and `
 
 | `type` | Properties | Required on that section |
 | --- | --- | --- |
-| `hero` | `title` (accessible name of the video), `video` (`VideoAsset`), `productSlug` | `title` and `video` required. `productSlug` optional; when set, the slug must exist. |
+| `hero` | `title` (accessible name when no product is linked), `image.mobile` and `image.desktop` (`ImageAsset`), `productSlug` | `title` and `image` required. `image.mobile` is the 1080 by 1920 portrait, also used at the tablet breakpoint. `image.desktop` is the 1920 by 1080 landscape, from 1200. `productSlug` optional; when set, the slug must exist. |
 | `bestSellers` | `title` | `title` required. Membership comes from `bestSeller`, not from this section. |
 | `categoryShowcase` | `category`, `layout`, `limit` | `category` and `layout` required. `limit` optional. On a feature layout, `limit` counts the feature card: the feature card plus at most `limit - 1` others. On `row`, `limit` is the number of small cards. |
 | `exploreCategories` | `title` | `title` required. |
