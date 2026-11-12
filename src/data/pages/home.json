@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "title": "Placeholder",
-    "description": "Placeholder"
+    "title": "Octopus - Smart appliances for the home",
+    "description": "Discover Octopus best sellers, from fast-boiling kettles and air fryers to indoor cameras and ionic hair dryers."
   },
   "sections": [
     {
@@ -45,7 +45,7 @@
     {
       "component": "banner",
       "title": "Hair Care",
-      "subtitle": "Placeholder",
+      "subtitle": "Salon results at home, with tools that dry faster and style with less heat",
       "href": "/category/hair-care",
       "variant": "primary",
       "images": {
@@ -59,7 +59,7 @@
     {
       "component": "categoryShowcase",
       "title": "Home Security",
-      "subtitle": "Placeholder",
+      "subtitle": "Keep an eye on what matters, inside and out",
       "href": "/category/home-security",
       "layout": "feature-left",
       "featureProductSlug": "indoor-camera",
@@ -73,7 +73,7 @@
     {
       "component": "categoryShowcase",
       "title": "Accessories",
-      "subtitle": "Placeholder",
+      "subtitle": "Stay charged and connected wherever you are",
       "href": "/category/accessories",
       "layout": "row",
       "productSlugs": [

@@ -230,7 +230,11 @@ test("renders the hair-care banner from the block copy and the suffixed picture"
   render(await PageSections({ blocks: [block] }));
 
   expect(screen.getByRole("heading", { level: 2, name: "Hair Care" })).toBeTruthy();
-  expect(screen.getByText("Placeholder")).toBeTruthy();
+  expect(
+    screen.getByText(
+      "Salon results at home, with tools that dry faster and style with less heat",
+    ),
+  ).toBeTruthy();
   expect(
     screen.getByRole("link", { name: "Learn more" }).getAttribute("href"),
   ).toBe("/category/hair-care");
