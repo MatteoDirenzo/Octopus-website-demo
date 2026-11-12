@@ -16,6 +16,7 @@ import { ExploreCategory } from "@/components/ExploreCategory";
 import { Heading } from "@/components/Heading";
 import { HeroProduct } from "@/components/HeroProduct";
 import { ImageHero } from "@/components/ImageHero";
+import { ProductCard } from "@/components/ProductCard";
 import { ProductInfo } from "@/components/ProductInfo";
 import {
   TechnicalSpecs,
@@ -135,13 +136,19 @@ async function renderBlockContent(
  * frame and centered.
  */
 /**
- * Detail page. The hero has no padding. Everything after it, and the info
- * column, uses 16px, 32px from 810, and 128px from 1200.
+ * Detail page. The hero has no padding and fills the viewport. The grid
+ * pulls up under the fixed header, the same way the home hero does.
+ * The info column uses 16px, 32px from 810, and 128px from 1200 on each side.
+ * The gallery under the hero uses that same left inset, and no right inset,
+ * so the pictures meet the right edge of the column. The first item has the
+ * same space above it as the items have between them: 40px below 810, and
+ * 80px from 810.
  * The info cell spans the hero and the media so it can stick for the whole
  * left column. The sticky element is the inner box: the cell itself is as
  * tall as that column, and a sticky box only stays put when it is shorter
- * than its cell. Specs sit in the column for the same reason. A later
- * section would end the stick.
+ * than its cell. The box is one viewport tall, stuck to the top, with header
+ * padding so the copy stays in the clear area. Specs sit in the column for
+ * the same reason. A later section would end the stick.
  * The grid has no overflow. An overflow ancestor would break the stick.
  * Below 810 the same order stacks, because the column and row placements
  * start at 810.
@@ -159,13 +166,13 @@ async function renderProductShowcase(product: Product | undefined) {
   const colourLabel = "Colour";
 
   return (
-    <div className="grid min-w-0 grid-cols-1 tablet:grid-cols-2">
+    <div className="grid min-w-0 -mt-header grid-cols-1 tablet:-mt-header-tablet tablet:grid-cols-2">
       <HeroProduct
         image={detail.mainImage}
         className="tablet:col-start-1 tablet:row-start-1"
       />
       <div className="min-w-0 px-4 tablet:col-start-2 tablet:row-span-2 tablet:row-start-1 tablet:px-8 desktop:px-32">
-        <div className="tablet:sticky tablet:top-header-tablet tablet:flex tablet:h-hero-product-tablet tablet:items-center">
+        <div className="tablet:sticky tablet:top-0 tablet:flex tablet:h-dvh tablet:items-center tablet:pt-header-tablet">
           <ProductInfo
             heading="h1"
             title={product.name}
@@ -184,7 +191,7 @@ async function renderProductShowcase(product: Product | undefined) {
           </ProductInfo>
         </div>
       </div>
-      <div className="flex min-w-0 flex-col gap-4 p-4 tablet:col-start-1 tablet:row-start-2 tablet:p-8 desktop:p-32">
+      <div className="flex min-w-0 flex-col gap-10 pt-10 pl-4 pr-4 tablet:col-start-1 tablet:row-start-2 tablet:gap-20 tablet:pt-20 tablet:pr-0 tablet:pl-8 desktop:pl-32">
         {blocks.map((block, index) =>
           block.kind === "image" ? (
             <GalleryImage key={`${block.image.src}-${index}`} image={block.image} />
@@ -542,6 +549,17 @@ function ProductSlide({
   cardVariant: CardVariantName;
 }) {
   const cta = { label, href: `/product/${product.slug}` };
+
+  if (cardType === "product") {
+    return (
+      <ProductCard
+        title={product.name}
+        description={product.shortDescription}
+        image={product.image}
+        href={cta.href}
+      />
+    );
+  }
 
   if (cardType === "small") {
     return (

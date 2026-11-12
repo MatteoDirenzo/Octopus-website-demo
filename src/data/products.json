@@ -65,19 +65,19 @@
       "gallery": [
         {
           "image": {
-            "src": "/images/products/countertop-blender-gallery-1.png",
+            "src": "/images/products/placeholder-image.webp",
             "alt": "Countertop blender blending on a kitchen counter",
-            "width": 1600,
-            "height": 1200
+            "width": 2752,
+            "height": 1536
           },
           "span": "full"
         },
         {
           "image": {
-            "src": "/images/products/countertop-blender-gallery-2.png",
+            "src": "/images/products/placeholder-image.webp",
             "alt": "Fruit in the blender jug",
-            "width": 1600,
-            "height": 1200
+            "width": 2752,
+            "height": 1536
           },
           "span": "full",
           "title": "Built for the hard jobs",
@@ -86,10 +86,10 @@
         },
         {
           "image": {
-            "src": "/images/products/countertop-blender-gallery-3.png",
+            "src": "/images/products/placeholder-image.webp",
             "alt": "Blender running a clean cycle",
-            "width": 1600,
-            "height": 1200
+            "width": 2048,
+            "height": 2048
           },
           "span": "half",
           "title": "Clean without a scrub",
@@ -98,10 +98,10 @@
         },
         {
           "image": {
-            "src": "/images/products/countertop-blender-gallery-4.png",
+            "src": "/images/products/placeholder-image.webp",
             "alt": "Blender blades in a short burst",
-            "width": 1600,
-            "height": 1200
+            "width": 2752,
+            "height": 1536
           },
           "span": "half",
           "title": "Pulse for control",
@@ -110,10 +110,10 @@
         },
         {
           "image": {
-            "src": "/images/products/countertop-blender-gallery-5.png",
+            "src": "/images/products/placeholder-image.webp",
             "alt": "Hand choosing a blender preset",
-            "width": 1600,
-            "height": 1200
+            "width": 2752,
+            "height": 1536
           },
           "span": "full",
           "title": "A preset for most days",
@@ -122,10 +122,10 @@
         },
         {
           "image": {
-            "src": "/images/products/countertop-blender-gallery-6.png",
+            "src": "/images/products/placeholder-image.webp",
             "alt": "Countertop blender with chopped fruit beside it",
-            "width": 1600,
-            "height": 1200
+            "width": 2752,
+            "height": 1536
           },
           "span": "full"
         }
@@ -134,7 +134,11 @@
         {
           "id": "spec-1",
           "title": "Technical specifications",
-          "items": ["Power: 1500 W", "Voltage: 220–240 V", "Frequency: 50/60 Hz"]
+          "items": [
+            "Power: 1500 W",
+            "Voltage: 220–240 V",
+            "Frequency: 50/60 Hz"
+          ]
         },
         {
           "id": "spec-2",

@@ -32,7 +32,8 @@ export type ProductInfoProps = {
  * of the screen, with 16px of surface around it, so the page can scroll
  * clear of it. From 810 it sits back in the column. There is one button.
  * The position sits on a wrapper. Button is inline-flex, so fixed on that
- * element would not win reliably. The width comes from the parent.
+ * element would not win reliably. The width comes from the parent, and the
+ * block does not grow past 355px. The fixed bar stays the full screen width.
  */
 export function ProductInfo({
   title,
@@ -45,7 +46,7 @@ export function ProductInfo({
   const Title = heading;
 
   return (
-    <div className="flex w-full min-w-0 flex-col">
+    <div className="flex w-full min-w-0 max-w-product-info flex-col">
       <Title className="max-w-full text-h2-s text-text tablet:text-h2-m desktop:text-h2-l">
         {title}
       </Title>

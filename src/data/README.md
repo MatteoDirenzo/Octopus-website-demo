@@ -122,7 +122,7 @@ A section page file is `{ metadata?, sections[] }`. `metadata` has `title` and `
 | `component` | Properties | Required on that block |
 | --- | --- | --- |
 | `hero` | `title`, `subtitle`, `href`, `productSlug`, `spacing` | `title` and `productSlug` required. The still is that product's `heroImage`. `subtitle` and `href` are optional. The link label stays `site.learnMore`. |
-| `carousel` | `title`, `cardType`, `cardVariant`, `mode`, `visible`, `peek`, `inset`, `endOffset`, `showDots`, `productSlugs`, `featureProductSlug`, `spacing` | `title` and `productSlugs` required. `productSlugs` use the cutout, in list order. `featureProductSlug` is optional, uses `featuredImage`, and is shown first. Pass-through props match `Carousel`. Omit one and the carousel keeps its default. |
+| `carousel` | `title`, `cardType`, `cardVariant`, `mode`, `visible`, `peek`, `inset`, `endOffset`, `showDots`, `productSlugs`, `featureProductSlug`, `spacing` | `title` and `productSlugs` required. `productSlugs` use the cutout, in list order. `featureProductSlug` is optional, uses `featuredImage`, and is shown first. `cardType` `product` renders `ProductCard` with the cutout, the name, and the short description. The image is the link. `cardVariant` is ignored for `small` and `product`. Pass-through props match `Carousel`. Omit one and the carousel keeps its default. |
 | `categoryShowcase` | `title`, `subtitle`, `href`, `layout`, `featureProductSlug`, `productSlugs`, `spacing` | `title`, `href`, `layout`, and `productSlugs` required. `feature-top` and `feature-left` require `featureProductSlug`. `row` omits it and renders `productSlugs` as small cards. The heading link label stays `site.exploreAll`. Card links use `site.learnMore`. |
 | `banner` | `title`, `subtitle`, `href`, `images`, `button`, `variant`, `priority`, `spacing` | One of two shapes. Both use `images`. `images.src` has no breakpoint suffix. The files add `-desktop`, `-mobile`, and `-tablet` before the extension. `images.desktop`, `images.mobile`, and `images.tablet` are that crop's `width` and `height`. The frame has a fixed height and the picture covers it. Copy: `title`, `subtitle`, `href`, and `images` required. The link label stays `site.learnMore`. Button: `images` and `button` (`label`, `href`, `variant`) required. `title` and `subtitle` are optional and omitted to show only the button. `variant` on a copy banner, and `button.variant` on a button banner, pass through to `Banner`. |
 | `exploreCategories` | `title`, `spacing` | `title` required. Cards are every category, in file order. The label is `title`, the link is `href`, and the picture is `tileImage`. |
@@ -143,7 +143,7 @@ Defined once as `as const` arrays in `src/types/content.ts`. Derived types follo
 | `VIDEO_TYPES` | `video/mp4`, `video/webm` |
 | `SECTION_TYPES` | `hero`, `carousel`, `categoryShowcase`, `banner`, `exploreCategories`, `storeBanner`, `productShowcase`, `specAccordion` |
 | `CAROUSEL_MODES` | `contained`, `overflow` |
-| `CARD_TYPES` | `large`, `medium`, `small` |
+| `CARD_TYPES` | `large`, `medium`, `small`, `product` |
 | `CARD_VARIANTS` | `horizontal`, `vertical` |
 | `BUTTON_VARIANTS` | `primary`, `secondary`, `ghost` |
 | `FOOTER_COLUMNS` | `1`, `2` |

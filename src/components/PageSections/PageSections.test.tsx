@@ -58,6 +58,31 @@ test("renders one learn more link for each carousel product", async () => {
   );
 });
 
+test("the product page carousel renders a product card for each slug", async () => {
+  const page = await getPage("product");
+  const block = page.sections.find((section) => section.component === "carousel");
+
+  if (!block || block.component !== "carousel") {
+    throw new Error("Product carousel is missing");
+  }
+
+  const products = await getProductsBySlugs(block.productSlugs);
+
+  render(await PageSections({ blocks: [block] }));
+
+  expect(screen.queryByRole("link", { name: "Learn more" })).toBeNull();
+
+  for (const product of products) {
+    expect(
+      screen.getByRole("heading", { level: 3, name: product.name }),
+    ).toBeTruthy();
+  }
+
+  expect(
+    screen.getAllByRole("link").map((link) => link.getAttribute("href")),
+  ).toEqual(products.map((product) => `/product/${product.slug}`));
+});
+
 test("renders the kitchen feature card and two medium cards", async () => {
   const block = await findBlock(
     "categoryShowcase",

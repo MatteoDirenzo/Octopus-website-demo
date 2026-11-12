@@ -116,6 +116,8 @@
   --container-navbar: 84rem;
   /* 496px. Horizontal card images do not grow past this. */
   --container-card-image: 31rem;
+  /* 355px. Product info does not grow past this. Not a spacing step. */
+  --container-product-info: 22.1875rem;
 
   --shadow-navbar: 0 0 16px 8px rgb(0 0 0 / 0.08);
 
@@ -126,13 +128,6 @@
    */
   --spacing-header: 4.375rem;
   --spacing-header-tablet: 5.375rem;
-
-  /*
-   * Product hero frame. The body already clears the fixed header, so the
-   * frame is the remaining viewport. Desktop shares the tablet header offset.
-   */
-  --spacing-hero-product: calc(100dvh - var(--spacing-header));
-  --spacing-hero-product-tablet: calc(100dvh - var(--spacing-header-tablet));
 
   /*
    * Space between the header and the hero heading.
