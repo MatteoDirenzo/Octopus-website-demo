@@ -528,6 +528,9 @@ export type WhereToBuyPage = {
 /** Contact page. Same shape as Where to buy. The nav label stays in `site.json`. */
 export type ContactPage = WhereToBuyPage;
 
+/** Not-found page. The body is the heading only. */
+export type NotFoundPage = WhereToBuyPage;
+
 /** Policies page. The body is blank. The nav label stays in `site.json`. */
 export type PoliciesPage = {
   /** Document title and description. */

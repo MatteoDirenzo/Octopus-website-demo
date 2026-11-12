@@ -20,8 +20,8 @@ export default async function WhereToBuyPage() {
   const page = await getWhereToBuyPage();
 
   return (
-    <main>
-      <Heading title={page.heading.title} />
+    <main className="flex min-h-dvh flex-col items-center justify-center px-4 tablet:px-8 desktop:px-32">
+      <Heading className="w-full" title={page.heading.title} />
     </main>
   );
 }

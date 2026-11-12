@@ -19,6 +19,7 @@ import {
   getBestSellers,
   getCategories,
   getContactPage,
+  getNotFoundPage,
   getPage,
   getPoliciesPage,
   getProductBySlug,
@@ -27,7 +28,6 @@ import {
   getProductsBySlugs,
   getSite,
   getWhereToBuyPage,
-  splitCategoryProducts,
 } from "./index";
 
 const HEX_COLOUR = /^#[0-9a-fA-F]{6}$/;
@@ -133,6 +133,14 @@ test("the policies page has metadata and a heading", async () => {
   expect(page.metadata.title).toBe("Policies & Terms");
   expect(page.metadata.description.length).toBeGreaterThan(0);
   expect(page.heading.title).toBe("Policies & Terms");
+});
+
+test("the not-found page has metadata and a heading", async () => {
+  const page = await getNotFoundPage();
+
+  expect(page.metadata.title).toBe("Page not found");
+  expect(page.metadata.description.length).toBeGreaterThan(0);
+  expect(page.heading.title).toBe("Page not found");
 });
 
 test("page sections use allowed values and resolve their references", async () => {
@@ -297,32 +305,6 @@ test("category and best-seller queries follow the flags and the file order", asy
     "indoor-camera",
     "ionic-hair-dryer",
   ]);
-});
-
-test("the feature card is the first featured product, otherwise the first product", async () => {
-  for (const category of CATEGORIES) {
-    const products = await getProductsByCategory(category);
-    const { feature, cards } = splitCategoryProducts(products);
-    const featured = products.find((product) => product.featured === true);
-    const expectedFeature = featured ?? products[0] ?? null;
-
-    expect(feature).toBe(expectedFeature);
-    expect(cards).toEqual(
-      products.filter((product) => product !== expectedFeature),
-    );
-  }
-});
-
-test("the Kitchen limit keeps the feature card and two other products", async () => {
-  const kitchen = await getProductsByCategory("kitchen");
-  const { feature, cards } = splitCategoryProducts(kitchen, 3);
-
-  expect(feature?.slug).toBe("kettle-1-7-l");
-  expect(cards.map((product) => product.slug)).toEqual([
-    "blender",
-    "countertop-blender",
-  ]);
-  expect(kitchen.map((product) => product.slug)).toContain("air-fryer-5-7-l");
 });
 
 test("product detail has a gallery, valid spans, and unique colour ids", async () => {

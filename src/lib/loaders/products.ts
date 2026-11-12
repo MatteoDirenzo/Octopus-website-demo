@@ -1,18 +1,18 @@
 import { notFound } from "next/navigation";
 import { getProductBySlug } from "@/lib/api";
-import type { ProductDetail } from "@/types/content";
+import type { Product } from "@/types/content";
 
 /**
  * Product for this slug.
- * An unknown slug, or a product with no detail page, renders the not-found page.
+ * An unknown slug renders the not-found page.
+ * A product without `detail` is still returned. The route shows its name.
  */
-export async function loadProduct(slug: string) {
+export async function loadProduct(slug: string): Promise<Product> {
   const product = await getProductBySlug(slug);
-  const detail: ProductDetail | undefined = product?.detail;
 
-  if (!product || !detail) {
+  if (!product) {
     notFound();
   }
 
-  return { ...product, detail };
+  return product;
 }
