@@ -16,6 +16,11 @@ export type CategoryShowcaseCard = {
   title: string;
   description: string;
   image: CardImage;
+  /**
+   * Paint `image` across the card. Set on the feature card, whose picture
+   * is `featuredImage`.
+   */
+  background?: boolean;
   cta: CardCta;
 };
 
@@ -97,6 +102,7 @@ export function CategoryShowcase({
                   title={feature.title}
                   description={feature.description}
                   image={feature.image}
+                  background={feature.background}
                   cta={feature.cta}
                 />
               </div>

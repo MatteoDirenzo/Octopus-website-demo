@@ -59,8 +59,8 @@ type PageSectionsProps = {
 /**
  * Renders a page from its blocks.
  * Spacing comes from the block. Product pictures come from the slug field:
- * `productSlugs` use the cutout, `featureProductSlug` uses `featuredImage`,
- * and a hero `productSlug` uses `heroImage`.
+ * `productSlugs` use the cutout, `featureProductSlug` uses `featuredImage`
+ * as the card background, and a hero `productSlug` uses `heroImage`.
  */
 export async function PageSections({ blocks, product }: PageSectionsProps) {
   return Promise.all(
@@ -174,9 +174,13 @@ async function renderCarousel(block: CarouselBlock) {
   const cardVariant = block.cardVariant ?? "horizontal";
   const slides = [
     ...(feature
-      ? [{ product: feature, image: feature.featuredImage }]
+      ? [{ product: feature, image: feature.featuredImage, background: true }]
       : []),
-    ...products.map((product) => ({ product, image: product.image })),
+    ...products.map((product) => ({
+      product,
+      image: product.image,
+      background: false,
+    })),
   ];
 
   return (
@@ -189,7 +193,7 @@ async function renderCarousel(block: CarouselBlock) {
       endOffset={block.endOffset}
       showDots={block.showDots}
     >
-      {slides.map(({ product, image }) => {
+      {slides.map(({ product, image, background }) => {
         const category = categories.find((item) => item.id === product.category);
 
         return (
@@ -197,6 +201,7 @@ async function renderCarousel(block: CarouselBlock) {
             key={product.id}
             product={product}
             image={image}
+            background={background}
             eyebrow={category?.title}
             label={site.learnMore.label}
             cardType={cardType}
@@ -224,7 +229,11 @@ async function renderCategoryShowcase(block: CategoryShowcaseBlock, index: numbe
       title={block.title}
       subtitle={block.subtitle}
       button={{ label: site.exploreAll.label, href: block.href }}
-      feature={feature ? toShowcaseCard(feature, feature.featuredImage, label) : undefined}
+      feature={
+        feature
+          ? toShowcaseCard(feature, feature.featuredImage, label, true)
+          : undefined
+      }
       cards={products.map((product) => toShowcaseCard(product, product.image, label))}
     />
   );
@@ -317,11 +326,13 @@ function toShowcaseCard(
   product: Product,
   image: ImageAsset,
   label: string,
+  background = false,
 ): CategoryShowcaseCard {
   return {
     title: product.name,
     description: product.shortDescription,
     image,
+    background,
     cta: {
       label,
       href: `/product/${product.slug}`,
@@ -332,6 +343,7 @@ function toShowcaseCard(
 function ProductSlide({
   product,
   image,
+  background = false,
   eyebrow,
   label,
   cardType,
@@ -339,6 +351,8 @@ function ProductSlide({
 }: {
   product: Product;
   image: ImageAsset;
+  /** True when `image` is the product `featuredImage`. */
+  background?: boolean;
   eyebrow?: string;
   label: string;
   cardType: CardType;
@@ -352,6 +366,7 @@ function ProductSlide({
         title={product.name}
         description={product.shortDescription}
         image={image}
+        background={background}
         cta={cta}
       />
     );
@@ -364,6 +379,7 @@ function ProductSlide({
         title={product.name}
         description={product.shortDescription}
         image={image}
+        background={background}
         cta={cta}
       />
     );
@@ -376,6 +392,7 @@ function ProductSlide({
       title={product.name}
       description={product.shortDescription}
       image={image}
+      background={background}
       cta={cta}
     />
   );
