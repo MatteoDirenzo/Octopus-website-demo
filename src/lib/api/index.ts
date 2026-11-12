@@ -5,10 +5,10 @@ export {
   getProducts,
   getProductsByCategory,
   getProductsBySlugs,
-  splitCategoryProducts,
 } from "./products";
 export {
   getContactPage,
+  getNotFoundPage,
   getPage,
   getPoliciesPage,
   getWhereToBuyPage,

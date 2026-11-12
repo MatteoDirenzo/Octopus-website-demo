@@ -19,6 +19,7 @@ Text fields use `Placeholder` until real copy replaces the value. Exported image
 | `pages/where-to-buy.json` | Where to buy metadata and heading. The nav label stays in `site.json`. |
 | `pages/contact-us.json` | Contact metadata and heading. The nav label stays in `site.json`. |
 | `pages/policies.json` | Policies metadata. The page body is blank. The nav label stays in `site.json`. |
+| `pages/not-found.json` | Not-found metadata and heading. |
 
 ## Shared shapes
 
@@ -113,7 +114,7 @@ Each entry is a product. File order is the order of `getBestSellers` and of each
 
 A section page file is `{ metadata?, sections[] }`. `metadata` has `title` and `description`. Omit `metadata` when the page takes its title from a product (`pages/product.json` does). `sections` render in the listed order. Reordering or deleting a line changes the page.
 
-`pages/where-to-buy.json` and `pages/contact-us.json` are `{ metadata, heading }`. They have no `sections`. `heading.title` is the page heading. `heading.subtitle` is optional and omitted until there is copy. The nav label stays in `site.json`.
+`pages/where-to-buy.json`, `pages/contact-us.json`, and `pages/not-found.json` are `{ metadata, heading }`. They have no `sections`. `heading.title` is the page heading. `heading.subtitle` is optional and omitted until there is copy. The nav label for where to buy and contact stays in `site.json`.
 
 `pages/policies.json` is `{ metadata }` only. The page body is blank. The nav label stays in `site.json`.
 
@@ -161,11 +162,11 @@ Layouts:
 
 `getBestSellers` returns products with `bestSeller: true`, in file order. A carousel block does not read that flag. It lists `productSlugs`.
 
-`splitCategoryProducts(products, limit?)` is the category-query helper. The feature card is the first product with `featured: true`, otherwise the first product. It keeps that card plus at most `limit - 1` others. Without `limit`, the other products all wrap. Page blocks do not call it. A showcase lists `featureProductSlug` and `productSlugs` itself. `getProductsByCategory` stays uncapped.
+`getProductsByCategory` stays uncapped. A showcase lists `featureProductSlug` and `productSlugs` itself.
 
 Every product with `featured: true` has a `featuredImage`. Every `featureProductSlug` has a `featuredImage`. Every hero `productSlug` has a `heroImage`.
 
-Only a product with `detail` has a Product Detail Page.
+Only a product with `detail` renders the product detail page. A product without `detail` still has a route and shows its name.
 
 ## Recipes
 

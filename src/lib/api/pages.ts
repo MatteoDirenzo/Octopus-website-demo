@@ -1,10 +1,12 @@
 import contactPage from "../../data/pages/contact-us.json";
 import homePage from "../../data/pages/home.json";
+import notFoundPage from "../../data/pages/not-found.json";
 import policiesPage from "../../data/pages/policies.json";
 import productPage from "../../data/pages/product.json";
 import whereToBuyPage from "../../data/pages/where-to-buy.json";
 import type {
   ContactPage,
+  NotFoundPage,
   PageConfig,
   PoliciesPage,
   WhereToBuyPage,
@@ -30,4 +32,9 @@ export async function getContactPage(): Promise<ContactPage> {
 /** Policies metadata. The page body is blank. The nav label stays in `site.json`. */
 export async function getPoliciesPage(): Promise<PoliciesPage> {
   return readContent<PoliciesPage>(policiesPage);
+}
+
+/** Not-found metadata and heading. */
+export async function getNotFoundPage(): Promise<NotFoundPage> {
+  return readContent<NotFoundPage>(notFoundPage);
 }
