@@ -18,3 +18,19 @@ test("home page renders its placeholder content", async ({ page }) => {
     page.getByRole("heading", { level: 2, name: "Best sellers" }),
   ).toBeVisible();
 });
+
+test("home page does not scroll horizontally", async ({ page }) => {
+  await page.goto("/");
+
+  for (const width of [390, 810, 1440]) {
+    await page.setViewportSize({ width, height: 900 });
+
+    const overflow = await page.evaluate(
+      () =>
+        document.documentElement.scrollWidth -
+        document.documentElement.clientWidth,
+    );
+
+    expect(overflow, `overflow at ${width}px`).toBe(0);
+  }
+});
