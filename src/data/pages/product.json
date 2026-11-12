@@ -1,14 +1,27 @@
 {
   "sections": [
     {
-      "type": "productShowcase"
+      "component": "productShowcase"
     },
     {
-      "type": "specAccordion"
+      "component": "specAccordion"
     },
     {
-      "type": "bestSellers",
-      "title": "Best sellers"
+      "component": "carousel",
+      "title": "Best sellers",
+      "cardType": "large",
+      "cardVariant": "horizontal",
+      "mode": "overflow",
+      "visible": { "mobile": 1, "tablet": 1, "desktop": 1 },
+      "peek": { "mobile": 10, "tablet": 20, "desktop": 40 },
+      "inset": { "mobile": 4, "tablet": 20, "desktop": 32 },
+      "endOffset": { "mobile": 4, "tablet": 20, "desktop": 32 },
+      "productSlugs": ["air-fryer-5-7-l", "indoor-camera", "ionic-hair-dryer"],
+      "spacing": {
+        "mobile": { "top": 20, "bottom": 10 },
+        "tablet": { "top": 8, "bottom": 8 },
+        "desktop": { "top": 30, "bottom": 15 }
+      }
     }
   ]
 }

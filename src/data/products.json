@@ -11,8 +11,8 @@
       "width": 719,
       "height": 719
     },
-    "featureImage": {
-      "src": "/images/hero-kitchen-dekstop.webp",
+    "featuredImage": {
+      "src": "/images/products/kettle-wide.webp",
       "alt": "Placeholder",
       "width": 3200,
       "height": 1106
@@ -181,8 +181,8 @@
       "width": 724,
       "height": 724
     },
-    "featureImage": {
-      "src": "/images/security-camera.webp",
+    "featuredImage": {
+      "src": "/images/products/security-camera-wide.webp",
       "alt": "Placeholder",
       "width": 992,
       "height": 1178
@@ -202,11 +202,25 @@
       "width": 724,
       "height": 724
     },
-    "featureImage": {
+    "featuredImage": {
       "src": "/images/banner-girl-desktop.webp",
       "alt": "Woman drying her hair",
       "width": 4092,
       "height": 2075
+    },
+    "heroImage": {
+      "mobile": {
+        "src": "/images/hero-home-poster-mobile.webp",
+        "alt": "Placeholder",
+        "width": 1080,
+        "height": 1920
+      },
+      "desktop": {
+        "src": "/images/hero-home-poster.webp",
+        "alt": "Placeholder",
+        "width": 1920,
+        "height": 1080
+      }
     },
     "bestSeller": true,
     "featured": true

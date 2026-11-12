@@ -58,8 +58,7 @@ export type CategoryShowcaseProps = {
  * Omit `feature` to render the cards as small cards, stacked below 810 and in
  * one row from 810.
  * The heading sits 40px above the cards, and 80px from 1200. Cards are 16px
- * apart, and 24px from 1200. The section pads 40px, 16px, and 80px below 810;
- * 80px, 32px, and 40px from 810; and 60px, 128px, and 180px from 1200.
+ * apart, and 24px from 1200. The page block owns the section padding.
  */
 export function CategoryShowcase({
   layout = "feature-top",
@@ -74,10 +73,7 @@ export function CategoryShowcase({
   const matchStack = featureLeft && cards.length > 0;
 
   return (
-    <section
-      aria-labelledby={titleId}
-      className="px-4 pt-10 pb-20 tablet:px-8 tablet:pt-20 tablet:pb-10 desktop:px-32 desktop:pt-15 desktop:pb-45"
-    >
+    <section aria-labelledby={titleId}>
       <div className="flex w-full min-w-0 flex-col gap-10 desktop:gap-20">
         <Heading
           variant="secondary"

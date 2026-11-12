@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { Fragment } from "react";
-import { renderSection } from "@/components/sections/registry";
+import { PageSections } from "@/components/PageSections";
 import { getPage } from "@/lib/api";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -22,11 +21,7 @@ export default async function Home() {
 
   return (
     <main>
-      {page.sections.map((section, index) => (
-        <Fragment key={`${section.type}-${index}`}>
-          {renderSection(section)}
-        </Fragment>
-      ))}
+      <PageSections blocks={page.sections} />
     </main>
   );
 }

@@ -1,24 +1,29 @@
 import { expect, test } from "vitest";
 import {
+  BUTTON_VARIANTS,
+  CARD_TYPES,
+  CARD_VARIANTS,
+  CAROUSEL_MODES,
   CATEGORIES,
   FOOTER_COLUMNS,
   GALLERY_SPANS,
   SECTION_TYPES,
   SHOWCASE_LAYOUTS,
   TEXT_TONES,
+  type BlockSpacing,
   type ImageAsset,
   type Section,
 } from "../../types/content";
 import {
   getBestSellers,
   getCategories,
-  getCategory,
   getContactPage,
   getPage,
   getPoliciesPage,
   getProductBySlug,
   getProducts,
   getProductsByCategory,
+  getProductsBySlugs,
   getSite,
   getWhereToBuyPage,
   splitCategoryProducts,
@@ -134,26 +139,121 @@ test("page sections use allowed values and resolve their references", async () =
 
   for (const page of pages) {
     for (const section of page.sections) {
-      expect(includesValue(SECTION_TYPES, section.type)).toBe(true);
+      expect(includesValue(SECTION_TYPES, section.component)).toBe(true);
+      assertSpacing(section.spacing);
       await assertSectionReferences(section);
     }
   }
 });
 
-async function assertSectionReferences(section: Section) {
-  if (section.type === "hero") {
-    assertImage(section.image.mobile);
-    assertImage(section.image.desktop);
+test("getProductsBySlugs keeps the requested order", async () => {
+  const products = await getProductsBySlugs([
+    "indoor-camera",
+    "air-fryer-5-7-l",
+  ]);
 
-    if (section.productSlug) {
-      expect(await getProductBySlug(section.productSlug)).not.toBeNull();
-    }
+  expect(products.map((product) => product.slug)).toEqual([
+    "indoor-camera",
+    "air-fryer-5-7-l",
+  ]);
+  await expect(getProductsBySlugs(["missing-product"])).rejects.toThrow(
+    "Unknown product slug: missing-product",
+  );
+});
+
+function assertSpacing(spacing: BlockSpacing | undefined) {
+  if (!spacing) {
+    return;
   }
 
-  if (section.type === "categoryShowcase") {
-    expect(includesValue(CATEGORIES, section.category)).toBe(true);
-    expect(includesValue(SHOWCASE_LAYOUTS, section.layout)).toBe(true);
-    expect(await getCategory(section.category)).not.toBeNull();
+  for (const side of [spacing.mobile, spacing.tablet, spacing.desktop]) {
+    if (!side) {
+      continue;
+    }
+
+    for (const value of [side.top, side.right, side.bottom, side.left]) {
+      if (value === undefined) {
+        continue;
+      }
+
+      expect(value).toBeGreaterThanOrEqual(0);
+    }
+  }
+}
+
+async function assertSectionReferences(section: Section) {
+  switch (section.component) {
+    case "hero": {
+      const product = await getProductBySlug(section.productSlug);
+
+      expect(product?.heroImage).toBeDefined();
+
+      if (product?.heroImage) {
+        assertImage(product.heroImage.mobile);
+        assertImage(product.heroImage.desktop);
+      }
+
+      break;
+    }
+    case "carousel": {
+      if (section.mode) {
+        expect(includesValue(CAROUSEL_MODES, section.mode)).toBe(true);
+      }
+
+      if (section.cardType) {
+        expect(includesValue(CARD_TYPES, section.cardType)).toBe(true);
+      }
+
+      if (section.cardVariant) {
+        expect(includesValue(CARD_VARIANTS, section.cardVariant)).toBe(true);
+      }
+
+      for (const slug of section.productSlugs) {
+        expect(await getProductBySlug(slug)).not.toBeNull();
+      }
+
+      if (section.featureProductSlug) {
+        const feature = await getProductBySlug(section.featureProductSlug);
+
+        expect(feature?.featuredImage).toBeDefined();
+      }
+
+      break;
+    }
+    case "categoryShowcase": {
+      expect(includesValue(SHOWCASE_LAYOUTS, section.layout)).toBe(true);
+
+      for (const slug of section.productSlugs) {
+        expect(await getProductBySlug(slug)).not.toBeNull();
+      }
+
+      if (section.layout === "row") {
+        expect(section.featureProductSlug).toBeUndefined();
+        break;
+      }
+
+      expect(section.featureProductSlug).toBeDefined();
+
+      if (section.featureProductSlug) {
+        const feature = await getProductBySlug(section.featureProductSlug);
+
+        expect(feature?.featuredImage).toBeDefined();
+      }
+
+      break;
+    }
+    case "banner": {
+      if (section.variant) {
+        expect(includesValue(BUTTON_VARIANTS, section.variant)).toBe(true);
+      }
+
+      const feature = await getProductBySlug(section.featureProductSlug);
+
+      expect(feature?.featuredImage).toBeDefined();
+      break;
+    }
+    default:
+      break;
   }
 }
 
@@ -251,36 +351,19 @@ test("product detail has a gallery, valid spans, and unique colour ids", async (
   ]);
 });
 
-test("featured products and banner feature cards have a feature image", async () => {
+test("featured products have a featured image", async () => {
   const products = await getProducts();
 
   for (const product of products) {
     if (product.featured === true) {
-      expect(product.featureImage).toBeDefined();
+      expect(product.featuredImage).toBeDefined();
     }
-  }
-
-  const home = await getPage("home");
-
-  for (const section of home.sections) {
-    if (section.type !== "categoryShowcase" || section.layout !== "banner") {
-      continue;
-    }
-
-    const categoryProducts = await getProductsByCategory(section.category);
-    const { feature } = splitCategoryProducts(
-      categoryProducts,
-      section.limit,
-    );
-
-    expect(feature?.featureImage).toBeDefined();
   }
 });
 
 test("every image has alt text and positive dimensions", async () => {
   const categories = await getCategories();
   const products = await getProducts();
-  const pages = [await getPage("home"), await getPage("product")];
 
   for (const category of categories) {
     assertImage(category.tileImage);
@@ -289,8 +372,13 @@ test("every image has alt text and positive dimensions", async () => {
   for (const product of products) {
     assertImage(product.image);
 
-    if (product.featureImage) {
-      assertImage(product.featureImage);
+    if (product.featuredImage) {
+      assertImage(product.featuredImage);
+    }
+
+    if (product.heroImage) {
+      assertImage(product.heroImage.mobile);
+      assertImage(product.heroImage.desktop);
     }
 
     if (!product.detail) {
@@ -301,15 +389,6 @@ test("every image has alt text and positive dimensions", async () => {
 
     for (const item of product.detail.gallery) {
       assertImage(item.image);
-    }
-  }
-
-  for (const page of pages) {
-    for (const section of page.sections) {
-      if (section.type === "hero") {
-        assertImage(section.image.mobile);
-        assertImage(section.image.desktop);
-      }
     }
   }
 });
