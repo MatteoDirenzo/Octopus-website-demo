@@ -11,7 +11,7 @@
 
 - Source all content from local JSON in `src/data` (`site.json`, `products.json`, `categories.json`, `pages/*.json`). No hardcoded content in markup. Do not add a separate translation or messages system.
 - JSON is accessed only through async functions in `src/lib/api/` (exposed via `src/lib/api/index.ts`; e.g. getProducts, getProductsBySlugs, getBestSellers, getCarouselProducts, getProductsByCategory, getProductBySlug, getPage), which act as a fake API. Import them from `@/lib/api`. Components and pages never import JSON directly.
-- Route loaders live in `src/lib/loaders/`, one file per type (`categories.ts`, `products.ts`; later `pages.ts`, and so on). They call `@/lib/api` and decide the page outcome (for example `notFound()`). `products.ts` also holds the throwing `require*` lookups used by page blocks. They do not read JSON and do not replace the functions in `src/lib/api/`. New route loaders go there. Pages and components do not declare these helpers locally. Import them from `@/lib/loaders`.
+- Route loaders live in `src/lib/loaders/`, one file per type (`categories.ts`, `products.ts`, `metadata.ts`; later `pages.ts`, and so on). They call `@/lib/api` and decide the page outcome (for example `notFound()`). `products.ts` also holds the throwing `require*` lookups used by page blocks. They do not read JSON and do not replace the functions in `src/lib/api/`. New route loaders go there. Pages and components do not declare these helpers locally. Import them from `@/lib/loaders`.
 - No artificial delays and no internal `/api` routes. Server Components `await` the API functions or a route loader directly. Client components never call either; data is passed in as props.
 - Page blocks list product slugs. Product copy and images stay in `products.json`. Adding a product does not place it on a page until a block lists its slug.
 - Product-specific content (colours, feature cards, specs, downloads) lives on the product.
@@ -29,7 +29,7 @@
 
 - `src/config/` holds shared values that code cannot read from CSS: media queries (`breakpoints.ts`, mirroring `--breakpoint-*` in `tokens.css`), `next/image` `sizes` (`sizes.ts`), carousel defaults, the placeholder image, and route prefixes. No functions and no content copy.
 - `src/helpers/` holds pure functions. General helpers sit at the root (`metadata.ts`, `routes.ts`, `slug.ts`, `errors.ts`). Helpers used by components sit in `src/helpers/components/` (class names, image crops, spacing, gallery grouping, section mappers). Client hooks sit in `src/helpers/hooks/`.
-- A component or page does not declare a reusable helper locally. Reuse one from `src/helpers/` or add it there. Use `toMetadata` for every page's metadata, `productHref` for product links, and `useReducedMotion` for motion checks.
+- A component or page does not declare a reusable helper locally. Reuse one from `src/helpers/` or add it there. Build every page's metadata with `loadMetadata` from `@/lib/loaders` (it adds the share image and calls `toMetadata`), `productHref` for product links, and `useReducedMotion` for motion checks.
 - Do not repeat breakpoint or `sizes` literals in components. Import them from `@/config/breakpoints` and `@/config/sizes`.
 
 ## Components
@@ -57,7 +57,9 @@
 
 ## SEO
 
-- Each page has a title, meta description and Open Graph tags. Product page metadata comes from the product. Do not invent absolute URLs or `metadataBase` until the real deploy URL exists.
+- Each page has a unique title and meta description, Open Graph and Twitter tags with the `site.json` share image, and a canonical path. Product page metadata comes from the product.
+- `metadataBase`, the sitemap and robots.txt use `SITE_URL` from `src/config/site.ts` (`NEXT_PUBLIC_SITE_URL`, fallback `http://localhost:3000`). Do not hardcode the deploy URL.
+- Placeholder pages and products without `detail` are `noindex` and stay out of `src/app/sitemap.ts`. Do not block them in robots.txt, or crawlers cannot read the `noindex`.
 
 ## Working rules
 

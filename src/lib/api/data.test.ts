@@ -1,3 +1,5 @@
+import { existsSync } from "node:fs";
+import path from "node:path";
 import { expect, test } from "vitest";
 import { responsiveImages } from "../../helpers/components/image";
 import { categoryHref } from "../../helpers/routes";
@@ -82,6 +84,15 @@ test("the header and where to buy come from the site", async () => {
     "/category/accessories",
   ]);
   expect(site.header.whereToBuy.href).toBe("/where-to-buy");
+});
+
+test("the share image is a file in public with alt text and a size", async () => {
+  const site = await getSite();
+
+  assertImage(site.shareImage);
+  expect(existsSync(path.join(process.cwd(), "public", site.shareImage.src))).toBe(
+    true,
+  );
 });
 
 test("control labels come from the site", async () => {

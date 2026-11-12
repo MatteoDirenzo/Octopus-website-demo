@@ -13,6 +13,14 @@ npm run dev
 Open http://localhost:3000.
 The tests use Chromium only, so `npx playwright install chromium` is a smaller alternative to installing every Playwright browser.
 
+## Environment
+
+| Variable               | Purpose                                                                                                              |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `NEXT_PUBLIC_SITE_URL` | Site origin for `metadataBase`, canonical URLs, `sitemap.xml` and `robots.txt`. Falls back to `http://localhost:3000`. |
+
+On Vercel, set `NEXT_PUBLIC_SITE_URL=https://octopus-website-demo-xi.vercel.app` in the project's environment variables. The value is read at build time, so redeploy after changing it.
+
 ## Scripts
 
 | Command             | Purpose                                                     |
