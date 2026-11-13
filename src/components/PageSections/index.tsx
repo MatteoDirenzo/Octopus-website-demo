@@ -9,13 +9,12 @@ import { CardMedium } from "@/components/CardMedium";
 import { CardSmall } from "@/components/CardSmall";
 import { CategoryShowcase } from "@/components/CategoryShowcase";
 import { Carousel } from "@/components/Carousel";
-import { ColourSelector } from "@/components/ColourSelector";
 import { ExploreCategory } from "@/components/ExploreCategory";
 import { Heading } from "@/components/Heading";
 import { HeroProduct } from "@/components/HeroProduct";
 import { ImageHero } from "@/components/ImageHero";
 import { ProductCard } from "@/components/ProductCard";
-import { ProductInfo } from "@/components/ProductInfo";
+import { ProductSelection } from "@/components/ProductSelection";
 import { TechnicalSpecs } from "@/components/TechnicalSpecs";
 import { SIZES_HALF_FROM_TABLET } from "@/config/sizes";
 import { groupGallery } from "@/helpers/components/gallery";
@@ -156,24 +155,18 @@ async function renderProductShowcase(product: Product | undefined) {
         image={detail.mainImage}
         className="tablet:col-start-1 tablet:row-start-1"
       />
-      <div className="min-w-0 px-4 tablet:col-start-2 tablet:row-span-2 tablet:row-start-1 tablet:px-8 desktop:px-32">
+      <div className="min-w-0 px-4 pt-10 tablet:col-start-2 tablet:pt-0 tablet:row-span-2 tablet:row-start-1 tablet:px-8 desktop:px-32">
         <div className="tablet:sticky tablet:top-0 tablet:flex tablet:h-dvh tablet:items-center tablet:pt-header-tablet">
-          <ProductInfo
-            heading="h1"
+          <ProductSelection
             title={product.name}
             description={detail.description}
-            selectionLabel={`${colourLabel} - ${colour.label}`}
+            colourLabel={colourLabel}
+            colours={detail.colours}
             action={{
               label: site.header.whereToBuy.label,
               href: site.header.whereToBuy.href,
             }}
-          >
-            <ColourSelector
-              label={colourLabel}
-              options={detail.colours}
-              value={colour.id}
-            />
-          </ProductInfo>
+          />
         </div>
       </div>
       <div className="flex min-w-0 flex-col gap-10 pt-10 pl-4 pr-4 tablet:col-start-1 tablet:row-start-2 tablet:gap-20 tablet:pt-20 tablet:pr-0 tablet:pl-8 desktop:pl-32">

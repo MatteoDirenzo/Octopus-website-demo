@@ -54,6 +54,11 @@
           "id": "black",
           "label": "Black",
           "hex": "#000000"
+        },
+        {
+          "id": "white",
+          "label": "White",
+          "hex": "#FFFFFF"
         }
       ],
       "mainImage": {

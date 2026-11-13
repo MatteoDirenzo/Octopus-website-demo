@@ -21,7 +21,8 @@ export type ProductInfoProps = {
 /**
  * Title, description, selection line, and a picker passed as children.
  * The title is h2/s, h2/m from 810, and h2/l from 1200.
- * Description and the selection line are body. The gaps are 24px, 32px, then 12px.
+ * Description and the selection line are body. The gaps are 24px, 32px, then
+ * 12px to the picker. From 810 the action sits 32px under the picker.
  * The primary action spans the column. Below 810 it is fixed to the bottom
  * of the screen, with 16px of surface around it, so the page can scroll
  * clear of it. From 810 it sits back in the column. There is one button.
@@ -47,7 +48,7 @@ export function ProductInfo({
       <p className="mt-6 max-w-full text-body text-text-muted">{description}</p>
       <p className="mt-8 max-w-full text-body text-text-muted">{selectionLabel}</p>
       <div className="mt-3">{children}</div>
-      <div className="fixed inset-x-0 bottom-0 z-40 w-full bg-surface p-4 tablet:static tablet:z-auto tablet:mt-3 tablet:bg-transparent tablet:p-0">
+      <div className="fixed inset-x-0 bottom-0 z-40 w-full bg-surface p-4 tablet:static tablet:z-auto tablet:mt-8 tablet:bg-transparent tablet:p-0">
         {action.href !== undefined ? (
           <Button href={action.href} className="w-full">
             {action.label}
