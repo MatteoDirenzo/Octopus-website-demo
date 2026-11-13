@@ -10,16 +10,16 @@ type SpecsAccordionsProps = {
 };
 
 /**
- * One card of specification groups. The card is 20px on the x axis and 0 on y,
- * matching the download row so both cards line up.
- * Each group is 16px on the y axis only, with 8px between its header and its body.
+ * One card of specification groups. The card is 20px on all sides.
+ * Each group is 16px on the y axis only, except the first has no top and the
+ * last has no bottom, with 8px between its header and its body.
  * Groups start open and close on their own. The chevron points right when
  * closed and turns down when open.
  * The list uses space-y. A flex list would drop the disc markers.
  */
 export function SpecsAccordions({ groups }: SpecsAccordionsProps) {
   return (
-    <div className="w-full min-w-0 rounded-card bg-surface-hover px-5 py-0">
+    <div className="w-full min-w-0 rounded-card bg-surface-hover p-5">
       {groups.map((group) => (
         <SpecsAccordionItem key={group.id} group={group} />
       ))}
@@ -33,7 +33,7 @@ function SpecsAccordionItem({ group }: { group: SpecsGroup }) {
   const [open, setOpen] = useState(true);
 
   return (
-    <div className="py-4">
+    <div className="py-4 first:pt-0 last:pb-0">
       <h3>
         <button
           id={headerId}
