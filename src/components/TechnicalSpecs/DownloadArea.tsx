@@ -7,7 +7,7 @@ import type { SpecsDownload } from "@/types";
  */
 export function DownloadArea({ label, fileLabel, href }: SpecsDownload) {
   return (
-    <div className="flex w-full min-w-0 items-center justify-between gap-4 rounded-card bg-surface-hover px-5 py-download-y">
+    <div className="flex w-full min-w-0 items-center justify-between gap-4 rounded-tech-spec bg-surface-hover px-5 py-download-y">
       <p className="text-body-bold text-text">{label}</p>
       <a
         href={href}

@@ -19,7 +19,7 @@ type SpecsAccordionsProps = {
  */
 export function SpecsAccordions({ groups }: SpecsAccordionsProps) {
   return (
-    <div className="w-full min-w-0 rounded-card bg-surface-hover p-5">
+    <div className="w-full min-w-0 rounded-tech-spec bg-surface-hover p-5">
       {groups.map((group) => (
         <SpecsAccordionItem key={group.id} group={group} />
       ))}
