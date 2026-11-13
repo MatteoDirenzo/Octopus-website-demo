@@ -11,7 +11,7 @@ import type { ButtonClassNameOptions, ButtonVariant } from "@/types";
  * 31.6px, which Safari and Chrome round differently.
  */
 const BASE = clsx(
-  "inline-flex h-10 shrink-0 items-center justify-center rounded-full border text-label leading-none",
+  "inline-flex h-10 shrink-0 items-center justify-center rounded-button border text-label leading-none",
   "outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-focus",
   "disabled:cursor-not-allowed",
 );

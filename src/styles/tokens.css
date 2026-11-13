@@ -115,8 +115,14 @@
   --text-title-bold-thinner--line-height: 1;
   --text-title-bold-thinner--font-weight: 700;
 
-  /* 40px. `rounded-4xl` is 32px and is the header radius. */
-  --radius-card: 2.5rem;
+  /*
+   * Cards and buttons are 28px. Equal values stay separate so either can change.
+   * Technical specs and downloads are 24px.
+   * `rounded-4xl` is 32px and is the header radius.
+   */
+  --radius-card: 1.75rem;
+  --radius-button: 1.75rem;
+  --radius-tech-spec: 1.5rem;
 
   --breakpoint-*: initial;
   --breakpoint-tablet: 810px;
