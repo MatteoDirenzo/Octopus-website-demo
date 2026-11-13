@@ -25,7 +25,8 @@ export type ProductCardProps = {
  * description are optional. A label replaces both. The first line of copy
  * sits 16px under the image. A description under a title sits 8px below it.
  * From 810 the copy is inset 24px on each side. Mobile has no side inset.
- * The width comes from the parent.
+ * The width comes from the parent. A linked image zooms on hover and focus,
+ * from 269 to about 282 in the design, clipped by the rounded frame.
  */
 export function ProductCard({
   image,
@@ -41,7 +42,11 @@ export function ProductCard({
       width={image.width}
       height={image.height}
       sizes={SIZES_FULL}
-      className="h-auto w-full"
+      className={clsx(
+        "h-auto w-full",
+        href &&
+          "transition-transform duration-300 ease-out motion-safe:group-hover:scale-105 motion-safe:group-focus-visible:scale-105",
+      )}
     />
   );
 
@@ -50,7 +55,7 @@ export function ProductCard({
       {href ? (
         <Link
           href={href}
-          className="block overflow-hidden rounded-card outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-focus"
+          className="group block overflow-hidden rounded-card outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-focus"
         >
           {imageElement}
         </Link>

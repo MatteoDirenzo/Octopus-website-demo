@@ -60,6 +60,23 @@ test("omits the title and description when they are not passed", () => {
   expect(screen.queryByText("Boils fast")).toBeNull();
 });
 
+test("zooms the image on hover only when it is a link", () => {
+  const { rerender } = render(
+    <ProductCard image={image} href="/products/kettle" />,
+  );
+
+  expect(screen.getByRole("link").className).toContain("group");
+  expect(screen.getByRole("img", { name: "Kettle" }).className).toContain(
+    "motion-safe:group-hover:scale-105",
+  );
+
+  rerender(<ProductCard image={image} />);
+
+  expect(screen.getByRole("img", { name: "Kettle" }).className).not.toContain(
+    "scale-105",
+  );
+});
+
 test("shows the image without a link when href is omitted", () => {
   render(<ProductCard image={image} title="Octopus Kettle" />);
 
