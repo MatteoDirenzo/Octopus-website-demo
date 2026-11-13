@@ -112,8 +112,6 @@
   --breakpoint-tablet: 810px;
   --breakpoint-desktop: 1200px;
 
-  /* 1344px. The header fills the side insets up to this width. */
-  --container-navbar: 84rem;
   /* 496px. Horizontal card images do not grow past this. */
   --container-card-image: 31rem;
   /* 355px. Product info does not grow past this. Not a spacing step. */
@@ -128,6 +126,13 @@
    */
   --spacing-header: 4.375rem;
   --spacing-header-tablet: 5.375rem;
+
+  /*
+   * 15px. The logo sits this far inside its ghost button (1px border plus
+   * `px-3.5`). The header's last button keeps the same gap on the right.
+   * Not on the spacing scale.
+   */
+  --spacing-navbar-end: 0.9375rem;
 
   /*
    * Space between the header and the hero heading.
