@@ -8,6 +8,11 @@ export type BannerButton = Cta & {
   variant?: ButtonVariant;
 };
 
+/** Logos a banner can show above its button. */
+export const BANNER_LOGOS = ["warehouse"] as const;
+
+export type BannerLogo = (typeof BANNER_LOGOS)[number];
+
 /** Picture and priority shared by every banner form. */
 export type BannerFrame = {
   /** One file, or a base path whose crops are `-desktop`, `-mobile`, and `-tablet`. */

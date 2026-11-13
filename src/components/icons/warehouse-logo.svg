@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 150" width="100%" height="100%">
+  <!-- Red Background -->
+  <rect width="100%" height="100%" fill="#cd121c" />
+
+  <!-- Logo Text -->
+  <!-- Using standard web-safe Grotesque/Helvetica fonts that match the visual profile -->
+  <text x="25" y="102" font-family="-apple-system, BlinkMacSystemFont, &#39;Helvetica Neue&#39;, Helvetica, Arial, sans-serif" fill="#ffffff" font-size="70">
+    <tspan font-weight="400" letter-spacing="-0.5">the</tspan>
+    <tspan font-weight="700" letter-spacing="-2.5" dx="6">warehouse</tspan>
+  </text>
+
+  <!-- Logo Icon -->
+  <g transform="translate(480, 15)">
+    <!-- White rounded rectangle base -->
+    <rect width="120" height="120" rx="22" fill="#ffffff" />
+    
+    <!-- Slanted red parallelograms -->
+    <!-- Left Stripe -->
+    <polygon points="8.5,90 33.5,90 75.5,30 50.5,30" fill="#cd121c" />
+    <!-- Right Stripe -->
+    <polygon points="44.5,90 69.5,90 111.5,30 86.5,30" fill="#cd121c" />
+  </g>
+</svg>

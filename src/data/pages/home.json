@@ -105,6 +105,8 @@
         "mobile": { "width": 4096, "height": 2650 },
         "tablet": { "width": 810, "height": 500 }
       },
+      "eyebrow": "Find us at",
+      "logo": "warehouse",
       "button": {
         "label": "Find your nearest store",
         "href": "/where-to-buy",
