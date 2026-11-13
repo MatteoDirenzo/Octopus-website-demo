@@ -94,6 +94,11 @@
   --text-subtitle-s--line-height: 1;
   --text-subtitle-s--font-weight: 470;
 
+  /* Banner lead line ("Find us at"). Same at every breakpoint. */
+  --text-lead: 2rem;
+  --text-lead--line-height: 1;
+  --text-lead--font-weight: 470;
+
   /*
    * Card titles at line-height 100% and weight 700.
    * 24px is not `subtitle-l`. 20px is not `subtitle-m`. Both of those are weight 470.

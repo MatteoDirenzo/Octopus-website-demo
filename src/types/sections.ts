@@ -1,4 +1,4 @@
-import type { BannerButton } from "./banner";
+import type { BannerButton, BannerLogo } from "./banner";
 import type { CardType, CardVariant, ShowcaseLayout } from "./cards";
 import type {
   CarouselEndOffset,
@@ -143,6 +143,10 @@ export type ImageBannerBlock = BannerBlockBase & {
   title?: string;
   /** Line under the title. Omit when the frame has only a button. */
   subtitle?: string;
+  /** Lead line above `logo`. Set it together with `logo`. */
+  eyebrow?: string;
+  /** Logo between `eyebrow` and the button. Set it together with `eyebrow`. */
+  logo?: BannerLogo;
 };
 
 /** Full-width promo. A product banner or an image banner. */

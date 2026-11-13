@@ -2,6 +2,7 @@ import clsx from "clsx";
 import Image from "next/image";
 import { Fragment, type ReactNode } from "react";
 import { Banner } from "@/components/Banner";
+import { BannerLead } from "@/components/BannerLead";
 import { BentoBox } from "@/components/BentoBox";
 import { CardLarge } from "@/components/CardLarge";
 import { CardMedium } from "@/components/CardMedium";
@@ -343,6 +344,8 @@ async function renderCategoryShowcase(block: CategoryShowcaseBlock, index: numbe
  * One `banner` case for both shapes. Copy and picture come from the block.
  * `images` becomes `-desktop`, `-mobile`, and `-tablet` files. A block with
  * `button` uses that label and link. Otherwise the label stays `site.learnMore`.
+ * A button block with `eyebrow` and `logo` shows them above the button instead
+ * of the title and subtitle.
  */
 async function renderBanner(block: BannerBlock, index: number) {
   if (!("button" in block)) {
@@ -358,6 +361,19 @@ async function renderBanner(block: BannerBlock, index: number) {
         variant={block.variant}
         priority={block.priority}
       />
+    );
+  }
+
+  if (block.eyebrow && block.logo) {
+    return (
+      <Banner image={block.images} priority={block.priority}>
+        <BannerLead
+          text={block.eyebrow}
+          logo={block.logo}
+          cta={{ label: block.button.label, href: block.button.href }}
+          variant={block.button.variant}
+        />
+      </Banner>
     );
   }
 

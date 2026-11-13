@@ -4,6 +4,7 @@ import { expect, test } from "vitest";
 import { responsiveImages } from "../../helpers/components/image";
 import { categoryHref } from "../../helpers/routes";
 import {
+  BANNER_LOGOS,
   BUTTON_VARIANTS,
   CARD_TYPES,
   CARD_VARIANTS,
@@ -283,6 +284,12 @@ async function assertSectionReferences(section: Section) {
           expect(includesValue(BUTTON_VARIANTS, section.button.variant)).toBe(
             true,
           );
+        }
+
+        expect(Boolean(section.eyebrow)).toBe(Boolean(section.logo));
+
+        if (section.logo) {
+          expect(includesValue(BANNER_LOGOS, section.logo)).toBe(true);
         }
       } else if (section.variant) {
         expect(includesValue(BUTTON_VARIANTS, section.variant)).toBe(true);
