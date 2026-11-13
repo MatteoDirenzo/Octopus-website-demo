@@ -156,7 +156,7 @@ async function renderProductShowcase(product: Product | undefined) {
         className="tablet:col-start-1 tablet:row-start-1"
       />
       <div className="min-w-0 px-4 pt-10 tablet:col-start-2 tablet:pt-0 tablet:row-span-2 tablet:row-start-1 tablet:px-8 desktop:px-32">
-        <div className="tablet:sticky tablet:top-0 tablet:flex tablet:h-dvh tablet:items-center tablet:pt-header-tablet">
+        <div className="tablet:sticky tablet:top-0 tablet:flex tablet:h-svh tablet:items-center tablet:pt-header-tablet">
           <ProductSelection
             title={product.name}
             description={detail.description}
@@ -230,7 +230,7 @@ async function renderHero(block: HeroBlock) {
     <section
       aria-labelledby={titleId}
       className={clsx(
-        "relative -mt-header grid h-dvh w-full min-w-0 grid-cols-[minmax(0,1fr)] overflow-hidden bg-neutral-muted",
+        "relative -mt-header grid h-svh w-full min-w-0 grid-cols-[minmax(0,1fr)] overflow-hidden bg-neutral-muted",
         "tablet:-mt-header-tablet",
       )}
     >
