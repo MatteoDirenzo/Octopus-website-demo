@@ -44,18 +44,22 @@ for (const viewport of VIEWPORTS) {
   });
 }
 
-test.describe("mobile menu", () => {
-  test.use({ viewport: { width: 390, height: 844 } });
+for (const viewport of VIEWPORTS.filter((item) => item.name !== "desktop")) {
+  test.describe(`${viewport.name} menu`, () => {
+    test.use({ viewport: { width: viewport.width, height: viewport.height } });
 
-  test("open menu has no WCAG A/AA violations", async ({ page }) => {
-    const site = await getSite();
+    test("open menu has no WCAG A/AA violations", async ({ page }) => {
+      const site = await getSite();
 
-    await page.goto("/");
-    await page.getByRole("button", { name: site.header.openMenuLabel }).click();
-    await expect(
-      page.getByRole("button", { name: site.header.closeMenuLabel }),
-    ).toHaveAttribute("aria-expanded", "true");
+      await page.goto("/");
+      await page
+        .getByRole("button", { name: site.header.openMenuLabel })
+        .click();
+      await expect(
+        page.getByRole("button", { name: site.header.closeMenuLabel }),
+      ).toHaveAttribute("aria-expanded", "true");
 
-    expect(await axeViolations(page)).toEqual([]);
+      expect(await axeViolations(page)).toEqual([]);
+    });
   });
-});
+}

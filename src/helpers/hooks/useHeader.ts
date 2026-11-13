@@ -5,21 +5,22 @@ import { useEffect, useRef, useState } from "react";
 import { useBreakpoint } from "@/helpers/hooks/useMediaQuery";
 
 /**
- * Open state for the mobile menu.
- * The menu closes past the mobile breakpoint, locks scroll while open, and returns focus on close.
+ * Open state for the collapsed menu, used below the desktop breakpoint.
+ * The menu closes from desktop, locks scroll while open, and returns focus on close.
  */
 export function useHeader() {
   const pathname = usePathname();
-  const { isMobile } = useBreakpoint();
+  const { isDesktop } = useBreakpoint();
+  const isCollapsed = !isDesktop;
   const [open, setOpen] = useState(false);
   const toggleRef = useRef<HTMLButtonElement>(null);
 
-  if (!isMobile && open) {
+  if (!isCollapsed && open) {
     setOpen(false);
   }
 
   useEffect(() => {
-    if (!open || !isMobile) {
+    if (!open || !isCollapsed) {
       return;
     }
 
@@ -40,12 +41,12 @@ export function useHeader() {
       document.body.style.overflow = previous;
       document.removeEventListener("keydown", onKeyDown);
     };
-  }, [open, isMobile]);
+  }, [open, isCollapsed]);
 
   function closeMenu() {
     setOpen(false);
 
-    if (isMobile) {
+    if (isCollapsed) {
       toggleRef.current?.focus();
     }
   }

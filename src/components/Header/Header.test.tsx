@@ -142,3 +142,22 @@ test("the open menu locks body scroll", () => {
 
   expect(document.body.style.overflow).toBe("");
 });
+
+test("the menu stays collapsed at tablet width", () => {
+  window.matchMedia = vi.fn().mockImplementation((query: string) => ({
+    matches: query.includes("810px"),
+    media: query,
+    addEventListener: vi.fn(),
+    removeEventListener: vi.fn(),
+  }));
+  renderHeader();
+
+  fireEvent.click(screen.getByRole("button", { name: "Open menu" }));
+
+  expect(
+    screen
+      .getByRole("button", { name: "Close menu" })
+      .getAttribute("aria-expanded"),
+  ).toBe("true");
+  expect(document.body.style.overflow).toBe("hidden");
+});

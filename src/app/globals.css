@@ -8,6 +8,17 @@
  * Spacing step 20 matches the bar: 16px of inset plus the button.
  * The scroll padding keeps a focused element from landing behind the bar.
  */
+/*
+ * The open menu locks body scroll. With classic scrollbars that removes the
+ * bar, and the page and the fixed header would jump by its width.
+ * A stable gutter keeps the space reserved.
+ */
+@layer base {
+  html {
+    scrollbar-gutter: stable;
+  }
+}
+
 @layer base {
   @media (max-width: 809px) {
     body:has(.buy-bar-space) {

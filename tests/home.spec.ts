@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { getPage } from "../src/lib/api";
+import { getPage, getSite } from "../src/lib/api";
 
 test("home page renders its placeholder content", async ({ page }) => {
   const home = await getPage("home");
@@ -33,4 +33,18 @@ test("home page does not scroll horizontally", async ({ page }) => {
 
     expect(overflow, `overflow at ${width}px`).toBe(0);
   }
+});
+
+test("the desktop header fills the page side insets", async ({ page }) => {
+  const site = await getSite();
+
+  await page.setViewportSize({ width: 1920, height: 900 });
+  await page.goto("/");
+
+  const nav = await page
+    .getByRole("navigation", { name: site.header.label })
+    .boundingBox();
+
+  expect(nav?.x).toBe(128);
+  expect(nav ? 1920 - nav.x - nav.width : null).toBe(128);
 });
