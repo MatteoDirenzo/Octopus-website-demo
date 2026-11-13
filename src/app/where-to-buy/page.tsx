@@ -17,7 +17,7 @@ export default async function WhereToBuyPage() {
     <main
       id={MAIN_CONTENT_ID}
       tabIndex={-1}
-      className="flex min-h-dvh flex-col items-center justify-center px-4 outline-none tablet:px-8 desktop:px-32"
+      className="flex min-h-svh flex-col items-center justify-center px-4 outline-none tablet:px-8 desktop:px-32"
     >
       <Heading className="w-full" title={page.heading.title} />
     </main>

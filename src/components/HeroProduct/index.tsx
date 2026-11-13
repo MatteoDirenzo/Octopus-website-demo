@@ -21,7 +21,7 @@ export function HeroProduct({ image, className }: HeroProductProps) {
   return (
     <div
       className={clsx(
-        "relative w-full min-w-0 bg-neutral-muted pt-header tablet:h-dvh tablet:pt-0",
+        "relative w-full min-w-0 bg-neutral-muted pt-header tablet:h-svh tablet:pt-0",
         className,
       )}
     >
