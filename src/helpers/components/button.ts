@@ -6,9 +6,12 @@ import type { ButtonClassNameOptions, ButtonVariant } from "@/types";
  * Secondary and icon ghost keep only the ring on focus. A click uses pressed instead.
  * Disabled keeps the native disabled state, so the control stays in the accessibility tree.
  * The blocked cursor is visual only. Links are never disabled.
+ * Every button is 40px tall from its own height, not from padding around the
+ * label, and the label line box is a whole 16px. A padded 1.1 line-height gave
+ * 31.6px, which Safari and Chrome round differently.
  */
 const BASE = clsx(
-  "inline-flex items-center justify-center rounded-full border text-label",
+  "inline-flex h-10 shrink-0 items-center justify-center rounded-full border text-label leading-none",
   "outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-focus",
   "disabled:cursor-not-allowed",
 );
@@ -66,5 +69,5 @@ export function buttonClassName({
           ? GHOST_ICON
           : GHOST_TEXT;
 
-  return clsx(BASE, iconOnly ? "p-2" : "px-3.5 py-1.5", colors, className);
+  return clsx(BASE, iconOnly ? "w-10" : "px-3.5", colors, className);
 }

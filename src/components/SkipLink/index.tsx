@@ -18,8 +18,8 @@ export function SkipLink({ label }: SkipLinkProps) {
       className={buttonClassName({
         variant: "secondary",
         className: clsx(
-          /* `not-sr-only` resets padding to 0, so the button padding is set again. */
-          "sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-4 focus:z-60 focus:px-3.5 focus:py-1.5",
+          /* `not-sr-only` resets padding to 0 and height to auto, so the button size is set again. */
+          "sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-4 focus:z-60 focus:h-10 focus:px-3.5",
           "tablet:focus:top-4 tablet:focus:left-8",
         ),
       })}

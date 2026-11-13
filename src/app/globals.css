@@ -5,7 +5,7 @@
  * The product page's buy bar is fixed below 810 and the footer sits outside
  * the page, so padding on the page cannot clear it. 809px is one pixel under
  * `--breakpoint-tablet`. A media query cannot read that variable.
- * Spacing step 20 matches the bar: 16px of inset plus the button.
+ * Spacing step 18 (72px) matches the bar: 16px of inset on each side of the 40px button.
  * The scroll padding keeps a focused element from landing behind the bar.
  */
 /*
@@ -22,11 +22,11 @@
 @layer base {
   @media (max-width: 809px) {
     body:has(.buy-bar-space) {
-      padding-bottom: calc(var(--spacing) * 20);
+      padding-bottom: calc(var(--spacing) * 18);
     }
 
     html:has(.buy-bar-space) {
-      scroll-padding-bottom: calc(var(--spacing) * 20);
+      scroll-padding-bottom: calc(var(--spacing) * 18);
     }
   }
 }

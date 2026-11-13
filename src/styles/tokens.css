@@ -27,8 +27,13 @@
   /* Design medium on Satoshi is 470, not the default 500. */
   --font-weight-medium: 470;
 
+  /*
+   * Button labels. 16px at weight 500, which is intentionally not the 470 medium.
+   * The weight is explicit so Safari and Chrome do not fall back to the body weight.
+   */
   --text-label: 1rem;
   --text-label--line-height: 1.1;
+  --text-label--font-weight: 500;
 
   /* Copyright and legal links. 14px, medium, line-height 110%. */
   --text-small-label: 0.875rem;
@@ -125,12 +130,19 @@
   --shadow-navbar: 0 0 16px 8px rgb(0 0 0 / 0.08);
 
   /*
-   * Top inset plus the closed bar, so content and scroll targets clear it.
-   * Measured bar is 62px on mobile (plus the 8px inset) and 70px from 810px
-   * (plus the 16px inset). Desktop shares the tablet offset.
+   * Closed header bar. 59px on mobile, 64px from 810. Desktop shares the
+   * tablet height. 59px is not on the spacing scale.
    */
-  --spacing-header: 4.375rem;
-  --spacing-header-tablet: 5.375rem;
+  --spacing-header-bar: 3.6875rem;
+  --spacing-header-bar-tablet: 4rem;
+
+  /*
+   * Top inset plus the closed bar, so content and scroll targets clear it.
+   * 8px plus 59px on mobile (67px), 16px plus 64px from 810 (80px).
+   * Desktop shares the tablet offset.
+   */
+  --spacing-header: 4.1875rem;
+  --spacing-header-tablet: 5rem;
 
   /*
    * 15px. The logo sits this far inside its ghost button (1px border plus
