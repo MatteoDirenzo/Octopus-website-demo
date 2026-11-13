@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getPoliciesPage } from "@/lib/api";
-import { Heading } from "@/components/Heading";
-import { MAIN_CONTENT_ID, ROUTES } from "@/config/routes";
+import { PlaceholderPage } from "@/components/PlaceholderPage";
+import { ROUTES } from "@/config/routes";
 import { loadMetadata } from "@/lib/loaders";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -14,13 +14,5 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function PoliciesPage() {
   const page = await getPoliciesPage();
 
-  return (
-    <main
-      id={MAIN_CONTENT_ID}
-      tabIndex={-1}
-      className="flex min-h-svh flex-col items-center justify-center px-4 outline-none tablet:px-8 desktop:px-32"
-    >
-      <Heading className="w-full" title={page.heading.title} />
-    </main>
-  );
+  return <PlaceholderPage title={page.heading.title} />;
 }

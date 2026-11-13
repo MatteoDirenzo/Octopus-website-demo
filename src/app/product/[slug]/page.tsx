@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { Heading } from "@/components/Heading";
 import { JsonLd } from "@/components/JsonLd";
 import { PageSections } from "@/components/PageSections";
+import { PlaceholderPage } from "@/components/PlaceholderPage";
 import { MAIN_CONTENT_ID } from "@/config/routes";
 import { SITE_URL } from "@/config/site";
 import { productJsonLd } from "@/helpers/jsonLd";
@@ -57,15 +57,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const product = await loadProduct(slug);
 
   if (!product.detail) {
-    return (
-      <main
-        id={MAIN_CONTENT_ID}
-        tabIndex={-1}
-        className="flex min-h-svh flex-col items-center justify-center px-4 outline-none tablet:px-8 desktop:px-32"
-      >
-        <Heading className="w-full" title={product.name} />
-      </main>
-    );
+    return <PlaceholderPage title={product.name} />;
   }
 
   const [page, site, category] = await Promise.all([
