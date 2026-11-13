@@ -73,12 +73,15 @@ function FooterGroupNav({ group }: { group: FooterGroup }) {
       >
         {group.links.map((link) => (
           <li key={link.href} className="w-full tablet:w-auto tablet:min-w-30.75">
-            {/* `p-0!` clears the shared ghost padding from this call site. */}
+            {/*
+             * Footer links are text links, not 40px controls. This call site
+             * clears the shared padding and height and keeps the label line-height.
+             */}
             <Button
               href={link.href}
               variant="ghost"
               tone="dark"
-              className="p-0!"
+              className="h-auto! p-0! leading-(--text-label--line-height)!"
             >
               {link.label}
             </Button>

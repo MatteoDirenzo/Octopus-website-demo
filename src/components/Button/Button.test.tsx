@@ -32,6 +32,25 @@ test("href renders a link with the label", () => {
   ).toBe("/where-to-buy");
 });
 
+test("text and icon-only buttons have a fixed 40px height", () => {
+  render(
+    <>
+      <Button>Where to buy</Button>
+      <Button iconOnly aria-label="Next">
+        <svg aria-hidden="true" />
+      </Button>
+    </>,
+  );
+
+  const text = screen.getByRole("button", { name: "Where to buy" });
+  const icon = screen.getByRole("button", { name: "Next" });
+
+  expect(text.classList).toContain("h-10");
+  expect(text.classList).not.toContain("py-1.5");
+  expect(icon.classList).toContain("h-10");
+  expect(icon.classList).toContain("w-10");
+});
+
 test("a disabled button is disabled", () => {
   render(<Button disabled>Where to buy</Button>);
 

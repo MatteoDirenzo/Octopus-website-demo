@@ -53,13 +53,16 @@ export function Header({ header }: HeaderProps) {
         />
         <div
           className={clsx(
-            "relative flex min-h-0 flex-col gap-4 rounded-4xl px-2.5 py-2",
-            "tablet:p-3",
-            "desktop:flex-row desktop:items-center desktop:justify-between desktop:gap-0",
+            "relative flex min-h-0 flex-col gap-4 rounded-4xl px-4",
+            "desktop:flex-row desktop:items-center desktop:justify-between desktop:gap-0 desktop:px-3",
             open && "overflow-y-auto overscroll-contain",
           )}
         >
-          <div className="flex w-full items-center justify-between desktop:w-auto">
+          {/*
+           * The closed bar is this row's fixed height, with no vertical padding.
+           * From desktop the menu sits beside it and centres on the same height.
+           */}
+          <div className="flex h-header-bar w-full shrink-0 items-center justify-between tablet:h-header-bar-tablet desktop:w-auto">
             {/*
              * `aria-current` alone matches the value "true".
              * The page link uses "page", so the variant has to name that value.
@@ -77,8 +80,8 @@ export function Header({ header }: HeaderProps) {
             </Button>
             {/*
              * The logo sits 15px inside its button (border plus `px-3.5`).
-             * The toggle's glyph sits 11.5px inside (border, `p-2`, and the
-             * icon's own 2.5px), so the margin lines the two edges up.
+             * The toggle's glyph sits 14.5px inside (12px centring the 16px
+             * icon in 40px, plus the icon's own 2.5px), so no margin is needed.
              */}
             <Button
               ref={toggleRef}
@@ -87,7 +90,7 @@ export function Header({ header }: HeaderProps) {
               aria-label={open ? header.closeMenuLabel : header.openMenuLabel}
               aria-expanded={open}
               aria-controls={MENU_ID}
-              className="mr-1 desktop:hidden"
+              className="desktop:hidden"
               onClick={toggleMenu}
             >
               {open ? <Close /> : <Hamburger />}
@@ -100,7 +103,8 @@ export function Header({ header }: HeaderProps) {
           <div
             id={MENU_ID}
             className={clsx(
-              open ? "flex flex-col gap-4" : "hidden desktop:flex",
+              /* The bar has no vertical padding, so the open menu keeps its own space at the bottom. */
+              open ? "flex flex-col gap-4 pb-2 desktop:pb-0" : "hidden desktop:flex",
               "desktop:flex-row desktop:items-center desktop:gap-2",
             )}
           >
@@ -125,7 +129,7 @@ export function Header({ header }: HeaderProps) {
               ))}
             </ul>
             {/* From desktop the button keeps the same distance from the edge as the logo. */}
-            <div className="p-2 desktop:p-0 desktop:pr-navbar-end">
+            <div className="p-2 desktop:p-0">
               <Button
                 href={header.whereToBuy.href}
                 aria-current={current(header.whereToBuy.href)}
