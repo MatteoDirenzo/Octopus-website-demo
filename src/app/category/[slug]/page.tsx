@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { Heading } from "@/components/Heading";
-import { MAIN_CONTENT_ID } from "@/config/routes";
+import { PlaceholderPage } from "@/components/PlaceholderPage";
 import { categoryHref } from "@/helpers/routes";
 import { getCategories, getCategory, getNotFoundPage } from "@/lib/api";
 import { loadCategory, loadMetadata } from "@/lib/loaders";
@@ -41,13 +40,5 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   const { slug } = await params;
   const category = await loadCategory(slug);
 
-  return (
-    <main
-      id={MAIN_CONTENT_ID}
-      tabIndex={-1}
-      className="flex min-h-svh flex-col items-center justify-center px-4 outline-none tablet:px-8 desktop:px-32"
-    >
-      <Heading className="w-full" title={category.title} />
-    </main>
-  );
+  return <PlaceholderPage title={category.title} />;
 }
